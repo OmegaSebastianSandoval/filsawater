@@ -1844,3 +1844,49 @@ ______________________________ */
 /*------------------------------
  SOLUCIONES FIN
 ______________________________ */
+
+.container-form-login{
+  background-color: var(--azul);
+}
+.container-form-login .form-contact label{
+  color: var(--gris-claro);
+  font-size: 14px;
+
+
+}
+.container-form-login .container-forget a{
+   color: var(--gris-claro);
+
+  /* text-decoration: none; */
+  font-size: 14px;
+  font-weight: 500;
+
+
+}
+
+.container-form-login .container-newaccount {
+  text-align: center;
+}
+.container-form-login .container-newaccount  a{
+   color: var(--gris-claro);
+
+  /* text-decoration: none; */
+  font-size: 14px;
+  font-weight: 500;
+
+}
+
+.container-form-login .container-password button{
+  
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background-color: transparent;
+  border: 0;
+}
+.container-form-login .container-password button i{
+  color: var(--azulclaro2);
+}
+.container-form-login .form-contact label .input {
+  padding: 14px 05px 05px 10px;
+}

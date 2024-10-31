@@ -77,7 +77,7 @@
             <div>
 
                 <div class="d-flex gap-3">
-                    <a href="#" class="login">
+                    <a href="/page/login" class="login">
                         <i class="fa-regular fa-user"></i>
                         Login
                     </a>

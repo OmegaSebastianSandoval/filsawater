@@ -21,9 +21,8 @@ $(document).ready(function () {
       disablekb: 1,
       enablejsapi: 1, // Cambia a 1 para habilitar la API de JavaScript de YouTube
       iv_load_policy: 3,
-      controls:1,
-      fs: 1
-
+      controls: 1,
+      fs: 1,
     };
 
     videos.push(
@@ -40,7 +39,7 @@ $(document).ready(function () {
 
   function onAutoPlay(event) {
     event.target.playVideo();
-   //event.target.mute(); // Mute el video automáticamente
+    //event.target.mute(); // Mute el video automáticamente
   }
 
   function onFinish(event) {
@@ -240,4 +239,18 @@ document.addEventListener("DOMContentLoaded", () => {
     var re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return re.test(email);
   }
+
+  // Función para alternar la visibilidad de la contraseña
+  document.querySelectorAll(".toggle-password").forEach((button) => {
+    button.addEventListener("click", () => {
+      const input = button
+        .closest(".container-password")
+        .querySelector('input[type="password"], input[type="text"]');
+      if (input) {
+        input.type = input.type === "password" ? "text" : "password";
+        button.querySelector("i").classList.toggle("fa-eye"); // Cambia icono
+        button.querySelector("i").classList.toggle("fa-eye-slash"); // Alterna con el icono de ocultar
+      }
+    });
+  });
 });
