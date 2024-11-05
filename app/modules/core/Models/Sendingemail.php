@@ -72,4 +72,21 @@ class Core_Model_Sendingemail
     }
   }
 
+  public function enviarrecuperacion($user, $token)
+  {
+    $this->_view->user = $user;
+    $this->_view->token = $token;
+    $this->email->getMail()->addAddress($user->user_email, "Recuperación de clave FILSA WATER");
+    $content = $this->_view->getRoutPHP('/../app/modules/core/Views/templatesemail/enviarrecuperacion.php');
+    $this->email->getMail()->Subject = 'Recuperación de clave FILSA WATER';
+    $this->email->getMail()->msgHTML($content);
+    $this->email->getMail()->AltBody = $content;
+    // $this->email->getMail()->addBCC($informacion->info_pagina_correo_oculto);
+    if ($this->email->sed() == true) {
+      return 1;
+    } else {
+      return 2;
+    }
+  }
+
 }

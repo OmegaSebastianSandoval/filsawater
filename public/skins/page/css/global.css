@@ -58,6 +58,8 @@
   --gris-oscuro: #333333;
   --gris-medio: #595959;
 
+  --rojo: #ff4141;
+
 }
 
 body {
@@ -226,10 +228,60 @@ header .header-up .login i {
 }
 
 
-header .header-up .login:hover i {
-  transform: scale(1.2);
+header .header-up .login::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--gris-claro);
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out 0s;
 }
 
+
+header .header-up .login:hover::before,
+header .header-up .login.active::before {
+  visibility: visible;
+  transform: scaleX(1);
+  color: var(--azul);
+}
+
+
+header .header-up .login-out {
+  color: var(--blanco);
+  text-decoration: none;
+  transition: transform 0.3s ease-in-out;
+}
+
+header .header-up .login-out i {
+  transition: transform 0.3s ease-in-out;
+  /* color: var(--rojo); */
+
+}
+
+
+header .header-up .login-out::before {
+  content: "";
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background-color: var(--gris-claro);
+  visibility: hidden;
+  transform: scaleX(0);
+  transition: all 0.3s ease-in-out 0s;
+}
+
+
+header .header-up .login-out:hover::before {
+  visibility: visible;
+  transform: scaleX(1);
+  color: var(--azul);
+}
 
 
 header .header-down {
@@ -285,9 +337,10 @@ header nav .links li {
 }
 
 header nav .links li .dropdown-item.active,
-header nav .links li .dropdown-item:active{
+header nav .links li .dropdown-item:active {
   background-color: var(--azulclaro2);
 }
+
 header nav .links .link {
   display: block;
   padding: 3px;
@@ -452,7 +505,9 @@ FOOTER FIN
   width: 100%;
 }
 
-.fondo-imagen img {
+.fondo-imagen img,
+.img-banner-principal,
+.fondo-imagen-interna-video img {
   width: 100%;
   height: 500px;
   aspect-ratio: 28/9;
@@ -642,7 +697,7 @@ FOOTER FIN
 
 .play-icon {
   position: absolute;
-  top: 40%;
+  top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 50px;
@@ -1754,10 +1809,11 @@ ______________________________ */
 }
 
 
-.content-detail-solucion .content-description{
+.content-detail-solucion .content-description {
   padding-bottom: 15px;
   border-bottom: 1px solid #59595924;
 }
+
 .content-detail-solucion .content-photos {}
 
 .contenedorfotos img {
@@ -1845,17 +1901,19 @@ ______________________________ */
  SOLUCIONES FIN
 ______________________________ */
 
-.container-form-login{
+.container-form-login {
   background-color: var(--azul);
 }
-.container-form-login .form-contact label{
+
+.container-form-login .form-contact label {
   color: var(--gris-claro);
   font-size: 14px;
 
 
 }
-.container-form-login .container-forget a{
-   color: var(--gris-claro);
+
+.container-form-login .container-forget a {
+  color: var(--gris-claro);
 
   /* text-decoration: none; */
   font-size: 14px;
@@ -1866,9 +1924,14 @@ ______________________________ */
 
 .container-form-login .container-newaccount {
   text-align: center;
+  color: var(--gris-claro);
+  font-size: 14px;
+
+
 }
-.container-form-login .container-newaccount  a{
-   color: var(--gris-claro);
+
+.container-form-login .container-newaccount a {
+  color: var(--gris-claro);
 
   /* text-decoration: none; */
   font-size: 14px;
@@ -1876,17 +1939,85 @@ ______________________________ */
 
 }
 
-.container-form-login .container-password button{
-  
+.container-form-login .container-password button {
+
   position: absolute;
   right: 10px;
   top: 10px;
   background-color: transparent;
   border: 0;
 }
-.container-form-login .container-password button i{
+
+.container-form-login .container-password button i {
   color: var(--azulclaro2);
 }
+
 .container-form-login .form-contact label .input {
   padding: 14px 05px 05px 10px;
+}
+
+.container-form-login .form-contact label .input+span {
+  top: 12px;
+}
+
+.container-form-login .form-contact label .input:focus+span,
+.container-form-login .form-contact label .input:valid+span {
+  top: 0;
+}
+
+.valid {
+  color: var(--azulclaro2);
+
+}
+
+.invalid {
+  color: orangered;
+
+
+
+}
+
+.alert-contrasenia {
+
+  font-weight: 500;
+  font-size: 14px;
+
+}
+
+
+.container-profile .form-contact {
+  padding: 20px;
+  /* background-color: var(--azul) ; */
+  width: 100%;
+}
+
+.container-profile .form-contact input {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+}
+
+
+.container-profile   .container-password button {
+
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  background-color: transparent;
+  border: 0;
+}
+
+.container-profile   .container-password button i {
+  color: var(--azulclaro2);
+}
+
+.container-profile   .form-contact label .input {
+  padding: 14px 05px 05px 10px;
+}
+
+.container-profile   .form-contact label .input+span {
+  top: 12px;
+}
+
+.container-profile   .form-contact label .input:focus+span,
+.container-profile   .form-contact label .input:valid+span {
+  top: 0;
 }

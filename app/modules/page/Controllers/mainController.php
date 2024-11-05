@@ -24,6 +24,9 @@ class Page_mainController extends Controllers_Abstract
 		// Obtener la lista de categorías de blog
 		$this->_view->list_blog_categoria_id = $this->getCategoriasSoluciones();
 
+		$usuario = Session::getInstance()->get("usuario");
+		$this->_view->usuario = $usuario;
+		
 
 		$this->getLayout()->setData("meta_description", "$informacion->info_pagina_descripcion");
 		$this->getLayout()->setData("meta_keywords", "$informacion->info_pagina_tags");

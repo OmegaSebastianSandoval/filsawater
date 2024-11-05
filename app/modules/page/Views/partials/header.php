@@ -77,16 +77,32 @@
             <div>
 
                 <div class="d-flex gap-3">
-                    <a href="/page/login" class="login">
-                        <i class="fa-regular fa-user"></i>
-                        Login
-                    </a>
+                    <?php if ($this->usuario) { ?>
+                        <a href="/page/home" class="login <?php echo $this->botonactivo == 7 ? 'active' : '' ?>">
+                            <i class="fa-regular fa-user"></i>
+                            <?= $this->usuario->user_names?>
+                        </a>
+                    <?php } else { ?>
+                        <a href="/page/login" class="login <?php echo $this->botonactivo == 7 ? 'active' : '' ?>">
+                            <i class="fa-regular fa-user"></i>
+                            Login
+                        </a>
+                    <?php } ?>
                     <div class="vr"></div>
 
                     <span>
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span id="count-carrito">0</span>
                     </span>
+                    <?php if ($this->usuario) { ?>
+                        <div class="vr"></div>
+                        <a href="/page/login/logout" class="login-out">
+                            <i class="fa-solid fa-right-from-bracket"></i>
+                            Salir
+                        </a>
+                    <?php } ?>
+
+
                 </div>
 
             </div>
@@ -106,7 +122,7 @@
                 </a>
             </div>
             <ul class="links">
-                <li><a href="#home" class="link <?php echo $this->botonactivo == 1 ? 'active' : '' ?>">Inicio</a></li>
+                <li><a href="/" class="link <?php echo $this->botonactivo == 1 ? 'active' : '' ?>">Inicio</a></li>
                 <!--  <li><a href="#about" class="link">Plantas</a></li>
                 <li><a href="#work" class="link">Servicios</a></li>
                 <li><a href="#projects" class="link">Proyectos</a></li>
@@ -114,13 +130,15 @@
 
                 <li class="nav-item dropdown">
                     <a class="link <?php echo $this->botonactivo == 2 ? 'active' : '' ?> dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Nuestras Soluciones 
+                        Nuestras Soluciones
                     </a>
                     <ul class="dropdown-menu">
                         <li><a class="dropdown-item" href="/page/soluciones/">Todas</a></li>
-                        <li class="d-block"><hr class="dropdown-divider"></li>
+                        <li class="d-block">
+                            <hr class="dropdown-divider">
+                        </li>
                         <?php foreach ($this->list_blog_categoria_id as $key => $category) { ?>
-                            <li><a class="dropdown-item <?= $key == $this->solucionId ? 'active' : ''?>" href="/page/soluciones/solucion?id=<?= $key  ?>"><?= $category  ?></a></li>
+                            <li><a class="dropdown-item <?= $key == $this->solucionId ? 'active' : '' ?>" href="/page/soluciones/solucion?id=<?= $key  ?>"><?= $category  ?></a></li>
                         <?php } ?>
 
                     </ul>

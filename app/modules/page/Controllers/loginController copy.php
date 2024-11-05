@@ -2,35 +2,28 @@
 
 class Page_loginController extends Page_mainController
 {
-  // Método de inicialización
+
+  public $botonactivo  = 7;
+
   public function init()
   {
-    // Si existe un usuario activo, redirige al inicio
+    //si no existe un usuario activo llevar al paso 1
     if (Session::getInstance()->get('usuario')) {
       header("Location: /page/home");
     }
-    // Llama al método init de la clase padre
     parent::init();
   }
-
-  // Acción por defecto (vacía)
   public function indexAction() {}
-
-  // Acción para mostrar la vista de creación de cuenta
   public function crearcuentaAction()
   {
-    // Obtiene el error almacenado en la sesión, si existe
-    $error = Session::getInstance()->get("error");
-    // Pasa el error a la vista
+    $error =  Session::getInstance()->get("error");
     $this->_view->error = $error;
-    // Limpia el error de la sesión
     Session::getInstance()->set("error", null);
   }
 
-  // Acción para procesar la creación de una nueva cuenta
   public function crearAction()
   {
-    // Obtiene y sanitiza los parámetros enviados por el usuario
+
     $name = $this->_getSanitizedParam('name');
     $cedula = $this->_getSanitizedParam('cedula');
     $email = $this->_getSanitizedParam('email');
@@ -38,18 +31,14 @@ class Page_loginController extends Page_mainController
     $password = $this->_getSanitizedParam('password');
     $repassword = $this->_getSanitizedParam('re-password');
 
-    // Crea una instancia del modelo de usuario
     $modelUsuario = new Administracion_Model_DbTable_Usuario();
 
-    // Verifica si las contraseñas coinciden
     if ($password !== $repassword) {
-      // Almacena un error en la sesión y redirige a la página de creación de cuenta
       Session::getInstance()->set("error", 1);
       header('Location: /page/login/crearcuenta');
       return;
     }
-
-    // Verifica si el correo ya está registrado
+    //Validar si ya existe el correo y el usuario
     $usuarioEmail = $modelUsuario->getList("user_email = '{$email}'");
     if ($usuarioEmail) {
       Session::getInstance()->set("error", 2);
@@ -57,7 +46,6 @@ class Page_loginController extends Page_mainController
       return;
     }
 
-    // Verifica si la cédula o usuario ya existe
     $usuarioCedula = $modelUsuario->getList("user_cedula = '{$cedula}' OR user_user = '{$cedula}'");
     if ($usuarioCedula) {
       Session::getInstance()->set("error", 3);
@@ -65,22 +53,19 @@ class Page_loginController extends Page_mainController
       return;
     }
 
-    // Prepara los datos para crear el nuevo usuario
     $data = [];
     $data['user_names'] = $name;
     $data['user_cedula'] = $cedula;
     $data['user_email'] = $email;
     $data['user_telefono'] = $phone;
     $data['user_user'] = $cedula;
-    $data['user_password'] = $password; // Nota: Es recomendable encriptar la contraseña
+    $data['user_password'] = $password;
     $data['user_level'] = 2;
     $data['user_state'] = 1;
     $data['user_date'] = date('Y-m-d');
 
-    // Inserta el nuevo usuario en la base de datos
     $id = $modelUsuario->insert($data);
     if ($id) {
-      // Obtiene el usuario recién creado y lo almacena en la sesión
       $usuario = $modelUsuario->getById($id);
       Session::getInstance()->set("usuario", $usuario);
       header('Location: /page/home');
@@ -92,291 +77,329 @@ class Page_loginController extends Page_mainController
     }
   }
 
-  // Acción para validar las credenciales del usuario al iniciar sesión
   public function validarAction()
   {
-    // Establece un layout vacío
+    // error_reporting(E_ALL);
     $this->setLayout('blanco');
-    // Recibe los datos enviados en formato JSON
+    // Recibir los datos enviados en formato JSON
     $input = file_get_contents('php://input');
     $data = json_decode($input, true);
 
-    // Sanitiza y obtiene los datos necesarios
+    // Verificar si la decodificación fue exitosa y si se recibieron los datos esperados
     $cedula = $this->sanitizarEntrada($data['cedula']);
     $password = $this->sanitizarEntrada($data['password']);
     $captcha = $this->sanitizarEntrada($data['g-recaptcha-response']);
 
-    // Instancias de los modelos necesarios
     $modelUsuario = new Administracion_Model_DbTable_Usuario();
     $bloqueosModel = new Administracion_Model_DbTable_Bloqueos();
 
-    // Verifica el captcha
     if (!$this->verifyCaptcha($captcha)) {
       $response = [
         'status' => 'error',
         'error' => 'Captcha incorrecto'
       ];
+      // Devolver la respuesta como JSON
       die(json_encode($response));
     }
 
-    // Obtiene información de bloqueos anteriores
-    $infoBloqueo = $bloqueosModel->getList(
-      "bloqueo_usuario = '$cedula' or bloqueo_ip = '" . $_SERVER['REMOTE_ADDR'] . "' ",
-      "bloqueo_id DESC"
-    )[0];
+    $infoBloqueo = $bloqueosModel->getList("bloqueo_usuario = '$cedula' or bloqueo_ip = '" . $_SERVER['REMOTE_ADDR'] . "' ", "bloqueo_id DESC")[0];
 
-    // Manejo de intentos fallidos
     $intentos = (int)$infoBloqueo->bloqueo_intentosfallidos;
     $fechaUltimoIntento = $infoBloqueo->bloqueo_fechaintento;
+    // Convertir la fecha del último intento a un objeto DateTime
     $fechaUltimoIntento = new DateTime($fechaUltimoIntento);
+    // Obtener la fecha y hora actual
     $fechaActual = new DateTime();
+
+
+    // Calcular la diferencia entre las fechas
     $diferencia = $fechaActual->getTimestamp() - $fechaUltimoIntento->getTimestamp();
 
-    // Bloquea al usuario si excede los intentos permitidos
     if ($intentos >= 3 && $diferencia <= 900) {
+
+
       $response = [
         'status' => 'error',
         'error' => 'El usuario ha sido bloqueado durante 15 minutos por más de tres intentos fallidos'
       ];
+      // Devolver la respuesta como JSON
       die(json_encode($response));
     }
 
-    // Registra el intento fallido
     $dataBloque = array();
     $dataBloque['bloqueo_usuario'] = $cedula;
     $dataBloque['bloqueo_intentosfallidos'] = $this->getIntentos($cedula);
     $dataBloque['bloqueo_ip'] = $_SERVER['REMOTE_ADDR'];
+
     $bloqueosModel->insert($dataBloque);
 
-    // Busca al usuario en la base de datos
     $usuario = $modelUsuario->getList("user_user = '{$cedula}'")[0];
+
+
 
     if (!$usuario) {
       $res['error'] = "Usuario no encontrado";
       $res['status'] = "error";
       die(json_encode($res));
     }
-
     $userModel = new core_Model_DbTable_User();
 
-    // Verifica si el usuario está activo
     if ($usuario->user_state != 1) {
       $res['error'] = "Usuario inactivo";
       $res['status'] = "error";
       die(json_encode($res));
     }
 
-    // Autentica al usuario
+
     if (!$userModel->autenticateUser($cedula, $password)) {
       $res['error'] = "Contraseña incorrecta";
       $res['status'] = "error";
       die(json_encode($res));
     }
 
-    // Resetea los intentos fallidos al iniciar sesión correctamente
+    //borrar registros de bloqueo para iniciar desde 0 la proxima vez que se equivoque
     $infoBloqueo = $bloqueosModel->getList("bloqueo_usuario = '$cedula'", "bloqueo_id DESC");
     if (count($infoBloqueo) > 0) {
       foreach ($infoBloqueo as $info) {
         $bloqueosModel->deleteRegister($info->bloqueo_id);
       }
     }
-
-    // Almacena al usuario en la sesión y redirige al inicio
     Session::getInstance()->set("usuario", $usuario);
     $res['status'] = "success";
     $res['redirect'] = "/page/home";
     die(json_encode($res));
   }
 
-  // Acción para mostrar la vista de recuperación de contraseña
   public function recuperarAction()
   {
-    $error = Session::getInstance()->get("error");
+    $error =  Session::getInstance()->get("error");
     $this->_view->error = $error;
     Session::getInstance()->set("error", null);
   }
 
-  // Acción para procesar la solicitud de recuperación de contraseña
   public function consultacorreoAction()
   {
-    // Establece un layout vacío
+
+    // error_reporting(E_ALL);
     $this->setLayout('blanco');
-    // Recibe los datos enviados en formato JSON
+    // Recibir los datos enviados en formato JSON
     $input = file_get_contents('php://input');
     $data = json_decode($input, true);
 
-    // Sanitiza y obtiene los datos necesarios
+    // Verificar si la decodificación fue exitosa y si se recibieron los datos esperados
     $cedula = $this->sanitizarEntrada($data['cedula']);
     $captcha = $this->sanitizarEntrada($data['g-recaptcha-response']);
 
-    // Verifica el captcha
     if (!$this->verifyCaptcha($captcha)) {
       $response = [
         'status' => 'error',
         'error' => 'Captcha incorrecto'
       ];
+      // Devolver la respuesta como JSON
       die(json_encode($response));
     }
 
-    // Verifica que la cédula no esté vacía
     if (!$cedula) {
       $response = [
         'status' => 'error',
         'message' => 'La cédula es requerida'
       ];
+      // Devolver la respuesta como JSON y finalizar el script
       die(json_encode($response));
     }
 
-    // Crea una instancia del modelo de usuarios y busca al usuario
+    // Crear una instancia del modelo de usuarios
     $usersModel = new Page_Model_DbTable_Usuario();
+    // Obtener información del usuario por su cédula
     $user = $usersModel->getList("user_user = '{$cedula}'", "")[0];
 
-    // Si el usuario no existe, devuelve un error
+    // Si no se encuentra ningún usuario con esa cédula
     if (!$user) {
       $response = [
         'status' => 'error',
         'message' => 'No se ha encontrado ningún usuario con esa cédula'
       ];
+      // Devolver la respuesta como JSON y finalizar el script
       die(json_encode($response));
     }
 
-    // Enmascara parte del correo electrónico por seguridad
-    $email = $user->user_email;
-    $emailParts = explode('@', $email);
-    $emailParts[0] = substr($emailParts[0], 0, 5) . '***';
-    $emailMasked = implode('@', $emailParts);
 
-    // Genera un token único y registra la fecha
+
+    // Ocultar parte del correo electrónico por motivos de seguridad
+    $email = $user->user_email;
+    $email = explode('@', $email);
+    $email[0] = substr($email[0], 0, 5) . '***';
+    $email = implode('@', $email);
+
+    // Generar un token único y una fecha de token
     $token = md5(uniqid(rand(), true));
     $token_date = date('Y-m-d H:i:s');
 
-    // Crea una instancia del modelo de envío de correos y envía el correo de recuperación
+    // Crear una instancia del modelo de envío de correo electrónico
     $mailModel = new Core_Model_Sendingemail($this->_view);
+
+    // Enviar correo de recuperación y almacenar el resultado
     $mail = $mailModel->enviarrecuperacion($user, $token);
 
+    // Si el correo se envió correctamente
     if ($mail == '1') {
-      // Actualiza el token y la fecha en la base de datos
+      // Actualizar el token y la fecha de token del usuario en la base de datos
       $usersModel->editField($user->user_id, 'user_code', $token);
       $usersModel->editField($user->user_id, 'user_codedate', $token_date);
 
-      // Prepara la respuesta exitosa
+      // Preparar la respuesta exitosa
       $response = [
         'status' => 'success',
-        'message' => 'Se ha enviado un correo a ' . $emailMasked . ' con los pasos a seguir',
+        'message' => 'Se ha enviado un correo a ' . $email . ' con los pasos a seguir',
         'user' => $cedula,
-        'email' => $emailMasked
+        'email' => $email
       ];
     } else {
-      // Prepara la respuesta de error en caso de fallo al enviar el correo
+      // Preparar la respuesta en caso de error en el envío de correo
       $response = [
         'status' => 'errorMail',
         'message' => 'Ha ocurrido un error al enviar el correo'
       ];
     }
 
-    // Devuelve la respuesta en formato JSON
+    // Devolver la respuesta como JSON
     die(json_encode($response));
   }
 
-  // Acción para mostrar la vista de restablecimiento de contraseña
+
+
   public function recuperacionAction()
   {
-    // Obtiene y sanitiza el token de la URL
+    // Obtener el token del parámetro de la URL y sanearlo
     $token = $this->_getSanitizedParam('t');
 
-    // Crea una instancia del modelo de usuarios y busca al usuario por el token
+    // Crear una instancia del modelo de usuarios
     $usersModel = new Page_Model_DbTable_Usuario();
+
+    // Obtener información del usuario por su token
     $user = $usersModel->getList("user_code = '$token'", "")[0];
 
+    // Si se encuentra un usuario con ese token
     if ($user) {
-      // Calcula la diferencia de tiempo desde que se generó el token
+      // Convertir la fecha de token almacenada en el usuario a un objeto DateTime
       $token_date = new DateTime($user->user_codedate);
+
+      // Obtener la fecha y hora actual
       $now = new DateTime();
+
+      // Calcular la diferencia de tiempo entre la fecha de token y la fecha actual
       $interval = $now->diff($token_date);
 
-      // Si el token es válido (menos de 1 hora)
+      // Si la diferencia de horas es menor que 1 hora
       if ($interval->h < 1) {
+
+        // Configurar la vista para mostrar el formulario de registro
         $this->_view->error = false;
         $this->_view->user = $user;
       } else {
-        // Si el token ha expirado
+
+        // Configurar la vista para mostrar un error de expiración de token
         $this->_view->error = true;
       }
     } else {
-      // Si no se encuentra el usuario
+      // Configurar la vista para mostrar un error si no se encuentra ningún usuario con ese token
       $this->_view->error = true;
     }
   }
 
-  // Acción para procesar el restablecimiento de contraseña
   public function recuperarclaveAction()
   {
-    // Recibe los datos enviados en formato JSON
+
+    // Recibir los datos enviados en formato JSON
     $input = file_get_contents('php://input');
     $data = json_decode($input, true);
 
-    // Sanitiza y obtiene los datos necesarios
+    // Obtener y sanear los parámetros de contraseña
+
+
     $captcha = $this->sanitizarEntrada($data['g-recaptcha-response']);
     $password = $this->sanitizarEntrada($data['password']);
     $password2 = $this->sanitizarEntrada($data['re-password']);
 
-    // Verifica el captcha
+
     if (!$this->verifyCaptcha($captcha)) {
       $response = [
         'status' => 'error',
         'error' => 'Captcha incorrecto'
       ];
+      // Devolver la respuesta como JSON
       die(json_encode($response));
     }
 
-    // Crea una instancia del modelo de usuarios y obtiene al usuario
+    // Crear una instancia del modelo de usuarios
     $usersModel = new Page_Model_DbTable_Usuario();
+
+    // Obtener el ID de usuario de los parámetros de la solicitud y obtener información del usuario
     $user_id = $this->sanitizarEntrada($data['user_id']);
+
     $user = $usersModel->getById($user_id);
 
-    // Verifica si las contraseñas coinciden
+    // Verificar si las contraseñas coinciden
     if ($password == $password2) {
-      // Actualiza la contraseña y otros campos relacionados
+      // Cambiar la contraseña del usuario y actualizar otros campos relacionados
       $usersModel->editField($user_id, 'user_password', password_hash($password, PASSWORD_DEFAULT));
       $usersModel->editField($user_id, 'user_code', '');
       $usersModel->editField($user_id, 'user_codedate', '');
       $usersModel->editField($user_id, 'user_state', 1);
 
-      // Inicia sesión con el usuario actualizado
+      // Iniciar sesión del usuario
       Session::getInstance()->set("usuario", $user);
 
-      // Prepara la respuesta exitosa
+
+      // Preparar la respuesta de éxito
       $response = [
         'status' => 'success',
         'message' => 'Contraseña cambiada correctamente',
         'redirect' => '/page/home'
       ];
     } else {
-      // Prepara la respuesta de error si las contraseñas no coinciden
+      // Preparar la respuesta de error si las contraseñas no coinciden
       $response = [
         'status' => 'error',
         'message' => 'Las contraseñas no coinciden'
       ];
     }
 
-    // Devuelve la respuesta en formato JSON
+    // Devolver la respuesta como JSON
     die(json_encode($response));
   }
 
-  // Método privado para verificar el captcha
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   private function verifyCaptcha($response)
   {
-    // Clave secreta de reCAPTCHA
     $secretKey = '6LfFDZskAAAAAOvo1878Gv4vLz3CjacWqy08WqYP';
 
-    // URL de verificación de reCAPTCHA
     $url = 'https://www.google.com/recaptcha/api/siteverify';
     $data = array(
       'secret' => $secretKey,
       'response' => $response
     );
 
-    // Configuración de la solicitud HTTP POST
     $options = array(
       'http' => array(
         'header' => "Content-type: application/x-www-form-urlencoded\r\n",
@@ -385,34 +408,31 @@ class Page_loginController extends Page_mainController
       )
     );
 
-    // Realiza la solicitud y decodifica la respuesta
     $context = stream_context_create($options);
     $result = file_get_contents($url, false, $context);
     $response = json_decode($result);
 
-    // Devuelve true si el captcha es válido
     return $response->success;
   }
 
-  // Método para obtener el número de intentos fallidos de un usuario
   public function getIntentos($cedula)
   {
     $bloqueosModel = new Administracion_Model_DbTable_Bloqueos();
 
-    // Obtiene el último registro de bloqueo del usuario
     $infoBloqueo = $bloqueosModel->getList("bloqueo_usuario = '$cedula'", "bloqueo_id DESC")[0];
 
-    // Incrementa el contador de intentos fallidos
     $intento = $infoBloqueo->bloqueo_intentosfallidos ?? 0;
+
     $intento = $intento + 1;
 
-    // Devuelve el número de intentos
+    // Devolver el consecutivo obtenido
     return $intento;
   }
 
-  // Método para sanitizar las entradas del usuario
+
   public function sanitizarEntrada($value)
   {
+
     $currentValue = trim($value);
     $currentValue = stripslashes($currentValue);
     $currentValue = htmlspecialchars($currentValue, ENT_QUOTES, 'UTF-8');
@@ -421,12 +441,9 @@ class Page_loginController extends Page_mainController
     return $currentValue;
   }
 
-  // Acción para cerrar la sesión del usuario
   public function logoutAction()
   {
-    // Elimina al usuario de la sesión
     Session::getInstance()->set("usuario", null);
-    // Redirige a la página principal
     header('Location: /');
   }
 }

@@ -15,9 +15,11 @@
 
 @media (width <992px) {
 
-    .fondo-imagen-responsive img {
+    .fondo-imagen-responsive img,
+    .fondo-imagen-interna-video img {
         width: 100%;
-        object-fit: contain;
+        object-fit: cover;
+        height: 300px;
     }
 
     .main-general {
@@ -42,6 +44,13 @@
 }
 
 @media (max-width:765px) {
+
+    .fondo-imagen-responsive img,
+    .fondo-imagen-interna-video img {
+        width: 100%;
+        height: 200px;
+    }
+
     .main-general {
         margin-top: 107px;
     }
@@ -199,8 +208,9 @@
         width: 100%;
         text-shadow: 4px 4px 2px rgba(0, 0, 0, 0.6)
     }
-    .titulo-banner-internas::after{
-       all: unset;
+
+    .titulo-banner-internas::after {
+        all: unset;
     }
 
 
@@ -270,7 +280,7 @@ BANNER INTERNAS FIN
         margin: 0;
         font-size: 22px !important;
     }
-   
+
     .titulo-banner-internas img {
         width: 100px;
     }

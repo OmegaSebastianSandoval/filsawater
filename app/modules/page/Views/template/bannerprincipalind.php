@@ -29,7 +29,9 @@
 
               <a href="<?php echo $banner->publicidad_video; ?>" data-fancybox="video-gallery">
 
-                <img class="img-banner-interna img-video" src="https://img.youtube.com/vi/<?php echo $this->id_youtube($banner->publicidad_video); ?>/hqdefault.jpg" alt="Video Thumbnail" />
+               
+                <img src="/images/<?php echo $banner->publicidad_imagen; ?>" alt="<?php echo $banner->publicidad_nombre; ?>" class="d-none d-md-block">
+                <img src="/images/<?php echo $banner->publicidad_imagenresponsive; ?>" alt="<?php echo $banner->publicidad_nombre; ?>" class="d-block d-md-none">
                 <div class="play-icon">▶️</div>
               </a>
             </div>
@@ -45,6 +47,7 @@
 
                 <img src="/images/<?php echo $banner->publicidad_imagen; ?>" alt="">
 
+                
 
                 <?php if ($banner->mostrarinfo != 1 && $banner->publicidad_enlace) { ?>
                 </a>
