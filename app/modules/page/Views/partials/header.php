@@ -1,4 +1,3 @@
-
 <section class="header-up py-2">
     <div class="container">
         <div class="d-none d-md-flex align-items-center justify-content-between">
@@ -91,7 +90,7 @@
                     <?php } ?>
                     <div class="vr"></div>
 
-                    <span class="content-carrito "   type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                    <span class="content-carrito  d-none d-md-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
                         <i class="fa-solid fa-cart-shopping"></i>
                         <span id="count-carrito"></span>
                     </span>
@@ -146,10 +145,7 @@
                         Productos
                     </a>
                     <ul class="dropdown-menu">
-                        <!--   <li><a class="dropdown-item" href="/page/soluciones/">Todos</a></li>
-                        <li class="d-block">
-                            <hr class="dropdown-divider">
-                        </li> -->
+                      
                         <?php foreach ($this->categoriasHeader as $key => $categoriaHeader) { ?>
                             <li><a class="dropdown-item <?= $categoriaHeader->tienda_categoria_id  == $this->categoriaHeader ? 'active' : '' ?>" href="/page/productos/categoria?categoria=<?= $categoriaHeader->tienda_categoria_id  ?>"><?= $categoriaHeader->tienda_categoria_nombre  ?></a></li>
                         <?php } ?>
@@ -235,25 +231,32 @@
                         </div>
                     </div>
                     <div class="mt-2">
+                    <?php if ($this->usuario) { ?>
+                        <a href="/page/home" class="login <?php echo $this->botonactivo == 7 ? 'active' : '' ?>">
+                            <i class="fa-regular fa-user"></i>
+                            <?= $this->usuario->user_names ?>
+                        </a>
+                    <?php } else { ?>
+                        <a href="/page/login" class="login <?php echo $this->botonactivo == 7 ? 'active' : '' ?>">
+                            <i class="fa-regular fa-user"></i>
+                            Login
+                        </a>
+                    <?php } ?>
+                    
+                           
 
-                        <div class="d-flex gap-4">
-                            <a href="#" class="login">
-                                <i class="fa-regular fa-user"></i>
-                                Login
-                            </a>
 
-
-                            <span>
-                                <i class="fa-solid fa-cart-shopping"></i>
-                                <span id="count-carrito">0</span>
-                            </span>
-                        </div>
+                     
 
                     </div>
 
 
                 </div>
             </ul>
+            <span class="content-carrito d-block d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                <i class="fa-solid fa-cart-shopping"></i>
+                <span id="count-carrito-responsive"></span>
+            </span>
             <label for="nav-toggle" class="icon-burger">
                 <div class="line"></div>
                 <div class="line"></div>

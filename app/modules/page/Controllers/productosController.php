@@ -43,18 +43,23 @@ class Page_productosController extends Page_mainController
     $fotos = $fotosModel->getList("foto_producto = '{$productoId}' AND foto_estado='1'", "orden ASC");
 
     // Crear un arreglo con la imagen principal al inicio y luego las fotos
-    $productoImagen = [
+    $productoImagen = (object)[
       "foto_id" => "principal",
       "foto_foto" => $producto->producto_imagen,
       "foto_nombre" => "Imagen principal del producto"
     ];
 
-    // Combina la imagen principal con el resto de las fotos
-    array_unshift($fotos, $productoImagen);
+    if (!empty($fotos)) {
 
-    // Asigna las fotos al producto
-    $producto->fotos = $fotos;
+      // Combina la imagen principal con el resto de las fotos
+      array_unshift($fotos, $productoImagen);
 
+      // Asigna las fotos al producto
+      $producto->fotos = $fotos;
+    } else {
+      $producto->fotos = [$productoImagen];
+    }
+    // print_r($producto);
     // Muestra o envía el producto con sus fotos
     $this->_view->producto = $producto;
     $this->_view->categoria = $categoria;

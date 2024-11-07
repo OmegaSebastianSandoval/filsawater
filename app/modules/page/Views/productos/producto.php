@@ -16,9 +16,9 @@
 
                     <div class="f-carousel" id="myCarousel">
                         <?php foreach ($this->producto->fotos as $foto) { ?>
-
+                           
                             <?php if ($foto->foto_foto && file_exists($_SERVER['DOCUMENT_ROOT'] . "/images/" . $foto->foto_foto)) { ?>
-
+                              
                                 <div class="f-carousel__slide" data-fancybox="gallery" data-src="/images/<?= $foto->foto_foto ?>" data-thumb-src="/images/<?= $foto->foto_foto ?>">
 
 

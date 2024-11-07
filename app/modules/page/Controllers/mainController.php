@@ -142,9 +142,20 @@ class Page_mainController extends Controllers_Abstract
 
 		// Obtener el carrito actual desde la sesión
 		$carrito = $this->getCarrito();
+		$productoModel =  new Administracion_Model_DbTable_Productos();
+		$producto = $productoModel->getById($productId);
 
 		// Actualizar la cantidad en el carrito
 		if (isset($carrito[$productId])) {
+			//validar stock
+			if ($producto->producto_stock < $carrito[$productId] + $quantity) {
+				echo json_encode([
+					"icon" => "error",
+					"text" => "No hay suficiente stock",
+					"carrito" => $carrito
+				]);
+				return;
+			}
 			$carrito[$productId] += $quantity;
 		} else {
 			$carrito[$productId] = $quantity;
@@ -173,31 +184,64 @@ class Page_mainController extends Controllers_Abstract
 
 		// Obtener el carrito actual desde la sesión
 		$carrito = $this->getCarrito();
-		if ($productId && $quantity) {
-			// Actualizar la cantidad en el carrito
-			if (isset($carrito[$productId])) {
-				$carrito[$productId] = $quantity;
-			} else {
-				$carrito[$productId] = $quantity;
-			}
-			//  print_r($carrito);
+		$productoModel =  new Administracion_Model_DbTable_Productos();
+		$producto = $productoModel->getById($productId);
+		if (!$productId || !$quantity) {
 
-			// Guardar el carrito actualizado en la sesión
-			Session::getInstance()->set("carrito", $carrito);
-
-			// Devolver una respuesta JSON para confirmar
-			echo json_encode([
-				"icon" => "success",
-				"text" => "Carrito Actualizado",
-				"carrito" => $carrito
-			]);
-		} else {
 			echo json_encode([
 				"icon" => "error",
 				"text" => "Error al actualizar el carrito",
 				"carrito" => $carrito
 			]);
+			return;
 		}
+
+
+
+
+		//validar stock
+		if ($carrito[$productId] == 1 && $quantity == 1) {
+			unset($carrito[$productId]);
+			Session::getInstance()->set("carrito", $carrito);
+			echo json_encode([
+				"icon" => "success",
+				"text" => "Producto eliminado del carrito",
+				"carrito" => $carrito
+			]);
+			return;
+		}
+		if ($carrito[$productId] === $quantity && $quantity != 1) {
+			echo json_encode([
+				"icon" => "error",
+				"text" => "No hay suficiente stock 1",
+				"carrito" => $carrito
+			]);
+			return;
+		}
+		if ($quantity > $producto->producto_stock) {
+			echo json_encode([
+				"icon" => "error",
+				"text" => "No hay suficiente stock",
+				"carrito" => $carrito
+			]);
+			return;
+		}
+		$carrito[$productId] = $quantity;
+
+
+
+		//  print_r($carrito);
+
+		// Guardar el carrito actualizado en la sesión
+		Session::getInstance()->set("carrito", $carrito);
+
+		// Devolver una respuesta JSON para confirmar
+		echo json_encode([
+			"icon" => "success",
+			"text" => "Carrito Actualizado",
+			"carrito" => $carrito
+		]);
+		return;
 	}
 
 	public function deleteitemAction()

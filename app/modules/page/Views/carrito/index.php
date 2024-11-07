@@ -29,16 +29,18 @@
                             </div>
                         </div>
                         <div class="col-1">
-                            <button class="btn btn-sm btn-danger" onclick="eliminarProducto(<?= $productoCarrito->producto_id ?>)"><i class="fa-solid fa-trash"></i></button>
+                            <button class="btn btn-sm btn-danger" title="Eliminar del carrito" onclick="eliminarProducto(<?= $productoCarrito->producto_id ?>)"><i class="fa-solid fa-trash"></i></button>
                         </div>
 
 
                     </div>
-                    <a href="/page/comprar" class="btn-blue rounded-0 mx-auto mt-3">Ir a Comprar</a>
+                    
                 </li>
 
 
             <?php } ?>
+
+            <a href="/page/comprar" class="btn-blue rounded-0 mx-auto mt-3">Ir a Comprar</a>
         </ul>
     <?php } else { ?>
         <div class="alert alert-warning text-center">

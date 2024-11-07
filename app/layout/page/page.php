@@ -115,6 +115,7 @@
 </head>
 
 <body>
+  <?= $this->_data['carrito']; ?>
   <header>
     <?= $this->_data['header']; ?>
   </header>
@@ -123,7 +124,6 @@
     <?= $this->_data['footer']; ?>
   </footer>
   <?= $this->_data['adicionales']; ?>
-  <?= $this->_data['carrito']; ?>
 
 </body>
 

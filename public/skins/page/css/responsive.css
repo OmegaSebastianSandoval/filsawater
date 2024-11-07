@@ -60,6 +60,33 @@
 
 @media (max-width:765px) {
 
+    .content-carrito{
+        position: absolute;
+        right: 20%;
+        top: 50%;
+        transform: translateY(-50%); 
+        color: var(--azulclaro2);
+        font-size: 18px;
+    }
+
+    .content-carrito span{
+        padding: 10px;
+        width: 5px;
+        border-radius: 50%;
+        background-color: var(--azulclaro2);
+        color: var(--blanco);
+        height: 5px;
+        display: flex;
+        place-items: center;
+        font-size: 11px;
+        position: absolute;
+        top: -9px;
+        justify-content: center;
+        align-items: center;
+        right: -16px;
+    }
+
+
     .fondo-imagen-responsive img,
     .fondo-imagen-interna-video img {
         width: 100%;
@@ -67,7 +94,7 @@
     }
 
     .main-general {
-        margin-top: 107px;
+        margin-top: 100px;
     }
 
     footer h3 {
@@ -104,7 +131,7 @@
         z-index: 9;
         left: 0;
         right: 0;
-        top: 104px;
+        top: 100px;
         bottom: 100%;
         width: auto;
         height: auto;
@@ -288,6 +315,27 @@ BANNER INTERNAS FIN
     .img-banner-interna {
         height: 240px;
     }
+
+    .product-card .add-cart-content {
+        bottom: 10px;
+        right: 10px;
+        z-index: 99;
+    }
+    .quantity-control-cart .quantity-cart{
+        text-align: center;
+    }
+
+    .container-flex-home{
+        flex-wrap: wrap;
+    }
+    
+    .container-flex-home .nav.flex-column.nav-pills{
+       width: 100%;
+    }
+
+    .quantity-control .quantity{
+        text-align: center;
+    }
 }
 
 @media (max-width:576px) {
@@ -395,7 +443,7 @@ BANNER INTERNAS FIN
 
 @media (max-width:476px) {
     .main-general {
-        margin-top: 107px;
+        margin-top: 102px;
     }
 
     .img-banner-interna {

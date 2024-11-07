@@ -1,6 +1,6 @@
 <div class="container container-profile pt-3 ">
     <h2><i class="fa-regular fa-user"></i>Perfil</h2>
-    <div class="d-flex align-items-start">
+    <div class="d-flex align-items-start container-flex-home">
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <button class="nav-link  " id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>
             <button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Perfil</button>

@@ -520,6 +520,14 @@ FOOTER FIN
   aspect-ratio: 28/9;
   object-fit: cover;
 }
+@media (width >1700px) {
+  .fondo-imagen img,
+  .img-banner-principal,
+  .fondo-imagen-interna-video img {
+    height: 700px;
+
+  }
+}
 
 .carousel-control-prev-icono {
   font-size: 30px;
@@ -2069,8 +2077,8 @@ ______________________________--------------------------------------------------
 
 .contenedor-categorias .product-card {
   position: relative;
-  overflow: hidden;
-
+  /* overflow: hidden; */
+  clip-path: inset(0 0 0 0 round 0px);
 
 }
 
@@ -2081,7 +2089,8 @@ ______________________________--------------------------------------------------
 
 .product-card .content-image-product {
   position: relative;
-  overflow: hidden;
+  /* overflow: hidden; */
+  clip-path: inset(0 0 0 0 round 0px);
   margin: 0;
 }
 
@@ -2367,7 +2376,9 @@ ______________________________--------------------------------------------------
   font-weight: 300;
 }
 
-
+.container-carrito .btn-close-white{
+  filter: brightness(0.5) !important;
+}
 /*-------------------------------------------------------------------------------
 CARRITO FIN
 ______________________________------------------------------------------------------- */

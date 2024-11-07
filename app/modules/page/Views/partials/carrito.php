@@ -38,7 +38,10 @@
                 const sumaCantidad = Object.keys(data).reduce((acc, id) => acc + data[id].cantidad, 0);
 
                 const cartCounter = document.querySelector("#count-carrito");
+                const cartCounterResponsive = document.querySelector("#count-carrito-responsive");
+
                 cartCounter.textContent = sumaCantidad;
+                cartCounterResponsive.textContent = sumaCantidad;
             })
             .catch((error) => {
                 console.error(error);
