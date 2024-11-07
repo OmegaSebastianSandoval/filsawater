@@ -1,3 +1,4 @@
+
 <section class="header-up py-2">
     <div class="container">
         <div class="d-none d-md-flex align-items-center justify-content-between">
@@ -76,11 +77,11 @@
             </div>
             <div>
 
-                <div class="d-flex gap-3">
+                <div class="d-flex gap-3 align-items-center">
                     <?php if ($this->usuario) { ?>
                         <a href="/page/home" class="login <?php echo $this->botonactivo == 7 ? 'active' : '' ?>">
                             <i class="fa-regular fa-user"></i>
-                            <?= $this->usuario->user_names?>
+                            <?= $this->usuario->user_names ?>
                         </a>
                     <?php } else { ?>
                         <a href="/page/login" class="login <?php echo $this->botonactivo == 7 ? 'active' : '' ?>">
@@ -90,9 +91,9 @@
                     <?php } ?>
                     <div class="vr"></div>
 
-                    <span>
+                    <span class="content-carrito "   type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
                         <i class="fa-solid fa-cart-shopping"></i>
-                        <span id="count-carrito">0</span>
+                        <span id="count-carrito"></span>
                     </span>
                     <?php if ($this->usuario) { ?>
                         <div class="vr"></div>
@@ -123,10 +124,6 @@
             </div>
             <ul class="links">
                 <li><a href="/" class="link <?php echo $this->botonactivo == 1 ? 'active' : '' ?>">Inicio</a></li>
-                <!--  <li><a href="#about" class="link">Plantas</a></li>
-                <li><a href="#work" class="link">Servicios</a></li>
-                <li><a href="#projects" class="link">Proyectos</a></li>
-                <li><a href="/page/blog" class="link <?php echo $this->botonactivo == 5 ? 'active' : '' ?>">Blog</a></li> -->
 
                 <li class="nav-item dropdown">
                     <a class="link <?php echo $this->botonactivo == 2 ? 'active' : '' ?> dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -144,8 +141,24 @@
                     </ul>
                 </li>
 
+                <li class="nav-item dropdown">
+                    <a class="link <?php echo $this->botonactivo == 3 ? 'active' : '' ?> dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        Productos
+                    </a>
+                    <ul class="dropdown-menu">
+                        <!--   <li><a class="dropdown-item" href="/page/soluciones/">Todos</a></li>
+                        <li class="d-block">
+                            <hr class="dropdown-divider">
+                        </li> -->
+                        <?php foreach ($this->categoriasHeader as $key => $categoriaHeader) { ?>
+                            <li><a class="dropdown-item <?= $categoriaHeader->tienda_categoria_id  == $this->categoriaHeader ? 'active' : '' ?>" href="/page/productos/categoria?categoria=<?= $categoriaHeader->tienda_categoria_id  ?>"><?= $categoriaHeader->tienda_categoria_nombre  ?></a></li>
+                        <?php } ?>
+
+                    </ul>
+                </li>
+
                 <li><a href="/page/filtercaps" class="link <?php echo $this->botonactivo == 6 ? 'active' : '' ?>">Filter caps</a></li>
-                <li><a href="/page/contacto" class="btn-blue">Contacto</a></li>
+                <li><a href="/page/contacto" class="btn-blue">Contáctenos</a></li>
 
                 <div class="d-grid d-md-none w-100 p-2">
                     <div class="d-grid align-items-center gap-3 ">

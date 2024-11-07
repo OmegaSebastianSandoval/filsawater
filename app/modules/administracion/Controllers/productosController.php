@@ -1,14 +1,13 @@
 <?php
 /**
-* Controlador de Soluciones que permite la  creacion, edicion  y eliminacion de los soluci&oacute;n del Sistema
+* Controlador de Productos que permite la  creacion, edicion  y eliminacion de los producto del Sistema
 */
-class Administracion_solucionesController extends Administracion_mainController
+class Administracion_productosController extends Administracion_mainController
 {
-
-	public $botonpanel = 7;
+	public $botonpanel = 9;
 
 	/**
-	 * $mainModel  instancia del modelo de  base de datos soluci&oacute;n
+	 * $mainModel  instancia del modelo de  base de datos producto
 	 * @var modeloContenidos
 	 */
 	public $mainModel;
@@ -35,7 +34,7 @@ class Administracion_solucionesController extends Administracion_mainController
 	 * $_csrf_section  nombre de la variable general csrf  que se va a almacenar en la session
 	 * @var string
 	 */
-	protected $_csrf_section = "administracion_soluciones";
+	protected $_csrf_section = "administracion_productos";
 
 	/**
 	 * $namepages nombre de la pvariable en la cual se va a guardar  el numero de seccion en la paginacion del controlador
@@ -46,17 +45,17 @@ class Administracion_solucionesController extends Administracion_mainController
 
 
 	/**
-     * Inicializa las variables principales del controlador soluciones .
+     * Inicializa las variables principales del controlador productos .
      *
      * @return void.
      */
 	public function init()
 	{
-		$this->mainModel = new Administracion_Model_DbTable_Soluciones();
-		$this->namefilter = "parametersfiltersoluciones";
-		$this->route = "/administracion/soluciones";
-		$this->namepages ="pages_soluciones";
-		$this->namepageactual ="page_actual_soluciones";
+		$this->mainModel = new Administracion_Model_DbTable_Productos();
+		$this->namefilter = "parametersfilterproductos";
+		$this->route = "/administracion/productos";
+		$this->namepages ="pages_productos";
+		$this->namepageactual ="page_actual_productos";
 		$this->_view->route = $this->route;
 		if(Session::getInstance()->get($this->namepages)){
 			$this->pages = Session::getInstance()->get($this->namepages);
@@ -68,13 +67,13 @@ class Administracion_solucionesController extends Administracion_mainController
 
 
 	/**
-     * Recibe la informacion y  muestra un listado de  soluci&oacute;n con sus respectivos filtros.
+     * Recibe la informacion y  muestra un listado de  producto con sus respectivos filtros.
      *
      * @return void.
      */
 	public function indexAction()
 	{
-		$title = "Aministración de soluci&oacute;n";
+		$title = "Aministración de producto";
 		$this->getLayout()->setTitle($title);
 		$this->_view->titlesection = $title;
 		$this->filters();
@@ -103,47 +102,48 @@ class Administracion_solucionesController extends Administracion_mainController
 		$this->_view->page = $page;
 		$this->_view->lists = $this->mainModel->getListPages($filters,$order,$start,$amount);
 		$this->_view->csrf_section = $this->_csrf_section;
-		$this->_view->padre = $this->_getSanitizedParam("padre");
+		$this->_view->list_producto_categoria = $this->getProductocategoria();
 	}
 
 	/**
-     * Genera la Informacion necesaria para editar o crear un  soluci&oacute;n  y muestra su formulario
+     * Genera la Informacion necesaria para editar o crear un  producto  y muestra su formulario
      *
      * @return void.
      */
 	public function manageAction()
 	{
 		$this->_view->route = $this->route;
-		$this->_csrf_section = "manage_soluciones_".date("YmdHis");
+		$this->_csrf_section = "manage_productos_".date("YmdHis");
 		$this->_csrf->generateCode($this->_csrf_section);
 		$this->_view->csrf_section = $this->_csrf_section;
 		$this->_view->csrf = Session::getInstance()->get('csrf')[$this->_csrf_section];
-		$this->_view->padre = $this->_getSanitizedParam("padre");
+		$this->_view->list_producto_categoria = $this->getProductocategoria();
+		$this->_view->error = $this->_getSanitizedParam("error");
 		$id = $this->_getSanitizedParam("id");
 		if ($id > 0) {
 			$content = $this->mainModel->getById($id);
-			if($content->solucion_id){
+			if($content->producto_id){
 				$this->_view->content = $content;
 				$this->_view->routeform = $this->route."/update";
-				$title = "Actualizar soluci&oacute;n";
+				$title = "Actualizar producto";
 				$this->getLayout()->setTitle($title);
 				$this->_view->titlesection = $title;
 			}else{
 				$this->_view->routeform = $this->route."/insert";
-				$title = "Crear soluci&oacute;n";
+				$title = "Crear producto";
 				$this->getLayout()->setTitle($title);
 				$this->_view->titlesection = $title;
 			}
 		} else {
 			$this->_view->routeform = $this->route."/insert";
-			$title = "Crear soluci&oacute;n";
+			$title = "Crear producto";
 			$this->getLayout()->setTitle($title);
 			$this->_view->titlesection = $title;
 		}
 	}
 
 	/**
-     * Inserta la informacion de un soluci&oacute;n  y redirecciona al listado de soluci&oacute;n.
+     * Inserta la informacion de un producto  y redirecciona al listado de producto.
      *
      * @return void.
      */
@@ -153,77 +153,61 @@ class Administracion_solucionesController extends Administracion_mainController
 		if (Session::getInstance()->get('csrf')[$this->_getSanitizedParam("csrf_section")] == $csrf ) {	
 			$data = $this->getData();
 			$uploadImage =  new Core_Model_Upload_Image();
-			if($_FILES['solucion_imagen']['name'] != ''){
-				$data['solucion_imagen'] = $uploadImage->upload("solucion_imagen");
+			if($_FILES['producto_imagen']['name'] != ''){
+				$data['producto_imagen'] = $uploadImage->upload("producto_imagen");
 			}
-			$uploadDocument =  new Core_Model_Upload_Document();
-			if($_FILES['solucion_archivo']['name'] != ''){
-				$data['solucion_archivo'] = $uploadDocument->upload("solucion_archivo");
+
+			// referencia existe?
+			$producto = $this->mainModel->getList("producto_referencia = '".$data['producto_referencia']."'");
+			if($producto){
+				header('Location: '.$this->route.'/manage?error=1'.'');
+				exit();
 			}
 			$id = $this->mainModel->insert($data);
 			$this->mainModel->changeOrder($id,$id);
-			$data['solucion_id']= $id;
+			$data['producto_id']= $id;
 			$data['log_log'] = print_r($data,true);
-			$data['log_tipo'] = 'CREAR SOLUCI&OACUTE;N';
+			$data['log_tipo'] = 'CREAR PRODUCTO';
 			$logModel = new Administracion_Model_DbTable_Log();
 			$logModel->insert($data);
 		}
-		$padre = $this->_getSanitizedParam("solucion_padre");
-		header('Location: '.$this->route.'?padre='.$padre.'');
+		header('Location: '.$this->route.''.'');
 	}
 
 	/**
-     * Recibe un identificador  y Actualiza la informacion de un soluci&oacute;n  y redirecciona al listado de soluci&oacute;n.
+     * Recibe un identificador  y Actualiza la informacion de un producto  y redirecciona al listado de producto.
      *
      * @return void.
      */
 	public function updateAction(){
-		//error_reporting(E_ALL);	
 		$this->setLayout('blanco');
 		$csrf = $this->_getSanitizedParam("csrf");
 		if (Session::getInstance()->get('csrf')[$this->_getSanitizedParam("csrf_section")] == $csrf ) {
 			$id = $this->_getSanitizedParam("id");
 			$content = $this->mainModel->getById($id);
-			if ($content->solucion_id) {
+			if ($content->producto_id) {
 				$data = $this->getData();
 				$uploadImage =  new Core_Model_Upload_Image();
-				if($_FILES['solucion_imagen']['name'] != ''){
-					// print_r($_FILES);
-					
-
-					if($content->solucion_imagen){
-
-						$uploadImage->delete($content->solucion_imagen);
+				if($_FILES['producto_imagen']['name'] != ''){
+					if($content->producto_imagen){
+						$uploadImage->delete($content->producto_imagen);
 					}
-					
-					$data['solucion_imagen'] = $uploadImage->upload("solucion_imagen");
+					$data['producto_imagen'] = $uploadImage->upload("producto_imagen");
 				} else {
-
-					$data['solucion_imagen'] = $content->solucion_imagen;
+					$data['producto_imagen'] = $content->producto_imagen;
 				}
-				$uploadDocument =  new Core_Model_Upload_Document();
-				if($_FILES['solucion_archivo']['name'] != ''){
-					if($content->solucion_archivo){
-						$uploadDocument->delete($content->solucion_archivo);
-					}
-					$data['solucion_archivo'] = $uploadDocument->upload("solucion_archivo");
-				} else {
-					$data['solucion_archivo'] = $content->solucion_archivo;
-				}
-				// print_r($data);
 				$this->mainModel->update($data,$id);
 			}
-			$data['solucion_id']=$id;
+			$data['producto_id']=$id;
 			$data['log_log'] = print_r($data,true);
-			$data['log_tipo'] = 'EDITAR SOLUCI&OACUTE;N';
+			$data['log_tipo'] = 'EDITAR PRODUCTO';
 			$logModel = new Administracion_Model_DbTable_Log();
 			$logModel->insert($data);}
-		$padre = $this->_getSanitizedParam("solucion_padre");
-		header('Location: '.$this->route.'?padre='.$padre.'');
+		header('Location: '.$this->route.''.'');
 	}
 
 	/**
-     * Recibe un identificador  y elimina un soluci&oacute;n  y redirecciona al listado de soluci&oacute;n.
+     * Recibe un identificador  y elimina un producto  y redirecciona al listado de producto.
      *
      * @return void.
      */
@@ -237,44 +221,63 @@ class Administracion_solucionesController extends Administracion_mainController
 				$content = $this->mainModel->getById($id);
 				if (isset($content)) {
 					$uploadImage =  new Core_Model_Upload_Image();
-					if (isset($content->solucion_imagen) && $content->solucion_imagen != '') {
-						$uploadImage->delete($content->solucion_imagen);
-					}
-					$uploadDocument =  new Core_Model_Upload_Document();
-					if (isset($content->solucion_archivo) && $content->solucion_archivo != '') {
-						$uploadDocument->delete($content->solucion_archivo);
+					if (isset($content->producto_imagen) && $content->producto_imagen != '') {
+						$uploadImage->delete($content->producto_imagen);
 					}
 					$this->mainModel->deleteRegister($id);$data = (array)$content;
 					$data['log_log'] = print_r($data,true);
-					$data['log_tipo'] = 'BORRAR SOLUCI&OACUTE;N';
+					$data['log_tipo'] = 'BORRAR PRODUCTO';
 					$logModel = new Administracion_Model_DbTable_Log();
 					$logModel->insert($data); }
 			}
 		}
-		$padre = $this->_getSanitizedParam("padre");
-		header('Location: '.$this->route.'?padre='.$padre.'');
+		header('Location: '.$this->route.''.'');
 	}
 
 	/**
-     * Recibe la informacion del formulario y la retorna en forma de array para la edicion y creacion de Soluciones.
+     * Recibe la informacion del formulario y la retorna en forma de array para la edicion y creacion de Productos.
      *
      * @return array con toda la informacion recibida del formulario.
      */
 	private function getData()
 	{
 		$data = array();
-		$data['solucion_titulo'] = $this->_getSanitizedParam("solucion_titulo");
-		$data['solucion_categoria'] = $this->_getSanitizedParam("solucion_categoria");
-		$data['solucion_imagen'] = "";
-		$data['solucion_descripcion'] = $this->_getSanitizedParamHtml("solucion_descripcion");
-		$data['solucion_introduccion'] = $this->_getSanitizedParamHtml("solucion_introduccion");
-		$data['solucion_contenido'] = $this->_getSanitizedParamHtml("solucion_contenido");
-		$data['solucion_estado'] = $this->_getSanitizedParam("solucion_estado");
-		$data['solucion_padre'] = $this->_getSanitizedParamHtml("solucion_padre");
-		$data['solucion_archivo'] = "";
-		$data['solucion_tags'] = $this->_getSanitizedParam("solucion_tags");
+		$data['producto_estado'] = $this->_getSanitizedParam("producto_estado");
+		$data['producto_importante'] = $this->_getSanitizedParam("producto_importante");
+		$data['producto_nombre'] = $this->_getSanitizedParam("producto_nombre");
+		$data['producto_referencia'] = $this->_getSanitizedParam("producto_referencia");
+		if($this->_getSanitizedParam("producto_precio") == '' ) {
+			$data['producto_precio'] = '0';
+		} else {
+			$data['producto_precio'] = $this->_getSanitizedParam("producto_precio");
+		}
+		$data['producto_imagen'] = "";
+		if($this->_getSanitizedParam("producto_stock") == '' ) {
+			$data['producto_stock'] = '0';
+		} else {
+			$data['producto_stock'] = $this->_getSanitizedParam("producto_stock");
+		}
+		$data['producto_categoria'] = $this->_getSanitizedParam("producto_categoria");
+		$data['producto_descripcion'] = $this->_getSanitizedParamHtml("producto_descripcion");
 		return $data;
 	}
+
+	/**
+     * Genera los valores del campo categor&iacute;a.
+     *
+     * @return array cadena con los valores del campo categor&iacute;a.
+     */
+	private function getProductocategoria()
+	{
+		$modelData = new Administracion_Model_DbTable_Dependtiendacategorias();
+		$data = $modelData->getList();
+		$array = array();
+		foreach ($data as $key => $value) {
+			$array[$value->tienda_categoria_id] = $value->tienda_categoria_nombre;
+		}
+		return $array;
+	}
+
 	/**
      * Genera la consulta con los filtros de este controlador.
      *
@@ -283,21 +286,28 @@ class Administracion_solucionesController extends Administracion_mainController
     protected function getFilter()
     {
     	$filtros = " 1 = 1 ";
-		$padre= $this->_getSanitizedParam("padre");
-		$filtros = $filtros." AND solucion_padre = '$padre' ";
         if (Session::getInstance()->get($this->namefilter)!="") {
             $filters =(object)Session::getInstance()->get($this->namefilter);
-            if ($filters->solucion_titulo != '') {
-                $filtros = $filtros." AND solucion_titulo LIKE '%".$filters->solucion_titulo."%'";
+            if ($filters->producto_estado != '') {
+                $filtros = $filtros." AND producto_estado LIKE '%".$filters->producto_estado."%'";
             }
-            if ($filters->solucion_categoria != '') {
-                $filtros = $filtros." AND solucion_categoria LIKE '%".$filters->solucion_categoria."%'";
+            if ($filters->producto_nombre != '') {
+                $filtros = $filtros." AND producto_nombre LIKE '%".$filters->producto_nombre."%'";
             }
-            if ($filters->solucion_estado != '') {
-                $filtros = $filtros." AND solucion_estado LIKE '%".$filters->solucion_estado."%'";
+			if ($filters->producto_referencia != '') {
+				$filtros = $filtros." AND producto_referencia LIKE '%".$filters->producto_referencia."%'";
+			}
+            if ($filters->producto_precio != '') {
+                $filtros = $filtros." AND producto_precio LIKE '%".$filters->producto_precio."%'";
             }
-            if ($filters->solucion_padre != '') {
-                $filtros = $filtros." AND solucion_padre LIKE '%".$filters->solucion_padre."%'";
+            if ($filters->producto_imagen != '') {
+                $filtros = $filtros." AND producto_imagen LIKE '%".$filters->producto_imagen."%'";
+            }
+            if ($filters->producto_stock != '') {
+                $filtros = $filtros." AND producto_stock LIKE '%".$filters->producto_stock."%'";
+            }
+            if ($filters->producto_categoria != '') {
+                $filtros = $filtros." AND producto_categoria LIKE '%".$filters->producto_categoria."%'";
             }
 		}
         return $filtros;
@@ -313,10 +323,13 @@ class Administracion_solucionesController extends Administracion_mainController
         if ($this->getRequest()->isPost()== true) {
         	Session::getInstance()->set($this->namepageactual,1);
             $parramsfilter = array();
-					$parramsfilter['solucion_titulo'] =  $this->_getSanitizedParam("solucion_titulo");
-					$parramsfilter['solucion_categoria'] =  $this->_getSanitizedParam("solucion_categoria");
-					$parramsfilter['solucion_estado'] =  $this->_getSanitizedParam("solucion_estado");
-					$parramsfilter['solucion_padre'] =  $this->_getSanitizedParam("solucion_padre");Session::getInstance()->set($this->namefilter, $parramsfilter);
+					$parramsfilter['producto_estado'] =  $this->_getSanitizedParam("producto_estado");
+					$parramsfilter['producto_nombre'] =  $this->_getSanitizedParam("producto_nombre");
+					$parramsfilter['producto_referencia'] =  $this->_getSanitizedParam("producto_referencia");
+					$parramsfilter['producto_precio'] =  $this->_getSanitizedParam("producto_precio");
+					$parramsfilter['producto_imagen'] =  $this->_getSanitizedParam("producto_imagen");
+					$parramsfilter['producto_stock'] =  $this->_getSanitizedParam("producto_stock");
+					$parramsfilter['producto_categoria'] =  $this->_getSanitizedParam("producto_categoria");Session::getInstance()->set($this->namefilter, $parramsfilter);
         }
         if ($this->_getSanitizedParam("cleanfilter") == 1) {
             Session::getInstance()->set($this->namefilter, '');

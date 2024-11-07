@@ -3,7 +3,7 @@
     <div class="d-flex align-items-start">
         <div class="nav flex-column nav-pills me-3" id="v-pills-tab" role="tablist" aria-orientation="vertical">
             <button class="nav-link  " id="v-pills-home-tab" data-bs-toggle="pill" data-bs-target="#v-pills-home" type="button" role="tab" aria-controls="v-pills-home" aria-selected="true">Home</button>
-            <button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Profile</button>
+            <button class="nav-link active" id="v-pills-profile-tab" data-bs-toggle="pill" data-bs-target="#v-pills-profile" type="button" role="tab" aria-controls="v-pills-profile" aria-selected="false">Perfil</button>
             <button class="nav-link" id="v-pills-disabled-tab" data-bs-toggle="pill" data-bs-target="#v-pills-disabled" type="button" role="tab" aria-controls="v-pills-disabled" aria-selected="false" disabled>Disabled</button>
             <button class="nav-link" id="v-pills-messages-tab" data-bs-toggle="pill" data-bs-target="#v-pills-messages" type="button" role="tab" aria-controls="v-pills-messages" aria-selected="false">Messages</button>
             <button class="nav-link" id="v-pills-settings-tab" data-bs-toggle="pill" data-bs-target="#v-pills-settings" type="button" role="tab" aria-controls="v-pills-settings" aria-selected="false">Settings</button>
@@ -11,9 +11,14 @@
         <div class="tab-content w-100" id="v-pills-tabContent">
             <div class="tab-pane fade  " id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">...</div>
             <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
-                <?php print_r($this->usuario); ?>
-                <!-- stdClass Object ( [user_id] => 7 [user_date] => 2024-11-01 [user_names] => Juan Sebastán Sandoval Vargas [user_cedula] => 1100973339 [user_email] => juansesdvsf@gmail.com [user_telefono] => 3124624763 [user_level] => 2 [user_state] => 1 [user_user] => 1100973339 [user_password] => $2y$10$eEsFqweqmOL5egCTQVMS7eVVAZB6Rol1siVamzWkT8sQoi9om6Yxy [user_delete] => 0 [user_current_user] => 0 [user_code] => [user_codedate] => 0000-00-00 00:00:00 [user_empresa] => ) -->
-                <form action="" id="update-contact" class="form-contact">
+                <?php if($this->msg){?>
+                <div class="alert alert-success text-center">
+                    Se ha actualizado correctamente.
+                </div>
+                <?php } ?>
+               
+                <form action="/page/home/updateprofile" id="update-contact" class="form-contact">
+                    <input type="hidden" name="id" value="<?= $this->usuario->user_id ?>">
 
                     <div class="row ">
                         <div class="col-12 col-md-6 col-lg-4  mb-2 ">
@@ -45,21 +50,21 @@
                         </div>
                         <div class="col-12 col-md-6 col-lg-4  mb-2 ">
                             <label class="container-password">
-                                <input class="input" type="password" name="password" id="password"  autocomplete="new-password">
+                                <input class="input" type="password" name="password" id="password" autocomplete="new-password">
                                 <span>Contraseña</span>
                                 <button type="button" class="toggle-password" data-target="password"><i class="fa-solid fa-eye"></i></button>
                             </label>
                         </div>
                         <div class="col-12 col-md-6 col-lg-4  mb-2 ">
                             <label class="container-password">
-                                <input class="input" type="password" name="re-password" id="re-password"  autocomplete="new-password">
+                                <input class="input" type="password" name="re-password" id="re-password" autocomplete="new-password">
                                 <span>Repetir contraseña</span>
                                 <button type="button" class="toggle-password" data-target="re-password"><i class="fa-solid fa-eye"></i></button>
                             </label>
                         </div>
 
                         <div class="d-flex justify-content-center justify-content-md-center mt-4">
-                            <button class="btn-blue px-4 py-2 border-white" id="submit-create" >Enviar ahora</button>
+                            <button class="btn-blue px-4 py-2 border-white" id="submit-create">Actualizar</button>
                         </div>
 
                     </div>
@@ -111,7 +116,6 @@
             const alertContrasenia2 = document.getElementById("alert-contrasenia2");
             const submitBtn = document.getElementById("submit-create");
 
-
             passwordInput.addEventListener("keyup", function() {
                 validarClave(passwordInput.value);
                 compararClaves();
@@ -127,16 +131,24 @@
                 const clave = passwordInput.value;
                 const clave2 = rePasswordInput.value;
 
+                if (clave === "" && clave2 === "") {
+                    alertContrasenia2.style.display = "none";
+                    return;
+                }
+
                 if (clave === clave2) {
                     alertContrasenia2.style.display = "none";
-
                 } else {
                     alertContrasenia2.style.display = "block";
-
                 }
             }
 
             function validarClave(contrasenna) {
+                if (contrasenna === "") {
+                    alertContrasenia.style.display = "none";
+                    return;
+                }
+
                 const lengthRequirement = document.getElementById("length");
                 const lowercaseRequirement = document.getElementById("lowercase");
                 const uppercaseRequirement = document.getElementById("uppercase");
@@ -161,10 +173,8 @@
 
                 if (hasLength && hasLowercase && hasUppercase && hasNumber) {
                     alertContrasenia.style.display = "none";
-
                 } else {
                     alertContrasenia.style.display = "block";
-
                 }
             }
 
@@ -176,9 +186,9 @@
                     document.querySelector("#number").classList.contains("valid");
                 const passwordsMatch = passwordInput.value === rePasswordInput.value;
 
-                submitBtn.disabled = !(isValidPassword && passwordsMatch);
+                // Enable submit button if both fields are empty or if they are valid and match
+                submitBtn.disabled = !(isValidPassword && passwordsMatch) && (passwordInput.value !== "" || rePasswordInput.value !== "");
             }
-
 
 
         });

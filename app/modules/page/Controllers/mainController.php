@@ -14,9 +14,14 @@ class Page_mainController extends Controllers_Abstract
 		$this->setLayout('page_page');
 		$this->_view->botonactivo = $this->botonactivo;
 		$this->_view->solucionId = $this->solucionId;
+		$this->_view->categoriaHeader = $this->categoriaHeader;
 
 		$this->template = new Page_Model_Template_Template($this->_view);
 		$infopageModel = new Page_Model_DbTable_Informacion();
+		$categoriasModel = new Administracion_Model_DbTable_Tiendacategorias();
+		$this->_view->categoriasHeader = $categoriasModel->getList("tienda_categoria_estado='1'", "orden ASC");
+
+
 
 		$informacion = $infopageModel->getById(1);
 		$this->_view->infopage = $informacion;
@@ -26,8 +31,9 @@ class Page_mainController extends Controllers_Abstract
 
 		$usuario = Session::getInstance()->get("usuario");
 		$this->_view->usuario = $usuario;
-		
+		$this->_view->carrito = $this->_view->getRoutPHP('modules/page/Views/carrito/index.php');
 
+		// $this->getcartlist();
 		$this->getLayout()->setData("meta_description", "$informacion->info_pagina_descripcion");
 		$this->getLayout()->setData("meta_keywords", "$informacion->info_pagina_tags");
 		$this->getLayout()->setData("scripts", "$informacion->info_pagina_scripts");
@@ -43,6 +49,8 @@ class Page_mainController extends Controllers_Abstract
 		$this->getLayout()->setData("footer", $footer);
 		$adicionales = $this->_view->getRoutPHP('modules/page/Views/partials/adicionales.php');
 		$this->getLayout()->setData("adicionales", $adicionales);
+		$carrito = $this->_view->getRoutPHP('modules/page/Views/partials/carrito.php');
+		$this->getLayout()->setData("carrito", $carrito);
 		$this->usuario();
 	}
 
@@ -73,5 +81,170 @@ class Page_mainController extends Controllers_Abstract
 		$array = array_column($data, 'solucion_categoria', 'solucion_id');
 
 		return $array;
+	}
+
+	public function getCarrito()
+	{
+		if (Session::getInstance()->get("carrito")) {
+			return Session::getInstance()->get("carrito");
+		} else {
+			return [];
+		}
+	}
+	public function getcartAction()
+	{
+
+		$this->setLayout("blanco");
+
+
+		$productoModel =  new Administracion_Model_DbTable_Productos();
+		$carrito = $this->getCarrito();
+
+
+		$data = [];
+		foreach ($carrito as $id => $cantidad) {
+			$data[$id] = [];
+			$data[$id]['detalle'] = $productoModel->getById($id);
+			$data[$id]['cantidad'] = (int)$cantidad;
+		}
+		// print_r($data);
+		$this->_view->carrito = $data;
+		echo json_encode($data);
+	}
+	public function getcartlist()
+	{
+
+
+
+		$productoModel =  new Administracion_Model_DbTable_Productos();
+		$carrito = $this->getCarrito();
+
+
+		$data = [];
+		foreach ($carrito as $id => $cantidad) {
+			$data[$id] = [];
+			$data[$id]['detalle'] = $productoModel->getById($id);
+			$data[$id]['cantidad'] = (int)$cantidad;
+		}
+		// print_r($data);
+		$this->_view->carrito = $data;
+	}
+
+	public function additemAction()
+	{
+		$this->setLayout("blanco");
+
+
+		// Recibir y decodificar el JSON desde la solicitud
+		$data = json_decode(file_get_contents("php://input"), true);
+		$productId = $data['productId'];
+		$quantity = $data['quantity'];
+
+		// Obtener el carrito actual desde la sesión
+		$carrito = $this->getCarrito();
+
+		// Actualizar la cantidad en el carrito
+		if (isset($carrito[$productId])) {
+			$carrito[$productId] += $quantity;
+		} else {
+			$carrito[$productId] = $quantity;
+		}
+		//  print_r($carrito);
+
+		// Guardar el carrito actualizado en la sesión
+		Session::getInstance()->set("carrito", $carrito);
+
+		// Devolver una respuesta JSON para confirmar
+		echo json_encode([
+			"icon" => "success",
+			"text" => "Producto añadido al carrito",
+			"carrito" => $carrito
+		]);
+	}
+	public function additemcartAction()
+	{
+		$this->setLayout("blanco");
+
+
+		// Recibir y decodificar el JSON desde la solicitud
+		$data = json_decode(file_get_contents("php://input"), true);
+		$productId = $data['productId'];
+		$quantity = $data['quantity'];
+
+		// Obtener el carrito actual desde la sesión
+		$carrito = $this->getCarrito();
+		if ($productId && $quantity) {
+			// Actualizar la cantidad en el carrito
+			if (isset($carrito[$productId])) {
+				$carrito[$productId] = $quantity;
+			} else {
+				$carrito[$productId] = $quantity;
+			}
+			//  print_r($carrito);
+
+			// Guardar el carrito actualizado en la sesión
+			Session::getInstance()->set("carrito", $carrito);
+
+			// Devolver una respuesta JSON para confirmar
+			echo json_encode([
+				"icon" => "success",
+				"text" => "Carrito Actualizado",
+				"carrito" => $carrito
+			]);
+		} else {
+			echo json_encode([
+				"icon" => "error",
+				"text" => "Error al actualizar el carrito",
+				"carrito" => $carrito
+			]);
+		}
+	}
+
+	public function deleteitemAction()
+	{
+		$this->setLayout("blanco");
+
+		// Recibir y decodificar el JSON desde la solicitud
+		$data = json_decode(file_get_contents("php://input"), true);
+		$productId = $data['id'] ?? null;
+
+		if ($productId !== null) {
+			// Obtener el carrito actual desde la sesión
+			$carrito = $this->getCarrito();
+
+			// Eliminar el producto del carrito si existe
+			if (isset($carrito[$productId])) {
+				unset($carrito[$productId]);
+			}
+
+			// Guardar el carrito actualizado en la sesión
+			Session::getInstance()->set("carrito", $carrito);
+
+			// Devolver una respuesta JSON para confirmar
+			echo json_encode([
+				"icon" => "success",
+				"text" => "Producto eliminado del carrito",
+				"carrito" => $carrito
+			]);
+		} else {
+			// Manejar el caso donde `productId` no se proporciona correctamente
+			echo json_encode([
+				"icon" => "error",
+				"text" => "ID del producto no válido"
+			]);
+		}
+	}
+
+
+	public function changecantidadAction()
+	{
+		$this->setLayout("blanco");
+		$id = $this->_getSanitizedParam("producto");
+		$cantidad =  $this->_getSanitizedParam("cantidad");
+		$carrito = $this->getCarrito();
+		if ($carrito[$id]) {
+			$carrito[$id] = $cantidad;
+		}
+		Session::getInstance()->set("carrito", $carrito);
 	}
 }

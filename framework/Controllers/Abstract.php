@@ -33,11 +33,10 @@ abstract class Controllers_Abstract
   protected function _getSanitizedParam($name, $value = null)
   {
     $currentValue = $this->getRequest()->_getParam($name, $value);
-    $currentValue = addslashes($currentValue);
-    $currentValue = strip_tags($currentValue);
-    $currentValue = trim($currentValue);
-    $currentValue = htmlentities($currentValue);
-    $currentValue = mysqli_real_escape_string(App::getDbConnection()->getConnection(), $currentValue);
+    $currentValue = strip_tags($currentValue); // Elimina etiquetas HTML
+    $currentValue = trim($currentValue); // Elimina espacios en blanco al inicio y al final
+    $currentValue = mysqli_real_escape_string(App::getDbConnection()->getConnection(), $currentValue); // Escapa para SQL
+
     $patterns = [
       "/(union.*select.*)/i",
       "/(select.*from.*)/i",

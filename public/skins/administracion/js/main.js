@@ -77,7 +77,9 @@ $(document).ready(function () {
           "</div>" +
           '<div class="col-12">' +
           "</div>" +
-          "</div>",
+          "</div>" +
+
+          "-",
       },
 
       {
@@ -106,7 +108,8 @@ $(document).ready(function () {
           "</div>" +
           '<div class="col-12">' +
           "</div>" +
-          "</div>",
+          "</div>" +
+          "-",
       },
      
     ],

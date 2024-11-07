@@ -1,29 +1,15 @@
 <h1 class="titulo-principal"><i class="fas fa-cogs"></i> <?php echo $this->titlesection; ?></h1>
 <div class="container-fluid">
-	<form action="<?php echo $this->route . "?foto_album=" . $this->foto_album . "" . "&foto_solucion=" . $this->foto_solucion . "" . "&foto_producto=" . $this->foto_producto . ""; ?>" method="post">
+	<form action="<?php echo $this->route; ?>" method="post">
 		<div class="content-dashboard">
-			<?php if ($this->foto_solucion) { ?>
-				<div class="row mb-2">
-					<div class="col-1">
-						<a href="/administracion/soluciones/?padre=<?= $this->solucion->solucion_padre ?>" class="btn btn-outline-success d-flex justify-content-center align-items-center gap-2"><i class="fa-solid fa-circle-arrow-left"></i> Volver</a>
-					</div>
-				</div>
-			<?php } ?>
-			<?php if ($this->foto_producto) { ?>
-				<div class="row mb-2">
-					<div class="col-1">
-						<a href="/administracion/productos" class="btn btn-outline-success d-flex justify-content-center align-items-center gap-2"><i class="fa-solid fa-circle-arrow-left"></i> Volver</a>
-					</div>
-				</div>
-			<?php } ?>
 			<div class="row">
 				<div class="col-3">
-					<label>Activa (Si, No)</label>
+					<label>Activo (Si, No)</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" class="form-control" name="foto_estado" value="<?php echo $this->getObjectVariable($this->filters, 'foto_estado') ?>"></input>
+						<input type="text" class="form-control" name="producto_estado" value="<?php echo $this->getObjectVariable($this->filters, 'producto_estado') ?>"></input>
 					</label>
 				</div>
 				<div class="col-3">
@@ -32,43 +18,59 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" class="form-control" name="foto_nombre" value="<?php echo $this->getObjectVariable($this->filters, 'foto_nombre') ?>"></input>
+						<input type="text" class="form-control" name="producto_nombre" value="<?php echo $this->getObjectVariable($this->filters, 'producto_nombre') ?>"></input>
 					</label>
 				</div>
 				<div class="col-3">
-					<label>foto</label>
+					<label>Referencia</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" class="form-control" name="foto_foto" value="<?php echo $this->getObjectVariable($this->filters, 'foto_foto') ?>"></input>
+						<input type="text" class="form-control" name="producto_referencia" value="<?php echo $this->getObjectVariable($this->filters, 'producto_referencia') ?>"></input>
 					</label>
 				</div>
 				<div class="col-3">
-					<label>foto_album</label>
+					<label>precio</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" class="form-control" name="foto_album" value="<?php echo $this->getObjectVariable($this->filters, 'foto_album') ?>"></input>
+						<input type="text" class="form-control" name="producto_precio" value="<?php echo $this->getObjectVariable($this->filters, 'producto_precio') ?>"></input>
 					</label>
 				</div>
 				<div class="col-3">
-					<label>foto_solucion</label>
+					<label>imagen</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" class="form-control" name="foto_solucion" value="<?php echo $this->getObjectVariable($this->filters, 'foto_solucion') ?>"></input>
+						<input type="text" class="form-control" name="producto_imagen" value="<?php echo $this->getObjectVariable($this->filters, 'producto_imagen') ?>"></input>
 					</label>
 				</div>
 				<div class="col-3">
-					<label>foto_producto</label>
+					<label>stock</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" class="form-control" name="foto_producto" value="<?php echo $this->getObjectVariable($this->filters, 'foto_producto') ?>"></input>
+						<input type="text" class="form-control" name="producto_stock" value="<?php echo $this->getObjectVariable($this->filters, 'producto_stock') ?>"></input>
+					</label>
+				</div>
+				<div class="col-3">
+					<label>categor&iacute;a</label>
+					<label class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text input-icono "><i class="far fa-list-alt"></i></span>
+						</div>
+						<select class="form-control" name="producto_categoria">
+							<option value="">Todas</option>
+							<?php foreach ($this->list_producto_categoria as $key => $value) : ?>
+								<option value="<?= $key; ?>" <?php if ($this->getObjectVariable($this->filters, 'producto_categoria') ==  $key) {
+																	echo "selected";
+																} ?>><?= $value; ?></option>
+							<?php endforeach ?>
+						</select>
 					</label>
 				</div>
 				<div class="col-3">
@@ -88,15 +90,15 @@
 			$url = $this->route;
 			if ($this->totalpages > 1) {
 				if ($this->page != 1)
-					echo '<li class="page-item" ><a class="page-link"  href="' . $url . '?page=' . ($this->page - 1) . '&foto_album=' . $this->foto_album . '&foto_solucion=' . $this->foto_solucion . '&foto_producto=' . $this->foto_producto . '"> &laquo; Anterior </a></li>';
+					echo '<li class="page-item" ><a class="page-link"  href="' . $url . '?page=' . ($this->page - 1) . '"> &laquo; Anterior </a></li>';
 				for ($i = 1; $i <= $this->totalpages; $i++) {
 					if ($this->page == $i)
 						echo '<li class="active page-item"><a class="page-link">' . $this->page . '</a></li>';
 					else
-						echo '<li class="page-item"><a class="page-link" href="' . $url . '?page=' . $i . '&foto_album=' . $this->foto_album . '&foto_solucion=' . $this->foto_solucion . '&foto_producto=' . $this->foto_producto . '">' . $i . '</a></li>  ';
+						echo '<li class="page-item"><a class="page-link" href="' . $url . '?page=' . $i . '">' . $i . '</a></li>  ';
 				}
 				if ($this->page != $this->totalpages)
-					echo '<li class="page-item"><a class="page-link" href="' . $url . '?page=' . ($this->page + 1) . '&foto_album=' . $this->foto_album . '&foto_solucion=' . $this->foto_solucion . '&foto_producto=' . $this->foto_producto . '">Siguiente &raquo;</a></li>';
+					echo '<li class="page-item"><a class="page-link" href="' . $url . '?page=' . ($this->page + 1) . '">Siguiente &raquo;</a></li>';
 			}
 			?>
 		</ul>
@@ -127,7 +129,7 @@
 					</select>
 				</div>
 				<div class="col-3">
-					<div class="text-end"><a class="btn btn-sm btn-success" href="<?php echo $this->route . "\manage" . "?foto_album=" . $this->foto_album . "" . "&foto_solucion=" . $this->foto_solucion . "" . "&foto_producto=" . $this->foto_producto . ""; ?>"> <i class="fas fa-plus-square"></i> Crear Nuevo</a></div>
+					<div class="text-end"><a class="btn btn-sm btn-success" href="<?php echo $this->route . "\manage"; ?>"> <i class="fas fa-plus-square"></i> Crear Nuevo</a></div>
 				</div>
 			</div>
 		</div>
@@ -135,47 +137,33 @@
 			<table class=" table table-striped  table-hover table-administrator text-left">
 				<thead>
 					<tr>
-						<td>Activa (Si, No)</td>
+						<td>Activo (Si, No)</td>
 						<td>nombre</td>
-						<td>foto</td>
-						<?php if ($this->foto_album) { ?>
-							<td>album</td>
-						<?php } ?>
-						<?php if ($this->foto_solucion) { ?>
-							<td>solucion</td>
-						<?php } ?>
-						<?php if ($this->foto_producto) { ?>
-							<td>producto</td>
-						<?php } ?>
-
+						<td>referencia</td>
+						<td>precio</td>
+						<td>imagen</td>
+						<td>stock</td>
+						<td>categor&iacute;a</td>
 						<td width="100">Orden</td>
-						<td width="100"></td>
+						<td width="250"></td>
 					</tr>
 				</thead>
 				<tbody>
 					<?php foreach ($this->lists as $content) { ?>
-						<?php $id =  $content->foto_id; ?>
+						<?php $id =  $content->producto_id; ?>
 						<tr>
-							<td><?= $content->foto_estado; ?></td>
-							<td><?= $content->foto_nombre; ?></td>
+							<td><?= $content->producto_estado == 1 ? 'Si' : 'No'; ?></td>
+							<td><?= $content->producto_nombre; ?></td>
+							<td><?= $content->producto_referencia; ?></td>
+							<td><?= $content->producto_precio; ?></td>
 							<td>
-								<?php if ($content->foto_foto) { ?>
-									<img src="/images/<?= $content->foto_foto; ?>" class="img-thumbnail thumbnail-administrator" />
+								<?php if ($content->producto_imagen) { ?>
+									<img src="/images/<?= $content->producto_imagen; ?>" class="img-thumbnail thumbnail-administrator" />
 								<?php } ?>
-								<div><?= $content->foto_foto; ?></div>
+								<div><?= $content->producto_imagen; ?></div>
 							</td>
-							<?php if ($this->foto_album) { ?>
-								<td><?= $content->foto_album; ?></td>
-							<?php } ?>
-							<?php if ($this->foto_solucion) { ?>
-								<td><?= $content->foto_solucion; ?></td>
-							<?php } ?>
-							<?php if ($this->foto_producto) { ?>
-								<td><?= $this->productos_list[$content->foto_producto]; ?></td>
-							<?php } ?>
-
-
-
+							<td><?= $content->producto_stock; ?></td>
+							<td><?= $this->list_producto_categoria[$content->producto_categoria]; ?>
 							<td>
 								<input type="hidden" id="<?= $id; ?>" value="<?= $content->orden; ?>"></input>
 								<button class="up_table btn btn-primary btn-sm"><i class="fas fa-angle-up"></i></button>
@@ -183,7 +171,16 @@
 							</td>
 							<td class="text-end">
 								<div>
+									
+									<a class="btn btn-warning btn-sm" href="/administracion/fotos/?foto_producto=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Imagenes"><i class="fa-regular fa-image"></i></a>
+									
+									
+									<a class="btn btn-verde btn-sm" href="/administracion/fotos/cargamasiva/?foto_producto=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Imagenes Carga Masiva"><i class="fa-regular fa-images"></i></a>
+									
 									<a class="btn btn-azul btn-sm" href="<?php echo $this->route; ?>/manage?id=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-pen-alt"></i></a>
+
+
+
 									<span data-bs-toggle="tooltip" data-placement="top" title="Eliminar"><a class="btn btn-rojo btn-sm" data-bs-toggle="modal" data-bs-target="#modal<?= $id ?>"><i class="fas fa-trash-alt"></i></a></span>
 								</div>
 								<!-- Modal -->
@@ -199,7 +196,7 @@
 											</div>
 											<div class="modal-footer">
 												<button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
-												<a class="btn btn-danger" href="<?php echo $this->route; ?>/delete?id=<?= $id ?>&csrf=<?= $this->csrf; ?><?php echo '' . '&foto_album=' . $this->foto_album . '&foto_solucion=' . $this->foto_solucion . '&foto_producto=' . $this->foto_producto; ?>">Eliminar</a>
+												<a class="btn btn-danger" href="<?php echo $this->route; ?>/delete?id=<?= $id ?>&csrf=<?= $this->csrf; ?><?php echo ''; ?>">Eliminar</a>
 											</div>
 										</div>
 									</div>
@@ -218,15 +215,15 @@
 			$url = $this->route;
 			if ($this->totalpages > 1) {
 				if ($this->page != 1)
-					echo '<li class="page-item"><a class="page-link" href="' . $url . '?page=' . ($this->page - 1) . '&foto_album=' . $this->foto_album . '&foto_solucion=' . $this->foto_solucion . '&foto_producto=' . $this->foto_producto . '"> &laquo; Anterior </a></li>';
+					echo '<li class="page-item"><a class="page-link" href="' . $url . '?page=' . ($this->page - 1) . '"> &laquo; Anterior </a></li>';
 				for ($i = 1; $i <= $this->totalpages; $i++) {
 					if ($this->page == $i)
 						echo '<li class="active page-item"><a class="page-link">' . $this->page . '</a></li>';
 					else
-						echo '<li class="page-item"><a class="page-link" href="' . $url . '?page=' . $i . '&foto_album=' . $this->foto_album . '&foto_solucion=' . $this->foto_solucion . '&foto_producto=' . $this->foto_producto . '">' . $i . '</a></li>  ';
+						echo '<li class="page-item"><a class="page-link" href="' . $url . '?page=' . $i . '">' . $i . '</a></li>  ';
 				}
 				if ($this->page != $this->totalpages)
-					echo '<li class="page-item"><a class="page-link" href="' . $url . '?page=' . ($this->page + 1) . '&foto_album=' . $this->foto_album . '&foto_solucion=' . $this->foto_solucion . '&foto_producto=' . $this->foto_producto . '">Siguiente &raquo;</a></li>';
+					echo '<li class="page-item"><a class="page-link" href="' . $url . '?page=' . ($this->page + 1) . '">Siguiente &raquo;</a></li>';
 			}
 			?>
 		</ul>

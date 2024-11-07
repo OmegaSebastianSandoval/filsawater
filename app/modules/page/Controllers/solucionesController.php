@@ -29,9 +29,9 @@ class Page_solucionesController extends Page_mainController
     $order = "orden ASC";
 
     // Construir filtros basados en si existe o no un 'tag'
-    $filters = "solucion_estado = 1";
+    $filters = "solucion_estado = 1 AND solucion_padre =''";
     if ($tag) {
-      $filters = "solucion_estado = 1 AND tags LIKE '%$tag%'";
+      $filters = "solucion_estado = 1  AND solucion_padre ='' AND tags LIKE '%$tag%'";
       $this->_view->tag = $tag;
     }
     // Obtener la lista completa de  según los filtros y el orden

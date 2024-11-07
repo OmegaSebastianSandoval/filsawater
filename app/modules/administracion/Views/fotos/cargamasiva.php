@@ -5,8 +5,17 @@
 
     <?php if ($this->foto_solucion) { ?>
         <div class="row mb-2 justify-content-end">
-            <div class="col-1">
+            <div class="col-3">
                 <a href="/administracion/soluciones/?padre=<?= $this->solucion->solucion_padre ?>" class="btn btn-outline-success d-flex justify-content-center align-items-center gap-2"><i class="fa-solid fa-circle-arrow-left"></i> Volver</a>
+            </div>
+        </div>
+    <?php } ?>
+
+    
+    <?php if ($this->foto_producto) { ?>
+        <div class="row mb-2 justify-content-end">
+            <div class="col-3">
+                <a href="/administracion/productos" class="btn btn-outline-success d-flex justify-content-center align-items-center gap-2"><i class="fa-solid fa-circle-arrow-left"></i> Volver</a>
             </div>
         </div>
     <?php } ?>
@@ -28,7 +37,13 @@
         autoProcessQueue: true,
         parallelUploads: 1,
         params: {
-            foto_solucion: <?= $this->foto_solucion ?>
+            <?php if ($this->foto_solucion) { ?>
+                foto_solucion: <?= $this->foto_solucion ?>
+            <?php } ?>
+
+            <?php if ($this->foto_producto) { ?>
+                foto_producto: <?= $this->foto_producto ?>
+            <?php } ?>
         },
 
 

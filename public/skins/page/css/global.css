@@ -64,7 +64,10 @@
 
 body {
   width: 100%;
-  overflow-x: hidden;
+  overflow: auto !important;
+  overflow-x: hidden !important;
+  padding: 0 !important;
+  padding-right: 0 !important;
   /* height: 100dvh; */
 
 }
@@ -418,6 +421,10 @@ header .dropdown-item:active {
   background-color: var(--azulclaro2);
 }
 
+
+header .content-carrito {
+  cursor: pointer;
+}
 
 /* --------------------------
 HEADER FIN
@@ -1794,6 +1801,7 @@ ______________________________ */
   overflow: hidden;
   text-overflow: ellipsis;
   font-size: 13px;
+  text-transform: uppercase;
 }
 
 .content-important-solucion .content-info-important .date-important {
@@ -1901,6 +1909,11 @@ ______________________________ */
  SOLUCIONES FIN
 ______________________________ */
 
+
+
+/*------------------------------
+LOGIN FORMULARIOS INICIO
+______________________________ */
 .container-form-login {
   background-color: var(--azul);
 }
@@ -1996,7 +2009,7 @@ ______________________________ */
 }
 
 
-.container-profile   .container-password button {
+.container-profile .container-password button {
 
   position: absolute;
   right: 10px;
@@ -2005,19 +2018,356 @@ ______________________________ */
   border: 0;
 }
 
-.container-profile   .container-password button i {
+.container-profile .container-password button i {
   color: var(--azulclaro2);
 }
 
-.container-profile   .form-contact label .input {
+.container-profile .form-contact label .input {
   padding: 14px 05px 05px 10px;
 }
 
-.container-profile   .form-contact label .input+span {
+.container-profile .form-contact label .input+span {
   top: 12px;
 }
 
-.container-profile   .form-contact label .input:focus+span,
-.container-profile   .form-contact label .input:valid+span {
+.container-profile .form-contact label .input:focus+span,
+.container-profile .form-contact label .input:valid+span {
   top: 0;
 }
+
+.container-profile .nav-link {
+  color: var(--azul);
+}
+
+.container-profile .nav-pills .nav-link.active,
+.container-profile .nav-pills .show>.nav-link {
+  background-color: var(--azulclaro2);
+}
+
+
+/*-------------------------------------------------------------------------------
+LOGIN FORMULARIOS INICIO
+______________________________------------------------------------------------------- */
+
+/*-------------------------------------------------------------------------------
+CATEGORIAS INICIO
+______________________________------------------------------------------------------- */
+.contenedor-categorias {}
+
+.contenedor-categorias h3.category-title {
+  text-align: center;
+  color: var(--azulclaro2);
+  margin-top: 15px;
+  font-size: 27px;
+
+}
+
+.contenedor-categorias .product-link {
+  text-decoration: none;
+  color: unset;
+}
+
+.contenedor-categorias .product-card {
+  position: relative;
+  overflow: hidden;
+
+
+}
+
+.product-card:hover .content-image-product img {
+  transform: scale(1.1);
+}
+
+
+.product-card .content-image-product {
+  position: relative;
+  overflow: hidden;
+  margin: 0;
+}
+
+.product-card .content-image-product img {
+  height: 300px;
+  background-color: var(--blanco);
+  object-fit: contain;
+  transition: transform 300ms ease-in-out;
+}
+
+.product-card .product-title {
+  color: var(--azul);
+  font-size: 14px;
+  /* font-weight: 600; */
+  margin: 0;
+  text-align: start;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 18px;
+}
+
+.product-card .product-reference {
+  color: var(--gris-medio);
+  font-size: 13px;
+  margin-bottom: 0;
+
+}
+
+.product-card .product-reference span {
+  font-weight: 600;
+
+}
+
+.product-card .product-price {
+  color: var(--gris-medio);
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0;
+  text-align: start;
+}
+
+.product-card .content-info-product {
+  padding: 15px 0;
+}
+
+.product-card .add-cart-content {
+  padding: 0;
+  position: absolute;
+  bottom: 10px;
+
+  right: -50px;
+  transition: right 300ms ease-in-out;
+}
+
+.product-card:hover .add-cart-content {
+  bottom: 10px;
+  right: 10px;
+  z-index: 99;
+
+}
+
+
+.product-card .add-cart-content .btn-add-cart {
+  padding: 15px;
+
+  background-color: transparent;
+  border: none;
+  width: 30px;
+  height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--azulclaro2);
+  font-size: 14px;
+  border: 1px solid var(--azulclaro2);
+
+  transition: all 300ms ease-in-out;
+  z-index: 99;
+
+}
+
+.product-card .add-cart-content .btn-add-cart:hover {
+  background-color: var(--azulclaro2);
+  color: var(--blanco);
+}
+
+
+/*-------------------------------------------------------------------------------
+CATEGORIAS FIN
+______________________________------------------------------------------------------- */
+
+/*-------------------------------------------------------------------------------
+PRODUCTOS DETALLE INICIO
+______________________________------------------------------------------------------- */
+.contenedor-detail-producto .breadcrumb-item a {
+  color: var(--azulclaro2);
+}
+
+.contenedor-detail-producto .contenedorfotos img {
+  background-color: var(--blanco);
+}
+
+.contenedor-detail-producto h2 {
+  text-align: start;
+  font-size: 1.2rem;
+}
+
+.contenedor-detail-producto h2::after {
+  margin: 5px;
+
+}
+
+.contenedor-detail-producto .price-product {
+  color: var(--gris-medio);
+  font-size: 24px;
+  margin: 0;
+  margin-top: 20px;
+}
+
+.contenedor-detail-producto .reference-producto {
+
+  font-size: 14px;
+  margin-top: 15px;
+  font-weight: 300;
+  color: var(--gris-medio);
+}
+
+.contenedor-detail-producto .reference-producto span {
+  color: var(--naranja);
+  font-size: 15px;
+
+}
+
+
+.in-stock {
+  color: var(--azulclaro2);
+}
+
+.not-stock {
+  color: var(--rojo);
+}
+
+.contenedor-detail-producto .category-producto {
+  font-size: 14px;
+  font-weight: 300;
+  color: var(--gris-medio);
+
+}
+
+.contenedor-detail-producto .category-producto a {
+  color: var(--azulclaro2);
+}
+
+.contenedor-detail-producto .disponibility-producto {
+  color: var(--gris-medio);
+  font-size: 14px;
+  margin: 0;
+  margin-top: 5px;
+}
+
+.contenedor-detail-producto .product-description {
+  margin-top: 30px;
+}
+
+
+.contenedor-detail-producto .product-description img {
+  max-width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.product-detail {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity-control {
+  display: flex;
+  align-items: center;
+  /* border: 1px solid #ddd; */
+  border-radius: 5px;
+}
+
+.quantity-control button {
+  width: 37px;
+  height: 37px;
+  font-size: 23px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  font-weight: 300;
+
+}
+
+.quantity-control .quantity {
+  width: 40px;
+  height: 35px;
+  text-align: end;
+  border: none;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+/*-------------------------------------------------------------------------------
+PRODUCTOS DETALLE FIN
+______________________________------------------------------------------------------- */
+
+
+/*-------------------------------------------------------------------------------
+CARRITO INICIO
+______________________________------------------------------------------------------- */
+
+.container-carrito {
+  background-color: var(--gris-claro);
+  border: none;
+}
+
+.container-carrito .offcanvas-title {
+  color: var(--gris-medio);
+  font-size: 25px;
+}
+
+.container-carrito ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.container-carrito a.enlace-cart {
+  font-size: 14px;
+  color: var(--azul);
+  text-decoration: none;
+  width: 100%;
+  transition: color 300ms ease;
+}
+.container-carrito a.enlace-cart:hover {
+  color: var(--azulclaro2);
+}
+.container-carrito .price-cart{
+  font-size: 13px;
+  color: var(--gris-medio);
+}
+
+.container-carrito img {
+  height: 110px;
+}
+
+
+.product-detail-cart {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.quantity-control-cart {
+  display: flex;
+  align-items: center;
+  /* border: 1px solid #ddd; */
+  border-radius: 5px;
+}
+
+.quantity-control-cart button {
+  width: 37px;
+  height: 37px;
+  font-size: 23px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  font-weight: 300;
+
+}
+
+.quantity-control-cart .quantity-cart {
+  width: 40px;
+  height: 35px;
+  text-align: end;
+  border: none;
+  font-size: 16px;
+  font-weight: 300;
+}
+
+
+/*-------------------------------------------------------------------------------
+CARRITO FIN
+______________________________------------------------------------------------------- */

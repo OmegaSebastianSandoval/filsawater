@@ -450,87 +450,299 @@ document.addEventListener("DOMContentLoaded", () => {
   /* --------------------- FORMULARIO RECUPERACION DE CLAVE---------------- */
   /* ------------------------------------------------------ */
   document
-  .getElementById("form-recuperarclave")
-  ?.addEventListener("submit", function (e) {
-    e.preventDefault();
+    .getElementById("form-recuperarclave")
+    ?.addEventListener("submit", function (e) {
+      e.preventDefault();
 
-    const response = grecaptcha.getResponse();
-    if (response.length === 0) {
-      Swal.fire({
-        icon: "warning",
-        text: "Por favor, verifica que no eres un robot.",
-        confirmButtonColor: "#5475a1",
-        confirmButtonText: "Continuar",
-      });
-    } else {
-      $(".loader-bx").addClass("show");
+      const response = grecaptcha.getResponse();
+      if (response.length === 0) {
+        Swal.fire({
+          icon: "warning",
+          text: "Por favor, verifica que no eres un robot.",
+          confirmButtonColor: "#5475a1",
+          confirmButtonText: "Continuar",
+        });
+      } else {
+        $(".loader-bx").addClass("show");
 
-      let submitBtn = document.getElementById("submit-recuperacion");
-      // Deshabilitar botón y mostrar animación
-      submitBtn.disabled = true;
+        let submitBtn = document.getElementById("submit-recuperacion");
+        // Deshabilitar botón y mostrar animación
+        submitBtn.disabled = true;
 
-      let formData = new FormData(this);
-      let data = {};
-      formData.forEach((value, key) => {
-        data[key] = value;
-      });
+        let formData = new FormData(this);
+        let data = {};
+        formData.forEach((value, key) => {
+          data[key] = value;
+        });
 
-      fetch(this.getAttribute("action"), {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify(data),
-      })
-        .then((response) => response.json())
-        .then((data2) => {
-          console.log(data2); // Verifica el valor exacto
+        fetch(this.getAttribute("action"), {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data2) => {
+            console.log(data2); // Verifica el valor exacto
 
-          if (data2.status.trim().toLowerCase() === "success") {
-            Swal.fire({
-              icon: "success",
-              text: data2.message,
-              confirmButtonColor: "#5475a1",
-              confirmButtonText: "Volver al inicio",
-            }).then(() => {
-              // Redirigir a otra página si es necesario
-              window.location.href = data2.redirect;
-            });
-          } else if (data2.status === "error") {
+            if (data2.status.trim().toLowerCase() === "success") {
+              Swal.fire({
+                icon: "success",
+                text: data2.message,
+                confirmButtonColor: "#5475a1",
+                confirmButtonText: "Volver al inicio",
+              }).then(() => {
+                // Redirigir a otra página si es necesario
+                window.location.href = data2.redirect;
+              });
+            } else if (data2.status === "error") {
+              Swal.fire({
+                icon: "error",
+                text: data2.message,
+                confirmButtonColor: "#5475a1",
+                confirmButtonText: "Continuar",
+              }).then((result) => {
+                if (data2.error == "Captcha incorrecto") {
+                  window.location.reload();
+                }
+              });
+            }
+            // document.getElementById("form-contact").reset();
+            // Habilitar botón y ocultar animación
+            submitBtn.disabled = false;
+            $(".loader-bx").removeClass("show");
+          })
+
+          .catch((error) => {
+            // console.log("Error:", error);
+
             Swal.fire({
               icon: "error",
-              text: data2.message,
+              text: "Ha ocurrido un error, por favor intenta de nuevo.",
               confirmButtonColor: "#5475a1",
               confirmButtonText: "Continuar",
-            }).then((result) => {
-              if (data2.error == "Captcha incorrecto") {
-                window.location.reload();
-              }
             });
-          }
-          // document.getElementById("form-contact").reset();
-          // Habilitar botón y ocultar animación
-          submitBtn.disabled = false;
-          $(".loader-bx").removeClass("show");
-        })
-
-        .catch((error) => {
-          // console.log("Error:", error);
-
-          Swal.fire({
-            icon: "error",
-            text: "Ha ocurrido un error, por favor intenta de nuevo.",
-            confirmButtonColor: "#5475a1",
-            confirmButtonText: "Continuar",
+            // Habilitar botón y ocultar animación
+            submitBtn.disabled = false;
+            $(".loader-bx").removeClass("show");
           });
-          // Habilitar botón y ocultar animación
-          submitBtn.disabled = false;
-          $(".loader-bx").removeClass("show");
-        });
-    }
-  });
+      }
+    });
   /* ------------------------------------------------------ */
   /* --------------------- FORMULARIO RECUPERACI /* ------------------------------------------------------ */
 
   /* ------------------------------------------------------ */
+
+  /* ------------------------------------------------------ */
+  /* --------------------- ADD TO CART---------------- */
+  /* ------------------------------------------------------ */
+  const addToCartButtons = document.querySelectorAll(".btn-add-cart");
+  addToCartButtons.forEach((button) => {
+    button.addEventListener("click", function (event) {
+      event.preventDefault();
+      const productId = this.getAttribute("data-id");
+      const quantityInput = document.querySelector(".quantity");
+
+      const quantity = quantityInput ? parseInt(quantityInput.value) : 1;
+      const product = {
+        productId,
+        quantity,
+      };
+      // Enviar el objeto `product` al controlador `additemAction`
+      fetch("/page/index/additem", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(product),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Error en la solicitud");
+          }
+          return response.json(); // Si esperas una respuesta en JSON
+        })
+        .then((data) => {
+          console.log(data);
+          resetQuantity();
+          alertaSwal(data);
+          getCart();
+          traercarrito();
+        })
+        .catch((error) => {
+          console.error("Error al añadir el producto:", error);
+        });
+    });
+  });
+
+  /* ------------------------------------------------------ */
+  /* --------------------- ADD TO CART FIN ---------------- */
+  /* ------------------------------------------------------ */
+
+  /* ------------------------------------------------------ */
+  /* --------------------- PLUS TO CART---------------- */
+  /* ------------------------------------------------------ */
+  const decreaseButton = document.querySelector(".btn-decrease");
+  const increaseButton = document.querySelector(".btn-increase");
+  const quantityInput = document.querySelector(".quantity");
+
+  // Evento para disminuir la cantidad
+  decreaseButton?.addEventListener("click", () => {
+    let quantity = parseInt(quantityInput.value);
+    if (quantity > 1) {
+      quantityInput.value = quantity - 1;
+    }
+  });
+
+  // Evento para aumentar la cantidad
+  increaseButton?.addEventListener("click", () => {
+    let quantity = parseInt(quantityInput.value);
+    let maxQuantity = parseInt(quantityInput.getAttribute("max"));
+    if (quantity < maxQuantity) {
+      quantityInput.value = quantity + 1;
+    }
+  });
 });
+
+/* ------------------------------------------------------ */
+/* --------------------- DELETE TO CART---------------- */
+/* ------------------------------------------------------ */
+function eliminarProducto(id) {
+  Swal.fire({
+    title: "¿Estás seguro?",
+    text: "Este producto será eliminado de tu carrito.",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#5475a1",
+    confirmButtonText: "Sí, eliminar",
+    cancelButtonText: "Cancelar",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      console.log("Eliminar producto con id:", id);
+
+      fetch("/page/index/deleteitem", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ id }),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Error en la solicitud");
+          }
+          return response.json(); // Si esperas una respuesta en JSON
+        })
+        .then((data) => {
+          console.log(data);
+          alertaSwal(data);
+          getCart();
+          traercarrito();
+        })
+        .catch((error) => {
+          console.error("Error al eliminar el producto:", error);
+        });
+    }
+  });
+}
+
+function resetQuantity() {
+  const quantityInput = document.querySelector(".quantity");
+  if (quantityInput) {
+    quantityInput.value = 1;
+  }
+}
+
+function alertaSwal(res) {
+  Swal.fire({
+    icon: res.icon,
+    text: res.text,
+    confirmButtonColor: "#5475a1",
+    confirmButtonText: "Continuar",
+  });
+}
+function traercarrito() {
+  fetch("/page/carrito", {
+    method: "GET",
+    headers: {
+      "Content-Type": "text/html",
+    },
+  })
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Error en la solicitud");
+      }
+      return response.text(); // Procesa la respuesta como texto HTML
+    })
+    .then((html) => {
+      const contenedorCarrito = document.getElementById("micarrito");
+      contenedorCarrito.innerHTML = html; // Inserta el HTML en el contenedor
+      initQuantityButtons();
+    })
+    .catch((error) => {
+      console.error("Error al obtener el carrito:", error);
+    });
+}
+
+traercarrito();
+
+/* ------------------------------------------------------ */
+/* --------------------- PLUS AND DELETE FROM CART---------------- */
+/* ------------------------------------------------------ */
+function initQuantityButtons() {
+  document.querySelectorAll(".product-detail-cart").forEach((cartItem) => {
+    const decreaseBtn = cartItem.querySelector(".btn-decrease-cart");
+    const increaseBtn = cartItem.querySelector(".btn-increase-cart");
+    const quantityInput = cartItem.querySelector(".quantity-cart");
+    const maxStock = parseInt(quantityInput.getAttribute("max"), 10);
+    const productId = cartItem.getAttribute("data-id");
+
+    // Define updateQuantity dentro de initQuantityButtons para que tenga acceso a las variables locales
+    const updateQuantity = (isIncrease) => {
+      let currentValue = parseInt(quantityInput.value, 10);
+      if (isIncrease && currentValue < maxStock) {
+        quantityInput.value = currentValue + 1;
+      } else if (!isIncrease && currentValue > 1) {
+        quantityInput.value = currentValue - 1;
+      }
+
+      // Enviar los datos actualizados al servidor
+      const product = {
+        productId,
+        quantity: parseInt(quantityInput.value, 10),
+      };
+
+      fetch("/page/index/additemcart", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(product),
+      })
+        .then((response) => {
+          if (!response.ok) {
+            throw new Error("Error en la solicitud");
+          }
+          return response.json();
+        })
+        .then((data) => {
+          console.log(data);
+          alertaSwal(data); // Llama a tu función de alerta personalizada
+          getCart(); // Actualiza el carrito en la UI, si tienes esta función definida
+          traercarrito();
+
+        })
+        .catch((error) => {
+          console.error("Error al actualizar la cantidad del producto:", error);
+        });
+    };
+
+    // Asocia los eventos de click a los botones de incremento/decremento
+    decreaseBtn.addEventListener("click", () => updateQuantity(false));
+    increaseBtn.addEventListener("click", () => updateQuantity(true));
+  });
+}
+
+// Llama a initQuantityButtons al cargar la página
+document.addEventListener("DOMContentLoaded", initQuantityButtons);

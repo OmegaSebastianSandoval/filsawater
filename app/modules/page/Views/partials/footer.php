@@ -111,7 +111,11 @@
         </div>
         <div class="col-12">
             <hr>
-            <span class="text-center d-block">Todos los derechos reservados</span>
+            <span class="text-center d-block">
+                &copy;Todos los Derechos Reservados Filsa <?php echo date('Y'); ?> - Diseñado por <a href="https://omegasolucionesweb.com" target="_blank" class="link-light link-offset-2 link-underline-opacity-25 link-underline-opacity-50-hover">
+                    Omega Soluciones Web
+                </a>
+            </span>
         </div>
 
     </div>

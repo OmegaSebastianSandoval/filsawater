@@ -123,6 +123,7 @@
     <?= $this->_data['footer']; ?>
   </footer>
   <?= $this->_data['adicionales']; ?>
+  <?= $this->_data['carrito']; ?>
 
 </body>
 

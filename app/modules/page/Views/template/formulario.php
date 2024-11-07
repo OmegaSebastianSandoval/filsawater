@@ -2,7 +2,7 @@
     <div class="container">
         <div class="row py-1 py-md-5 g-0 justify-content-between">
             <div class="col-12 col-sm-6 content-description-form">
-                <h2>Contáctanos</h2>
+                <h2>Contáctenos</h2>
                 <?php echo $this->infopage->info_pagina_informacion_contacto ?>
 
             </div>

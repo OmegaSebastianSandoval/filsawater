@@ -40,6 +40,21 @@
 
     }
 
+    header .header-up .login{
+        font-size: 14px;
+    }
+    header nav .logo img {
+    
+        max-width: 125px;
+    }
+
+    .contenedor-detail-producto #myCarousel{
+        width: 100%;
+        max-width: 100%;
+    }
+    .contenedor-detail-producto .contenedorfotos{
+        margin-top: 15px;
+    }
 
 }
 

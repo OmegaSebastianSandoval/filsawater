@@ -31,6 +31,20 @@
       Administrar Blogs
     </a>
   </li> -->
+
+  <li <?php if ($this->botonpanel == 8) { ?>class="activo" <?php } ?>>
+    <a href="/administracion/tiendacategorias">
+    <i class="fa-solid fa-list"></i>
+      Administrar Categorias
+    </a>
+  </li>
+  <li <?php if ($this->botonpanel == 9) { ?>class="activo" <?php } ?>>
+    <a href="/administracion/productos">
+    <i class="fa-brands fa-product-hunt"></i>
+      Administrar Productos
+    </a>
+  </li>
+
   <li <?php if ($this->botonpanel == 7) { ?>class="activo" <?php } ?>>
     <a href="/administracion/soluciones">
       <i class="fa-brands fa-blogger-b"></i>

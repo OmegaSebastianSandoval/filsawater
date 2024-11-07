@@ -50,7 +50,7 @@
 
                                 <div class="d-flex justify-content-center justify-content-md-center mt-3">
 
-                                    <button class="btn-blue px-4 py-2 border-white" id="submit-login">Enviar ahora</button>
+                                    <button class="btn-blue px-4 py-2 border-white" id="submit-login">Iniciar Sesión</button>
                                 </div>
                                 <div class="container-newaccount mt-2">
                                     <a href="/page/login/crearcuenta">Crear cuenta</a>
@@ -75,7 +75,7 @@
         /* height: calc(100dvh - 400px); */
     }
 
-    @media (width >1400px) {
+    @media (width >1500px) {
         .main-general {
             height: calc(100dvh - 400px);
         }

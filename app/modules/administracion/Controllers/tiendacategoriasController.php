@@ -1,14 +1,13 @@
 <?php
 /**
-* Controlador de Soluciones que permite la  creacion, edicion  y eliminacion de los soluci&oacute;n del Sistema
+* Controlador de Tiendacategorias que permite la  creacion, edicion  y eliminacion de los categor&iacute;as del Sistema
 */
-class Administracion_solucionesController extends Administracion_mainController
+class Administracion_tiendacategoriasController extends Administracion_mainController
 {
-
-	public $botonpanel = 7;
+	public $botonpanel = 8;
 
 	/**
-	 * $mainModel  instancia del modelo de  base de datos soluci&oacute;n
+	 * $mainModel  instancia del modelo de  base de datos categor&iacute;as
 	 * @var modeloContenidos
 	 */
 	public $mainModel;
@@ -35,7 +34,7 @@ class Administracion_solucionesController extends Administracion_mainController
 	 * $_csrf_section  nombre de la variable general csrf  que se va a almacenar en la session
 	 * @var string
 	 */
-	protected $_csrf_section = "administracion_soluciones";
+	protected $_csrf_section = "administracion_tiendacategorias";
 
 	/**
 	 * $namepages nombre de la pvariable en la cual se va a guardar  el numero de seccion en la paginacion del controlador
@@ -46,17 +45,17 @@ class Administracion_solucionesController extends Administracion_mainController
 
 
 	/**
-     * Inicializa las variables principales del controlador soluciones .
+     * Inicializa las variables principales del controlador tiendacategorias .
      *
      * @return void.
      */
 	public function init()
 	{
-		$this->mainModel = new Administracion_Model_DbTable_Soluciones();
-		$this->namefilter = "parametersfiltersoluciones";
-		$this->route = "/administracion/soluciones";
-		$this->namepages ="pages_soluciones";
-		$this->namepageactual ="page_actual_soluciones";
+		$this->mainModel = new Administracion_Model_DbTable_Tiendacategorias();
+		$this->namefilter = "parametersfiltertiendacategorias";
+		$this->route = "/administracion/tiendacategorias";
+		$this->namepages ="pages_tiendacategorias";
+		$this->namepageactual ="page_actual_tiendacategorias";
 		$this->_view->route = $this->route;
 		if(Session::getInstance()->get($this->namepages)){
 			$this->pages = Session::getInstance()->get($this->namepages);
@@ -68,13 +67,13 @@ class Administracion_solucionesController extends Administracion_mainController
 
 
 	/**
-     * Recibe la informacion y  muestra un listado de  soluci&oacute;n con sus respectivos filtros.
+     * Recibe la informacion y  muestra un listado de  categor&iacute;as con sus respectivos filtros.
      *
      * @return void.
      */
 	public function indexAction()
 	{
-		$title = "Aministración de soluci&oacute;n";
+		$title = "Aministración de categor&iacute;as";
 		$this->getLayout()->setTitle($title);
 		$this->_view->titlesection = $title;
 		$this->filters();
@@ -103,47 +102,47 @@ class Administracion_solucionesController extends Administracion_mainController
 		$this->_view->page = $page;
 		$this->_view->lists = $this->mainModel->getListPages($filters,$order,$start,$amount);
 		$this->_view->csrf_section = $this->_csrf_section;
-		$this->_view->padre = $this->_getSanitizedParam("padre");
+		$this->_view->tienda_categoria_padre = $this->_getSanitizedParam("tienda_categoria_padre");
 	}
 
 	/**
-     * Genera la Informacion necesaria para editar o crear un  soluci&oacute;n  y muestra su formulario
+     * Genera la Informacion necesaria para editar o crear un  categor&iacute;a  y muestra su formulario
      *
      * @return void.
      */
 	public function manageAction()
 	{
 		$this->_view->route = $this->route;
-		$this->_csrf_section = "manage_soluciones_".date("YmdHis");
+		$this->_csrf_section = "manage_tiendacategorias_".date("YmdHis");
 		$this->_csrf->generateCode($this->_csrf_section);
 		$this->_view->csrf_section = $this->_csrf_section;
 		$this->_view->csrf = Session::getInstance()->get('csrf')[$this->_csrf_section];
-		$this->_view->padre = $this->_getSanitizedParam("padre");
+		$this->_view->tienda_categoria_padre = $this->_getSanitizedParam("tienda_categoria_padre");
 		$id = $this->_getSanitizedParam("id");
 		if ($id > 0) {
 			$content = $this->mainModel->getById($id);
-			if($content->solucion_id){
+			if($content->tienda_categoria_id){
 				$this->_view->content = $content;
 				$this->_view->routeform = $this->route."/update";
-				$title = "Actualizar soluci&oacute;n";
+				$title = "Actualizar categor&iacute;a";
 				$this->getLayout()->setTitle($title);
 				$this->_view->titlesection = $title;
 			}else{
 				$this->_view->routeform = $this->route."/insert";
-				$title = "Crear soluci&oacute;n";
+				$title = "Crear categor&iacute;a";
 				$this->getLayout()->setTitle($title);
 				$this->_view->titlesection = $title;
 			}
 		} else {
 			$this->_view->routeform = $this->route."/insert";
-			$title = "Crear soluci&oacute;n";
+			$title = "Crear categor&iacute;a";
 			$this->getLayout()->setTitle($title);
 			$this->_view->titlesection = $title;
 		}
 	}
 
 	/**
-     * Inserta la informacion de un soluci&oacute;n  y redirecciona al listado de soluci&oacute;n.
+     * Inserta la informacion de un categor&iacute;a  y redirecciona al listado de categor&iacute;as.
      *
      * @return void.
      */
@@ -153,77 +152,56 @@ class Administracion_solucionesController extends Administracion_mainController
 		if (Session::getInstance()->get('csrf')[$this->_getSanitizedParam("csrf_section")] == $csrf ) {	
 			$data = $this->getData();
 			$uploadImage =  new Core_Model_Upload_Image();
-			if($_FILES['solucion_imagen']['name'] != ''){
-				$data['solucion_imagen'] = $uploadImage->upload("solucion_imagen");
-			}
-			$uploadDocument =  new Core_Model_Upload_Document();
-			if($_FILES['solucion_archivo']['name'] != ''){
-				$data['solucion_archivo'] = $uploadDocument->upload("solucion_archivo");
+			if($_FILES['tienda_categoria_imagen']['name'] != ''){
+				$data['tienda_categoria_imagen'] = $uploadImage->upload("tienda_categoria_imagen");
 			}
 			$id = $this->mainModel->insert($data);
 			$this->mainModel->changeOrder($id,$id);
-			$data['solucion_id']= $id;
+			$data['tienda_categoria_id']= $id;
 			$data['log_log'] = print_r($data,true);
-			$data['log_tipo'] = 'CREAR SOLUCI&OACUTE;N';
+			$data['log_tipo'] = 'CREAR CATEGOR&IACUTE;A';
 			$logModel = new Administracion_Model_DbTable_Log();
 			$logModel->insert($data);
 		}
-		$padre = $this->_getSanitizedParam("solucion_padre");
-		header('Location: '.$this->route.'?padre='.$padre.'');
+		$tienda_categoria_padre = $this->_getSanitizedParam("tienda_categoria_padre");
+		header('Location: '.$this->route.'?tienda_categoria_padre='.$tienda_categoria_padre.'');
 	}
 
 	/**
-     * Recibe un identificador  y Actualiza la informacion de un soluci&oacute;n  y redirecciona al listado de soluci&oacute;n.
+     * Recibe un identificador  y Actualiza la informacion de un categor&iacute;a  y redirecciona al listado de categor&iacute;as.
      *
      * @return void.
      */
 	public function updateAction(){
-		//error_reporting(E_ALL);	
 		$this->setLayout('blanco');
 		$csrf = $this->_getSanitizedParam("csrf");
 		if (Session::getInstance()->get('csrf')[$this->_getSanitizedParam("csrf_section")] == $csrf ) {
 			$id = $this->_getSanitizedParam("id");
 			$content = $this->mainModel->getById($id);
-			if ($content->solucion_id) {
+			if ($content->tienda_categoria_id) {
 				$data = $this->getData();
 				$uploadImage =  new Core_Model_Upload_Image();
-				if($_FILES['solucion_imagen']['name'] != ''){
-					// print_r($_FILES);
-					
-
-					if($content->solucion_imagen){
-
-						$uploadImage->delete($content->solucion_imagen);
+				if($_FILES['tienda_categoria_imagen']['name'] != ''){
+					if($content->tienda_categoria_imagen){
+						$uploadImage->delete($content->tienda_categoria_imagen);
 					}
-					
-					$data['solucion_imagen'] = $uploadImage->upload("solucion_imagen");
+					$data['tienda_categoria_imagen'] = $uploadImage->upload("tienda_categoria_imagen");
 				} else {
-
-					$data['solucion_imagen'] = $content->solucion_imagen;
+					$data['tienda_categoria_imagen'] = $content->tienda_categoria_imagen;
 				}
-				$uploadDocument =  new Core_Model_Upload_Document();
-				if($_FILES['solucion_archivo']['name'] != ''){
-					if($content->solucion_archivo){
-						$uploadDocument->delete($content->solucion_archivo);
-					}
-					$data['solucion_archivo'] = $uploadDocument->upload("solucion_archivo");
-				} else {
-					$data['solucion_archivo'] = $content->solucion_archivo;
-				}
-				// print_r($data);
 				$this->mainModel->update($data,$id);
 			}
-			$data['solucion_id']=$id;
+			$data['tienda_categoria_id']=$id;
 			$data['log_log'] = print_r($data,true);
-			$data['log_tipo'] = 'EDITAR SOLUCI&OACUTE;N';
+			$data['log_tipo'] = 'EDITAR CATEGOR&IACUTE;A';
 			$logModel = new Administracion_Model_DbTable_Log();
 			$logModel->insert($data);}
-		$padre = $this->_getSanitizedParam("solucion_padre");
-		header('Location: '.$this->route.'?padre='.$padre.'');
+		$tienda_categoria_padre = $this->_getSanitizedParam("tienda_categoria_padre");
+		header('Location: '.$this->route.'?tienda_categoria_padre='.$tienda_categoria_padre.'');
 	}
 
 	/**
-     * Recibe un identificador  y elimina un soluci&oacute;n  y redirecciona al listado de soluci&oacute;n.
+     * Recibe un identificador  y elimina un categor&iacute;a  y redirecciona al listado de categor&iacute;as.
      *
      * @return void.
      */
@@ -237,42 +215,33 @@ class Administracion_solucionesController extends Administracion_mainController
 				$content = $this->mainModel->getById($id);
 				if (isset($content)) {
 					$uploadImage =  new Core_Model_Upload_Image();
-					if (isset($content->solucion_imagen) && $content->solucion_imagen != '') {
-						$uploadImage->delete($content->solucion_imagen);
-					}
-					$uploadDocument =  new Core_Model_Upload_Document();
-					if (isset($content->solucion_archivo) && $content->solucion_archivo != '') {
-						$uploadDocument->delete($content->solucion_archivo);
+					if (isset($content->tienda_categoria_imagen) && $content->tienda_categoria_imagen != '') {
+						$uploadImage->delete($content->tienda_categoria_imagen);
 					}
 					$this->mainModel->deleteRegister($id);$data = (array)$content;
 					$data['log_log'] = print_r($data,true);
-					$data['log_tipo'] = 'BORRAR SOLUCI&OACUTE;N';
+					$data['log_tipo'] = 'BORRAR CATEGOR&IACUTE;A';
 					$logModel = new Administracion_Model_DbTable_Log();
 					$logModel->insert($data); }
 			}
 		}
-		$padre = $this->_getSanitizedParam("padre");
-		header('Location: '.$this->route.'?padre='.$padre.'');
+		$tienda_categoria_padre = $this->_getSanitizedParam("tienda_categoria_padre");
+		header('Location: '.$this->route.'?tienda_categoria_padre='.$tienda_categoria_padre.'');
 	}
 
 	/**
-     * Recibe la informacion del formulario y la retorna en forma de array para la edicion y creacion de Soluciones.
+     * Recibe la informacion del formulario y la retorna en forma de array para la edicion y creacion de Tiendacategorias.
      *
      * @return array con toda la informacion recibida del formulario.
      */
 	private function getData()
 	{
 		$data = array();
-		$data['solucion_titulo'] = $this->_getSanitizedParam("solucion_titulo");
-		$data['solucion_categoria'] = $this->_getSanitizedParam("solucion_categoria");
-		$data['solucion_imagen'] = "";
-		$data['solucion_descripcion'] = $this->_getSanitizedParamHtml("solucion_descripcion");
-		$data['solucion_introduccion'] = $this->_getSanitizedParamHtml("solucion_introduccion");
-		$data['solucion_contenido'] = $this->_getSanitizedParamHtml("solucion_contenido");
-		$data['solucion_estado'] = $this->_getSanitizedParam("solucion_estado");
-		$data['solucion_padre'] = $this->_getSanitizedParamHtml("solucion_padre");
-		$data['solucion_archivo'] = "";
-		$data['solucion_tags'] = $this->_getSanitizedParam("solucion_tags");
+		$data['tienda_categoria_estado'] = $this->_getSanitizedParam("tienda_categoria_estado");
+		$data['tienda_categoria_nombre'] = $this->_getSanitizedParam("tienda_categoria_nombre");
+		$data['tienda_categoria_imagen'] = "";
+		$data['tienda_categoria_descripcion'] = $this->_getSanitizedParamHtml("tienda_categoria_descripcion");
+		$data['tienda_categoria_padre'] = $this->_getSanitizedParamHtml("tienda_categoria_padre");
 		return $data;
 	}
 	/**
@@ -283,21 +252,15 @@ class Administracion_solucionesController extends Administracion_mainController
     protected function getFilter()
     {
     	$filtros = " 1 = 1 ";
-		$padre= $this->_getSanitizedParam("padre");
-		$filtros = $filtros." AND solucion_padre = '$padre' ";
+		$tienda_categoria_padre= $this->_getSanitizedParam("tienda_categoria_padre");
+		$filtros = $filtros." AND tienda_categoria_padre = '$tienda_categoria_padre' ";
         if (Session::getInstance()->get($this->namefilter)!="") {
             $filters =(object)Session::getInstance()->get($this->namefilter);
-            if ($filters->solucion_titulo != '') {
-                $filtros = $filtros." AND solucion_titulo LIKE '%".$filters->solucion_titulo."%'";
+            if ($filters->tienda_categoria_estado != '') {
+                $filtros = $filtros." AND tienda_categoria_estado LIKE '%".$filters->tienda_categoria_estado."%'";
             }
-            if ($filters->solucion_categoria != '') {
-                $filtros = $filtros." AND solucion_categoria LIKE '%".$filters->solucion_categoria."%'";
-            }
-            if ($filters->solucion_estado != '') {
-                $filtros = $filtros." AND solucion_estado LIKE '%".$filters->solucion_estado."%'";
-            }
-            if ($filters->solucion_padre != '') {
-                $filtros = $filtros." AND solucion_padre LIKE '%".$filters->solucion_padre."%'";
+            if ($filters->tienda_categoria_nombre != '') {
+                $filtros = $filtros." AND tienda_categoria_nombre LIKE '%".$filters->tienda_categoria_nombre."%'";
             }
 		}
         return $filtros;
@@ -313,10 +276,8 @@ class Administracion_solucionesController extends Administracion_mainController
         if ($this->getRequest()->isPost()== true) {
         	Session::getInstance()->set($this->namepageactual,1);
             $parramsfilter = array();
-					$parramsfilter['solucion_titulo'] =  $this->_getSanitizedParam("solucion_titulo");
-					$parramsfilter['solucion_categoria'] =  $this->_getSanitizedParam("solucion_categoria");
-					$parramsfilter['solucion_estado'] =  $this->_getSanitizedParam("solucion_estado");
-					$parramsfilter['solucion_padre'] =  $this->_getSanitizedParam("solucion_padre");Session::getInstance()->set($this->namefilter, $parramsfilter);
+					$parramsfilter['tienda_categoria_estado'] =  $this->_getSanitizedParam("tienda_categoria_estado");
+					$parramsfilter['tienda_categoria_nombre'] =  $this->_getSanitizedParam("tienda_categoria_nombre");Session::getInstance()->set($this->namefilter, $parramsfilter);
         }
         if ($this->_getSanitizedParam("cleanfilter") == 1) {
             Session::getInstance()->set($this->namefilter, '');
