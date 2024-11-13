@@ -111,7 +111,46 @@ $(document).ready(function () {
           "</div>" +
           "-",
       },
-     
+      {
+        title: "Dos columnas",
+        description: "Dos columnas, y en celular se muestra una debajo de la otra",
+        content:
+          '<div class="row align-items-center my-4">' +
+        
+          '<div class="col-12 col-md-6">' +
+          "<h2>{{Título de la sección}}</h2>" +
+          '<img src="https://placehold.co/300x200" alt="Imagen lateral" class="img-fluid ">' +
+          "</div>" +
+         
+          '<div class="col-12 col-md-6">' +
+          "<h2>{{Título de la sección}}</h2>" +
+          '<img src="https://placehold.co/300x200" alt="Imagen lateral" class="img-fluid ">' +
+          "</div>" +
+         
+          "</div>" +
+          
+          "-",
+      },
+      {
+        title: "Tres columnas",
+        description: "Tres columnas, y en celular se muestra una debajo de la otra",
+        content:
+          '<div class="row align-items-center my-4">' +
+        
+          '<div class="col-12 col-md-4">' +
+          '<img src="https://placehold.co/300x200" alt="Imagen lateral" class="img-fluid ">' +
+          "</div>" +
+          '<div class="col-12 col-md-4">' +
+          '<img src="https://placehold.co/300x200" alt="Imagen lateral" class="img-fluid ">' +
+          "</div>" +
+          '<div class="col-12 col-md-4">' +
+          '<img src="https://placehold.co/300x200" alt="Imagen lateral" class="img-fluid ">' +
+          "</div>" +
+          "</div>" +
+          
+          "-",
+      }
+
     ],
     // Añadimos la configuración de tamaño de fuente en px
     font_size_formats:

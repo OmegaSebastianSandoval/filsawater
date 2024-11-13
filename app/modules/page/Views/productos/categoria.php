@@ -12,14 +12,24 @@
                     <a href="/page/productos/producto?producto=<?= $producto->producto_id ?>&categoria=<?= $this->categoria->tienda_categoria_id ?>" class="product-link" aria-label="Ver detalles del producto <?= $producto->producto_nombre ?>">
                         <article class="product-card">
                             <figure class="content-image-product">
-                                <img src="/images/<?= $producto->producto_imagen ?>" alt="<?= $producto->producto_nombre ?>" class="img-fluid w-100">
-                                <figcaption class="sr-only"><?= $producto->producto_nombre ?></figcaption>
-                                <div class="add-cart-content">
-                                    <button class="btn-add-cart" data-id="<?= $producto->producto_id ?>" aria-label="Agregar <?= $producto->producto_nombre ?> al carrito" title="Agregar al carrito">
-                                        <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                                <?php if ($producto->producto_imagen && file_exists($_SERVER['DOCUMENT_ROOT'] . "/images/" . $producto->producto_imagen)) { ?>
+                                    <img src="/images/<?= $producto->producto_imagen ?>" alt="<?= $producto->producto_nombre ?>" class="img-fluid w-100">
+                                <?php } else { ?>
+                                    <img src="/assets/imagenot.jpg" alt="<?= $producto->producto_nombre ?>" class="img-fluid w-100">
 
-                                    </button>
-                                </div>
+
+                                <?php } ?>
+
+                                <figcaption class="sr-only"><?= $producto->producto_nombre ?></figcaption>
+                                <?php if ( $producto->producto_precio > 1  && $producto->producto_stock >= 1) { ?>
+                                    <div class="add-cart-content">
+                                        <button class="btn-add-cart" data-id="<?= $producto->producto_id ?>" aria-label="Agregar <?= $producto->producto_nombre ?> al carrito" title="Agregar al carrito">
+                                            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+
+                                        </button>
+                                    </div>
+                                <?php } ?>
+
                             </figure>
                             <div class="content-info-product">
                                 <h3 class="product-title"><?= $producto->producto_nombre ?></h3>
@@ -45,8 +55,8 @@
             </div>
         <?php } ?>
     </div>
-
 </div>
+<?php echo $this->productosDestacados ?>
 <style>
     .main-general {
         background-color: #f5f5f5;

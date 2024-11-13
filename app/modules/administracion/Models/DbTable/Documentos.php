@@ -26,8 +26,9 @@ class Administracion_Model_DbTable_Documentos extends Db_Table
 		$documento_nombre = $data['documento_nombre'];
 		$documento_documento = $data['documento_documento'];
 		$documento_solucion = $data['documento_solucion'];
+		$documento_producto = $data['documento_producto'];
 		$documento_padre = $data['documento_padre'];
-		$query = "INSERT INTO documentos( documento_estado, documento_nombre, documento_documento, documento_solucion, documento_padre) VALUES ( '$documento_estado', '$documento_nombre', '$documento_documento', '$documento_solucion', '$documento_padre')";
+		$query = "INSERT INTO documentos( documento_estado, documento_nombre, documento_documento, documento_solucion,documento_producto, documento_padre) VALUES ( '$documento_estado', '$documento_nombre', '$documento_documento', '$documento_solucion','$documento_producto', '$documento_padre')";
 		$res = $this->_conn->query($query);
         return mysqli_insert_id($this->_conn->getConnection());
 	}
@@ -44,8 +45,9 @@ class Administracion_Model_DbTable_Documentos extends Db_Table
 		$documento_nombre = $data['documento_nombre'];
 		$documento_documento = $data['documento_documento'];
 		$documento_solucion = $data['documento_solucion'];
+		$documento_producto = $data['documento_producto'];
 		$documento_padre = $data['documento_padre'];
-		$query = "UPDATE documentos SET  documento_estado = '$documento_estado', documento_nombre = '$documento_nombre', documento_documento = '$documento_documento', documento_solucion = '$documento_solucion', documento_padre = '$documento_padre' WHERE documento_id = '".$id."'";
+		$query = "UPDATE documentos SET  documento_estado = '$documento_estado', documento_nombre = '$documento_nombre', documento_documento = '$documento_documento', documento_solucion = '$documento_solucion', documento_producto = '$documento_producto', documento_padre = '$documento_padre' WHERE documento_id = '".$id."'";
 		$res = $this->_conn->query($query);
 	}
 }

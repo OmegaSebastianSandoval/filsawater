@@ -253,4 +253,12 @@ class Page_Model_Template_Template
 		$this->_view->csrf = $csrf;
 		return $this->_view->getRoutPHP("modules/page/Views/template/formulario.php");
 	}
+
+	public function productosDestacados()
+	{
+		$productosModel = new Administracion_Model_DbTable_Productos();
+		$this->_view->productosImportantes = $productosModel->getList("producto_importante = '1' AND producto_estado = '1'", "orden ASC");
+		return $this->_view->getRoutPHP("modules/page/Views/template/importantes.php");
+	
+	}
 }

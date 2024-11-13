@@ -7,7 +7,7 @@
                 $cantidad = $item["cantidad"];
                 ?>
                 <li>
-                    <div class="row g-0 shadow-sm mb-2">
+                    <div class="row g-1 shadow-sm mb-2 p-1">
                         <div class="col-3">
                             <img src="/images/<?= $productoCarrito->producto_imagen ?>" alt="" class="w-100 img-fluid object-fit-contain">
                         </div>

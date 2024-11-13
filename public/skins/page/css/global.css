@@ -1880,11 +1880,12 @@ ______________________________ */
   justify-content: start;
   gap: 10px;
   align-items: center;
-  transition: font-weight 300ms ease-in-out;
+  font-weight: 500;
+  transition:  color 400ms ease allow-discrete;
 }
 
 .accordion-files .container-file a:hover {
-  font-weight: 500;
+  color:  var(--azulclaro);
 }
 
 .accordion-files .container-file i {
@@ -2190,6 +2191,7 @@ PRODUCTOS DETALLE INICIO
 ______________________________------------------------------------------------------- */
 .contenedor-detail-producto .breadcrumb-item a {
   color: var(--azulclaro2);
+  text-transform: uppercase;
 }
 
 .contenedor-detail-producto .contenedorfotos img {
@@ -2260,7 +2262,7 @@ ______________________________--------------------------------------------------
 
 
 .contenedor-detail-producto .product-description img {
-  max-width: 100%;
+  width: 100%;
   height: auto;
   object-fit: contain;
 }
@@ -2382,3 +2384,88 @@ ______________________________--------------------------------------------------
 /*-------------------------------------------------------------------------------
 CARRITO FIN
 ______________________________------------------------------------------------------- */
+
+/*-------------------------------------------------------------------------------
+CARRUSEL PRODUCTOS IMPORTANTES
+/*-----------------------------------------------------------------------------------------*/
+.important-products{
+
+
+  padding: 50px 0;
+}
+.important-products {
+  position: relative;
+  /* Asegúrate de que el contenedor tenga un contexto de apilamiento */
+  z-index: 0; 
+}
+
+.important-products::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url(/cortes/FondoProductos.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  opacity: 0.4; /* Cambia el valor para ajustar la opacidad */
+  z-index: -1; /* Ponerlo detrás del contenido */
+}
+.important-products  .product-item .product-image {
+  position: relative;
+  overflow: hidden;
+  clip-path: inset(0 0 0 0 round 0px);
+  height: 300px;
+  margin: 0;
+}
+.important-products .product-item .product-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  background-color: var(--blanco);
+}
+.important-products  .product-item .product-title{
+  color: var(--blanco);
+  font-size: 13px;
+  font-weight: 600;
+  margin: 0;
+  text-align: start;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  height: 17px;
+}
+
+.important-products  .product-item .content-info-important{
+  background: linear-gradient(90deg, #3a8db9, #35cda7);
+
+
+}
+.important-products  .product-item .content-info-important a{
+  display: flex;
+  justify-content: space-between;
+  gap: 20px;
+  text-decoration: none;
+  padding: 15px;
+
+
+}
+
+
+.important-products  .product-item .content-info-important i{
+  color: var(--blanco);
+  margin-right: 30px;
+  transition: margin-right 300ms ease
+}
+
+.important-products .product-item .content-info-important:hover  i{
+  margin-right: 0px;
+
+}
+/*-------------------------------------------------------------------------------
+CARRUSEL PRODUCTOS IMPORTANTES FIN
+/*-----------------------------------------------------------------------------------------

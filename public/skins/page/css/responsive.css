@@ -336,6 +336,16 @@ BANNER INTERNAS FIN
     .quantity-control .quantity{
         text-align: center;
     }
+
+
+    .contenedor-detail-producto .product-description tr{
+        display: table-cell;
+        width: 100%;
+    }
+    .contenedor-detail-producto .product-description tr td{
+        display:block;
+   
+    }
 }
 
 @media (max-width:576px) {

@@ -7,7 +7,7 @@
         </ol>
     </nav>
 
-    <div class="row">
+    <div class="row mb-4">
         <div class="col-12 col-lg-5 order-2 order-lg-1">
 
 
@@ -16,16 +16,21 @@
 
                     <div class="f-carousel" id="myCarousel">
                         <?php foreach ($this->producto->fotos as $foto) { ?>
-                           
+
                             <?php if ($foto->foto_foto && file_exists($_SERVER['DOCUMENT_ROOT'] . "/images/" . $foto->foto_foto)) { ?>
-                              
+
                                 <div class="f-carousel__slide" data-fancybox="gallery" data-src="/images/<?= $foto->foto_foto ?>" data-thumb-src="/images/<?= $foto->foto_foto ?>">
 
 
                                     <img width="640" height="480" alt="<?= $foto->foto_nombre ?>" data-lazy-src="/images/<?= $foto->foto_foto ?>" />
                                 </div>
-                            <?php } ?>
+                            <?php } else { ?>
+                                <div class="f-carousel__slide" data-fancybox="gallery" data-src="/assets/imagenot.jpg" data-thumb-src="/assets/imagenot.jpg">
 
+
+                                    <img width="640" height="480" alt="<?= $foto->foto_nombre ?>" data-lazy-src="/assets/imagenot.jpg" />
+                                </div>
+                            <?php } ?>
 
                         <?php } ?>
                     </div>
@@ -56,7 +61,7 @@
                 <?php if ($this->producto->producto_stock && $this->producto->producto_stock >= 1) { ?>
                     <span class="stock-producto"> Disponibilidad: <span class="in-stock">En stock</span> </span>
                 <?php } else { ?>
-                    <span class="stock-producto">Disponibilidad: <span class="not-stock">Agotado</span></span>
+                    <span class="stock-producto">Disponibilidad: <span class="not-stock">Agotado en el momento</span></span>
                 <?php } ?>
             </div>
 
@@ -65,22 +70,36 @@
             <div class="product-description">
                 <?= $this->producto->producto_descripcion ?>
             </div>
-            <div class="product-detail mt-4">
-                <div class="quantity-control">
-                    <button class="btn-decrease">-</button>
-                    <input type="number" value="1" min="1" max="<?= $this->producto->producto_stock > 5 ? 5 : intval($this->producto->producto_stock) ?>" class="quantity" readonly>
-                    <button class="btn-increase">+</button>
+            <?php if ($this->documentos && $this->hayDocumentos == 1) { ?>
+                <div class="col-12 ">
+                    <h2 class="title-info">Documentos</h2>
+                    <div class="container-docs">
+
+                        <?php echo $this->documentos ?>
+                    </div>
+
                 </div>
-                <button
-                    class="btn-add-cart btn-add-to-cart btn-blue rounded-0 border-0"
-                    data-id="<?= $this->producto->producto_id ?>" aria-label="Agregar <?= $this->producto->producto_nombre ?> al carrito" title="Agregar al carrito">Agregar al carrito</button>
-            </div>
+            <?php } ?>
+            <?php if ($this->producto->producto_stock >= 1 && $this->producto->producto_precio >= 1) { ?>
+                <div class="product-detail mt-4 ">
+                    <div class="quantity-control">
+                        <button class="btn-decrease">-</button>
+                        <input type="number" value="1" min="1" max="<?= $this->producto->producto_stock > 5 ? 5 : intval($this->producto->producto_stock) ?>" class="quantity" readonly>
+                        <button class="btn-increase">+</button>
+                    </div>
+                    <button
+                        class="btn-add-cart btn-add-to-cart btn-blue rounded-0 border-0"
+                        data-id="<?= $this->producto->producto_id ?>" aria-label="Agregar <?= $this->producto->producto_nombre ?> al carrito" title="Agregar al carrito">Agregar al carrito</button>
+                </div>
+            <?php } ?>
 
         </div>
 
 
     </div>
 </div>
+<?php echo $this->productosDestacados ?>
+
 <style>
     .main-general {
         background-color: #f5f5f5;

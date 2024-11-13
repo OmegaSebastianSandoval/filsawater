@@ -156,6 +156,14 @@ class Page_mainController extends Controllers_Abstract
 				]);
 				return;
 			}
+			if ($carrito[$productId] + $quantity > 5) {
+				echo json_encode([
+					"icon" => "error",
+					"text" => "No puedes agregar más de 5 unidades",
+					"carrito" => $carrito
+				]);
+				return;
+			}
 			$carrito[$productId] += $quantity;
 		} else {
 			$carrito[$productId] = $quantity;

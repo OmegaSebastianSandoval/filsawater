@@ -43,6 +43,11 @@
 																	} else {
 																		echo $this->documento_padre;
 																	} ?>">
+				<input type="hidden" name="documento_producto" value="<?php if ($this->content->documento_producto) {
+																		echo $this->content->documento_producto;
+																	} else {
+																		echo $this->documento_producto;
+																	} ?>">
 			</div>
 		</div>
 		<div class="botones-acciones">
@@ -55,7 +60,11 @@
 																								echo $this->content->documento_padre;
 																							} else {
 																								echo $this->documento_padre;
-																							} ?>" class="btn btn-cancelar">Cancelar</a>
+																							} ?>&documento_producto=<?php if ($this->content->documento_producto) {
+																																																				echo $this->content->documento_producto;
+																																																			} else {
+																																																				echo $this->documento_producto;
+																																																			} ?>" class="btn btn-cancelar">Cancelar</a>
 		</div>
 	</form>
 </div>

@@ -3,16 +3,25 @@
 	<form action="<?php echo $this->route; ?>" method="post">
 		<div class="content-dashboard">
 			<div class="row">
-				<div class="col-3">
+				<div class="col-3 col-lg-2">
 					<label>Activo (Si, No)</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" class="form-control" name="producto_estado" value="<?php echo $this->getObjectVariable($this->filters, 'producto_estado') ?>"></input>
+						<!-- <input type="text" class="form-control" name="producto_estado" value="<?php echo $this->getObjectVariable($this->filters, 'producto_estado') ?>"></input> -->
+						<select class="form-control" name="producto_estado">
+							<option value="">Todas</option>
+							<option value="1" <?php if ($this->getObjectVariable($this->filters, 'producto_estado') == 1) {
+													echo "selected";
+												} ?>>Si</option>
+							<option value="0" <?php if ($this->getObjectVariable($this->filters, 'producto_estado') == 0) {
+													echo "selected";
+												} ?>>No</option>
+						</select>
 					</label>
 				</div>
-				<div class="col-3">
+				<div class="col-2">
 					<label>nombre</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
@@ -21,7 +30,7 @@
 						<input type="text" class="form-control" name="producto_nombre" value="<?php echo $this->getObjectVariable($this->filters, 'producto_nombre') ?>"></input>
 					</label>
 				</div>
-				<div class="col-3">
+				<div class="col-3 col-lg-2">
 					<label>Referencia</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
@@ -30,7 +39,7 @@
 						<input type="text" class="form-control" name="producto_referencia" value="<?php echo $this->getObjectVariable($this->filters, 'producto_referencia') ?>"></input>
 					</label>
 				</div>
-				<div class="col-3">
+				<!-- <div class="col-3 col-lg-3">
 					<label>precio</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
@@ -38,8 +47,8 @@
 						</div>
 						<input type="text" class="form-control" name="producto_precio" value="<?php echo $this->getObjectVariable($this->filters, 'producto_precio') ?>"></input>
 					</label>
-				</div>
-				<div class="col-3">
+				</div> -->
+				<!-- <div class="col-3">
 					<label>imagen</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
@@ -47,8 +56,8 @@
 						</div>
 						<input type="text" class="form-control" name="producto_imagen" value="<?php echo $this->getObjectVariable($this->filters, 'producto_imagen') ?>"></input>
 					</label>
-				</div>
-				<div class="col-3">
+				</div> -->
+				<!-- <div class="col-3">
 					<label>stock</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
@@ -56,8 +65,8 @@
 						</div>
 						<input type="text" class="form-control" name="producto_stock" value="<?php echo $this->getObjectVariable($this->filters, 'producto_stock') ?>"></input>
 					</label>
-				</div>
-				<div class="col-3">
+				</div> -->
+				<div class="col-2">
 					<label>categor&iacute;a</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
@@ -73,11 +82,11 @@
 						</select>
 					</label>
 				</div>
-				<div class="col-3">
+				<div class="col-2">
 					<label>&nbsp;</label>
 					<button type="submit" class="btn btn-block btn-azul"> <i class="fas fa-filter"></i> Filtrar</button>
 				</div>
-				<div class="col-3">
+				<div class="col-2">
 					<label>&nbsp;</label>
 					<a class="btn btn-block btn-azul-claro " href="<?php echo $this->route; ?>?cleanfilter=1"> <i class="fas fa-eraser"></i> Limpiar Filtro</a>
 				</div>
@@ -145,7 +154,7 @@
 						<td>stock</td>
 						<td>categor&iacute;a</td>
 						<td width="100">Orden</td>
-						<td width="250"></td>
+						<td width="300"></td>
 					</tr>
 				</thead>
 				<tbody>
@@ -173,6 +182,7 @@
 								<div>
 									
 									<a class="btn btn-warning btn-sm" href="/administracion/fotos/?foto_producto=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Imagenes"><i class="fa-regular fa-image"></i></a>
+									<a class="btn btn-rosado btn-sm" href="/administracion/documentos/?documento_producto=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Documentos"><i class="fa-solid fa-file"></i></a>
 									
 									
 									<a class="btn btn-verde btn-sm" href="/administracion/fotos/cargamasiva/?foto_producto=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Imagenes Carga Masiva"><i class="fa-regular fa-images"></i></a>

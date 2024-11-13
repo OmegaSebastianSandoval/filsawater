@@ -34,6 +34,10 @@ class Page_indexController extends Page_mainController
     $blogsModel = new Administracion_Model_DbTable_Blogs();
     $blogs = $blogsModel->getList("blog_estado = 1", "blog_fecha ASC LIMIT 6");
     $this->_view->blogs = $blogs;
+
+    $solucionesModel = new Administracion_Model_DbTable_Soluciones();
+    $soluciones = $solucionesModel->getList("solucion_estado = 1 AND solucion_padre=''", "orden ASC LIMIT 6");
+    $this->_view->soluciones = $soluciones;
   
   }
   public function enviarmessageAction()

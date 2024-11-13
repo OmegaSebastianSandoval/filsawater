@@ -29,7 +29,7 @@
 
               <a href="<?php echo $banner->publicidad_video; ?>" data-fancybox="video-gallery">
 
-               
+
                 <img src="/images/<?php echo $banner->publicidad_imagen; ?>" alt="<?php echo $banner->publicidad_nombre; ?>" class="d-none d-md-block">
                 <img src="/images/<?php echo $banner->publicidad_imagenresponsive; ?>" alt="<?php echo $banner->publicidad_nombre; ?>" class="d-block d-md-none">
                 <div class="play-icon">▶️</div>
@@ -47,7 +47,7 @@
 
                 <img src="/images/<?php echo $banner->publicidad_imagen; ?>" alt="">
 
-                
+
 
                 <?php if ($banner->mostrarinfo != 1 && $banner->publicidad_enlace) { ?>
                 </a>
@@ -122,13 +122,13 @@
 </div>
 
 <script>
-    Fancybox.bind('[data-fancybox]', {
-        Html: {
-            youtube: {
-                controls: 1,
-                rel: 1,
-                fs: 1
-            }
-        }
-    });
+  Fancybox.bind('[data-fancybox]', {
+    Html: {
+      youtube: {
+        controls: 1,
+        rel: 1,
+        fs: 1
+      }
+    }
+  });
 </script>

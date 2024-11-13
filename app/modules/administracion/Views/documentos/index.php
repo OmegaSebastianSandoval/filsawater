@@ -1,6 +1,6 @@
 <h1 class="titulo-principal"><i class="fas fa-cogs"></i> <?php echo $this->titlesection; ?></h1>
 <div class="container-fluid">
-	<form action="<?php echo $this->route . "?documento_solucion=" . $this->documento_solucion . "" . "&documento_padre=" . $this->documento_padre . ""; ?>" method="post">
+	<form action="<?php echo $this->route . "?documento_solucion=" . $this->documento_solucion . "" . "&documento_padre=" . $this->documento_padre . "". "&documento_producto=" . $this->documento_producto . "" ?>" method="post">
 		<div class="content-dashboard">
 			<?php if ($this->documento_solucion) { ?>
 				<div class="row mb-2">
@@ -24,6 +24,24 @@
 				</div>
 			<?php } ?>
 
+			<?php if ($this->documento_producto) { ?>
+				<div class="row mb-2">
+					<div class="col-2">
+						
+							<a href="/administracion/productos/" class="btn btn-outline-success d-flex justify-content-center align-items-center gap-2"><i class="fa-solid fa-circle-arrow-left"></i> Volver</a>
+						
+
+					</div>
+					<?php if ($this->documento_padre) { ?>
+						<div class="col-2">
+						<a href="/administracion/documentos/?documento_solucion=<?= $this->documento_solucion ?>" class="btn btn-outline-primary d-flex justify-content-center align-items-center gap-2 px-2"><i class="fa-solid fa-circle-arrow-up"></i> Subir nivel </a>
+						</div>
+
+
+					<?php } ?>
+
+				</div>
+			<?php } ?>
 
 			<div class="row">
 				<div class="col-3">
@@ -73,15 +91,15 @@
 			$url = $this->route;
 			if ($this->totalpages > 1) {
 				if ($this->page != 1)
-					echo '<li class="page-item" ><a class="page-link"  href="' . $url . '?page=' . ($this->page - 1) . '&documento_solucion=' . $this->documento_solucion . '&documento_padre=' . $this->documento_padre . '"> &laquo; Anterior </a></li>';
+					echo '<li class="page-item" ><a class="page-link"  href="' . $url . '?page=' . ($this->page - 1) . '&documento_solucion=' . $this->documento_solucion . '&documento_padre=' . $this->documento_padre . '&documento_producto='.$this->documento_producto.'"> &laquo; Anterior </a></li>';
 				for ($i = 1; $i <= $this->totalpages; $i++) {
 					if ($this->page == $i)
 						echo '<li class="active page-item"><a class="page-link">' . $this->page . '</a></li>';
 					else
-						echo '<li class="page-item"><a class="page-link" href="' . $url . '?page=' . $i . '&documento_solucion=' . $this->documento_solucion . '&documento_padre=' . $this->documento_padre . '">' . $i . '</a></li>  ';
+						echo '<li class="page-item"><a class="page-link" href="' . $url . '?page=' . $i . '&documento_solucion=' . $this->documento_solucion . '&documento_padre=' . $this->documento_padre . '&documento_producto='.$this->documento_producto.'">' . $i . '</a></li>  ';
 				}
 				if ($this->page != $this->totalpages)
-					echo '<li class="page-item"><a class="page-link" href="' . $url . '?page=' . ($this->page + 1) . '&documento_solucion=' . $this->documento_solucion . '&documento_padre=' . $this->documento_padre . '">Siguiente &raquo;</a></li>';
+					echo '<li class="page-item"><a class="page-link" href="' . $url . '?page=' . ($this->page + 1) . '&documento_solucion=' . $this->documento_solucion . '&documento_padre=' . $this->documento_padre . '&documento_producto='.$this->documento_producto.'">Siguiente &raquo;</a></li>';
 			}
 			?>
 		</ul>
@@ -112,7 +130,7 @@
 					</select>
 				</div>
 				<div class="col-3">
-					<div class="text-end"><a class="btn btn-sm btn-success" href="<?php echo $this->route . "\manage" . "?documento_solucion=" . $this->documento_solucion . "" . "&documento_padre=" . $this->documento_padre . ""; ?>"> <i class="fas fa-plus-square"></i> Crear Nuevo</a></div>
+					<div class="text-end"><a class="btn btn-sm btn-success" href="<?php echo $this->route . "\manage" . "?documento_solucion=" . $this->documento_solucion . "" . "&documento_padre=" . $this->documento_padre . ""."&documento_producto=".$this->documento_producto.""; ?>"> <i class="fas fa-plus-square"></i> Crear Nuevo</a></div>
 				</div>
 			</div>
 		</div>

@@ -104,6 +104,7 @@ class Administracion_documentosController extends Administracion_mainController
 		$this->_view->csrf_section = $this->_csrf_section;
 		$this->_view->documento_solucion = $this->_getSanitizedParam("documento_solucion");
 		$this->_view->documento_padre = $this->_getSanitizedParam("documento_padre");
+		$this->_view->documento_producto = $this->_getSanitizedParam("documento_producto");
 		if ($this->_view->documento_solucion) {
 			$solucionesModel = new Administracion_Model_DbTable_Soluciones();
 			$solucion = $solucionesModel->getById($this->_view->documento_solucion);
@@ -126,6 +127,8 @@ class Administracion_documentosController extends Administracion_mainController
 		$this->_view->csrf = Session::getInstance()->get('csrf')[$this->_csrf_section];
 		$this->_view->documento_solucion = $this->_getSanitizedParam("documento_solucion");
 		$this->_view->documento_padre = $this->_getSanitizedParam("documento_padre");
+		$this->_view->documento_producto = $this->_getSanitizedParam("documento_producto");
+
 		$id = $this->_getSanitizedParam("id");
 		if ($id > 0) {
 			$content = $this->mainModel->getById($id);
@@ -174,7 +177,9 @@ class Administracion_documentosController extends Administracion_mainController
 		}
 		$documento_solucion = $this->_getSanitizedParam("documento_solucion");
 		$documento_padre = $this->_getSanitizedParam("documento_padre");
-		header('Location: ' . $this->route . '?documento_solucion=' . $documento_solucion . '&documento_padre=' . $documento_padre . '');
+		$documento_producto = $this->_getSanitizedParam("documento_producto");
+
+		header('Location: ' . $this->route . '?documento_solucion=' . $documento_solucion . '&documento_padre=' . $documento_padre . '&documento_producto=' . $documento_producto . '');
 	}
 
 	/**
@@ -210,7 +215,9 @@ class Administracion_documentosController extends Administracion_mainController
 		}
 		$documento_solucion = $this->_getSanitizedParam("documento_solucion");
 		$documento_padre = $this->_getSanitizedParam("documento_padre");
-		header('Location: ' . $this->route . '?documento_solucion=' . $documento_solucion . '&documento_padre=' . $documento_padre . '');
+		$documento_producto = $this->_getSanitizedParam("documento_producto");
+
+		header('Location: ' . $this->route . '?documento_solucion=' . $documento_solucion . '&documento_padre=' . $documento_padre . '&documento_producto=' . $documento_producto . '');
 	}
 
 	/**
@@ -242,7 +249,9 @@ class Administracion_documentosController extends Administracion_mainController
 		}
 		$documento_solucion = $this->_getSanitizedParam("documento_solucion");
 		$documento_padre = $this->_getSanitizedParam("documento_padre");
-		header('Location: ' . $this->route . '?documento_solucion=' . $documento_solucion . '&documento_padre=' . $documento_padre . '');
+		$documento_producto = $this->_getSanitizedParam("documento_producto");
+
+		header('Location: ' . $this->route . '?documento_solucion=' . $documento_solucion . '&documento_padre=' . $documento_padre . '&documento_producto=' . $documento_producto . '');
 	}
 
 	/**
@@ -257,6 +266,7 @@ class Administracion_documentosController extends Administracion_mainController
 		$data['documento_nombre'] = $this->_getSanitizedParam("documento_nombre");
 		$data['documento_documento'] = "";
 		$data['documento_solucion'] = $this->_getSanitizedParamHtml("documento_solucion");
+		$data['documento_producto'] = $this->_getSanitizedParamHtml("documento_producto");
 		$data['documento_padre'] = $this->_getSanitizedParamHtml("documento_padre");
 		return $data;
 	}
@@ -270,6 +280,8 @@ class Administracion_documentosController extends Administracion_mainController
 		$filtros = " 1 = 1 ";
 		$documento_solucion = $this->_getSanitizedParam("documento_solucion");
 		$filtros = $filtros . " AND documento_solucion = '$documento_solucion' ";
+		$documento_producto = $this->_getSanitizedParam("documento_producto");
+		$filtros = $filtros . " AND documento_producto = '$documento_producto' ";
 		$documento_padre = $this->_getSanitizedParam("documento_padre");
 		if ($documento_padre) {
 			$filtros = $filtros . " AND documento_padre = '$documento_padre' ";
