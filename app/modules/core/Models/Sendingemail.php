@@ -51,17 +51,74 @@ class Core_Model_Sendingemail
   {
     $this->_view->data = $data;
     $infopageModel = new Page_Model_DbTable_Informacion();
-		$informacion = $infopageModel->getById(1);
+    $informacion = $infopageModel->getById(1);
     $correo = $informacion->info_pagina_correos_contacto;
     $correo2 = $informacion->info_pagina_correo_oculto;
 
-   
+
     // $this->email->getMail()->addAddress($correo,  "");
     // $this->email->getMail()->addBCC($correo2,  "");
     $this->email->getMail()->addBCC("desarrollo8@omegawebsystems.com", "Formulario de contacto Filsa Water");
     $content = $this->_view->getRoutPHP('/../app/modules/core/Views/templatesemail/mailHome.php');
     $this->email->getMail()->Subject = 'Formulario de contacto Filsa Water';
     // $this->email->getMail()->setFrom($data['email'], $data['nombre']);
+    $this->email->getMail()->msgHTML($content);
+    $this->email->getMail()->AltBody = $content;
+    $this->email->getMail()->addBCC($informacion->info_pagina_correo_oculto);
+    if ($this->email->sed() == true) {
+      return 1;
+    } else {
+      return 2;
+    }
+  }
+
+  public function enviardatos($data)
+  {
+    $this->_view->data = $data;
+    $infopageModel = new Page_Model_DbTable_Informacion();
+    $informacion = $infopageModel->getById(1);
+    $correo = $informacion->info_pagina_correos_contacto;
+    $correo2 = $informacion->info_pagina_correo_oculto;
+
+
+    // $this->email->getMail()->addAddress($correo);
+    // $this->email->getMail()->addBCC($correo2);
+    $this->email->getMail()->addAddress("desarrollo8@omegawebsystems.com");
+    $this->email->getMail()->addBCC("desarrollo8@omegawebsystems.com", "Formulario de registro Filsa Water");
+    $this->email->getMail()->addCC("desarrollo8@omegawebsystems.com", "Formulario de registro Filsa Water");
+    $content = $this->_view->getRoutPHP('/../app/modules/core/Views/templatesemail/envioSolicitudRegistro.php');
+    $this->email->getMail()->Subject = 'Formulario de registro Filsa Water';
+    $this->email->getMail()->setFrom($data['email'], $data['company']);
+
+
+    $this->email->getMail()->msgHTML($content);
+    $this->email->getMail()->AltBody = $content;
+    $this->email->getMail()->addBCC($informacion->info_pagina_correo_oculto);
+    if ($this->email->sed() == true) {
+      return 1;
+    } else {
+      return 2;
+    }
+  }
+
+  public function registro($data)
+  {
+    $this->_view->data = $data;
+    $infopageModel = new Page_Model_DbTable_Informacion();
+    $informacion = $infopageModel->getById(1);
+    $correo = $informacion->info_pagina_correos_contacto;
+    $correo2 = $informacion->info_pagina_correo_oculto;
+
+
+    // $this->email->getMail()->addAddress($correo);
+    // $this->email->getMail()->addBCC($correo2);
+    $this->email->getMail()->addAddress($data["user_email"]);
+    $this->email->getMail()->addBCC("desarrollo8@omegawebsystems.com");
+
+    $content = $this->_view->getRoutPHP('/../app/modules/core/Views/templatesemail/registro.php');
+    $this->email->getMail()->Subject = 'Registro exitoso en FILSA WATER';
+  
+
     $this->email->getMail()->msgHTML($content);
     $this->email->getMail()->AltBody = $content;
     $this->email->getMail()->addBCC($informacion->info_pagina_correo_oculto);
@@ -88,5 +145,4 @@ class Core_Model_Sendingemail
       return 2;
     }
   }
-
 }

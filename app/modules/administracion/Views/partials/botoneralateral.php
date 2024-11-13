@@ -57,6 +57,15 @@
       Administrar Correos Información
     </a>
   </li>
+
+    <li <?php if ($this->botonpanel == 16) { ?>class="activo" <?php } ?>>
+      <a href="/administracion/niveles">
+      <i class="fa-solid fa-layer-group"></i>
+        Administrar Niveles de Usuarios
+      </a>
+    </li>
+ 
+
   <?php if (Session::getInstance()->get('kt_login_level') == '1') { ?>
     <li <?php if ($this->botonpanel == 4) { ?>class="activo" <?php } ?>>
       <a href="/administracion/usuario">

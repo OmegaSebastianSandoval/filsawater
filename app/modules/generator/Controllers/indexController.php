@@ -1112,7 +1112,7 @@ class " . ucwords($modelo) . "_Model_DbTable_" . ucwords($controlador) . " exten
 				</div>";
         } else if ($value['tipo'] == 4) {
           $php = $php . "
-		<div class=\"" . $value['ancho'] . " form-group\">
+		<div class=\"" . $value['ancho'] . " form-group d-grid\">
 			<label   class=\"control-label\">" . $value['titulo'] . "</label>
 				<input type=\"checkbox\" name=\"" . $value['nombre'] . "\" value=\"1\" class=\"form-control switch-form \" <?php if (\$this->getObjectVariable(\$this->content, '" . $value['nombre'] . "') == 1) { echo \"checked\";} ?>  " . $requerido . " ></input>
 				<div class=\"help-block with-errors\"></div>

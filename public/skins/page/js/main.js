@@ -446,11 +446,109 @@ document.addEventListener("DOMContentLoaded", () => {
   /* --------------------- FORMULARIO RECUPERACION---------------- */
   /* ------------------------------------------------------ */
 
+
+
+
+
+
+
+
+
+
+
   /* ------------------------------------------------------ */
   /* --------------------- FORMULARIO RECUPERACION DE CLAVE---------------- */
   /* ------------------------------------------------------ */
   document
-    .getElementById("form-recuperarclave")
+    .getElementById("form-enviardatos")
+    ?.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const response = grecaptcha.getResponse();
+      if (response.length === 0) {
+        Swal.fire({
+          icon: "warning",
+          text: "Por favor, verifica que no eres un robot.",
+          confirmButtonColor: "#5475a1",
+          confirmButtonText: "Continuar",
+        });
+      } else {
+        $(".loader-bx").addClass("show");
+
+        let submitBtn = document.getElementById("submit-create");
+        // Deshabilitar botón y mostrar animación
+        submitBtn.disabled = true;
+
+        let formData = new FormData(this);
+        let data = {};
+        formData.forEach((value, key) => {
+          data[key] = value;
+        });
+
+        fetch(this.getAttribute("action"), {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data2) => {
+            console.log(data2); // Verifica el valor exacto
+
+            if (data2.status.trim().toLowerCase() === "success") {
+              Swal.fire({
+                icon: "success",
+                text: data2.message,
+                confirmButtonColor: "#5475a1",
+                confirmButtonText: "Volver al inicio",
+              }).then(() => {
+                // Redirigir a otra página si es necesario
+                window.location.reload();
+
+              });
+            } else if (data2.status === "error") {
+              Swal.fire({
+                icon: "error",
+                text: data2.message,
+                confirmButtonColor: "#5475a1",
+                confirmButtonText: "Continuar",
+              }).then((result) => {
+                if (data2.error == "Captcha incorrecto") {
+                  window.location.reload();
+                }
+              });
+            }
+            // document.getElementById("form-contact").reset();
+            // Habilitar botón y ocultar animación
+            submitBtn.disabled = false;
+            $(".loader-bx").removeClass("show");
+          })
+
+          .catch((error) => {
+            // console.log("Error:", error);
+
+            Swal.fire({
+              icon: "error",
+              text: "Ha ocurrido un error, por favor intenta de nuevo.",
+              confirmButtonColor: "#5475a1",
+              confirmButtonText: "Continuar",
+            });
+            // Habilitar botón y ocultar animación
+            submitBtn.disabled = false;
+            $(".loader-bx").removeClass("show");
+          });
+      }
+    });
+  /* ------------------------------------------------------ */
+  /* --------------------- FORMULARIO RECUPERACI /* ------------------------------------------------------ */
+
+
+/* ------------------------------------------------------ */
+  /* --------------------- FORMULARIO RECUPERACION---------------- */
+  /* ------------------------------------------------------ */
+  document
+    .getElementById("form-recuperacion")
     ?.addEventListener("submit", function (e) {
       e.preventDefault();
 
@@ -494,7 +592,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 confirmButtonText: "Volver al inicio",
               }).then(() => {
                 // Redirigir a otra página si es necesario
-                window.location.href = data2.redirect;
+                window.location.href = "/page/login";
               });
             } else if (data2.status === "error") {
               Swal.fire({
@@ -529,8 +627,26 @@ document.addEventListener("DOMContentLoaded", () => {
           });
       }
     });
+
   /* ------------------------------------------------------ */
-  /* --------------------- FORMULARIO RECUPERACI /* ------------------------------------------------------ */
+  /* --------------------- FORMULARIO RECUPERACION---------------- */
+  /* ------------------------------------------------------ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /* ------------------------------------------------------ */
 

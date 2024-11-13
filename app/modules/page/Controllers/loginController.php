@@ -21,11 +21,118 @@ class Page_loginController extends Page_mainController
   {
     // Obtiene el error almacenado en la sesión, si existe
     $error = Session::getInstance()->get("error");
+    $registrook = Session::getInstance()->get("registrook");
     // Pasa el error a la vista
     $this->_view->error = $error;
+    $this->_view->registrook = $registrook;
+ 
+    
     // Limpia el error de la sesión
+    Session::getInstance()->set("registrook", null);
     Session::getInstance()->set("error", null);
   }
+
+
+
+
+
+  
+  public function enviardatosAction()
+  {
+    // Establece un layout vacío
+    $this->setLayout('blanco');
+    // Recibe los datos enviados en formato JSON
+    $input = file_get_contents('php://input');
+    $data = json_decode($input, true);
+
+    // Sanitiza y obtiene los datos necesarios
+    $nit = $this->sanitizarEntrada($data['nit']);
+    $captcha = $this->sanitizarEntrada($data['g-recaptcha-response']);
+    $dataCorreo = [];
+    $dataCorreo["phone-contact"] = $this->sanitizarEntrada($data['phone-contact']);
+    $dataCorreo["phone"] = $this->sanitizarEntrada($data['phone']);
+    $dataCorreo["email"] = $this->sanitizarEntrada($data['email']);
+    $dataCorreo["address"] = $this->sanitizarEntrada($data['address']);
+    $dataCorreo["name"] = $this->sanitizarEntrada($data['name']);
+    $dataCorreo["nit"] = $nit;
+    $dataCorreo["company"] = $this->sanitizarEntrada($data['company']);
+    
+  /*   
+  $phone = $this->sanitizarEntrada($data['phone']);
+    $email = $this->sanitizarEntrada($data['email']);
+    $address = $this->sanitizarEntrada($data['address']);
+    $name = $this->sanitizarEntrada($data['name']);
+    $nit = $this->sanitizarEntrada($data['nit']);
+    $company = $this->sanitizarEntrada($data['company']); 
+    */
+
+
+
+    // Verifica el captcha
+    if (!$this->verifyCaptcha($captcha)) {
+      $response = [
+        'status' => 'error',
+        'error' => 'Captcha incorrecto',
+        'message' => 'Captcha incorrecto'
+      ];
+      echo json_encode($response);
+      return;
+    }
+
+    // Verifica que la cédula no esté vacía
+    if (!$nit) {
+      $response = [
+        'status' => 'error',
+        'message' => 'La cédula es requerida'
+      ];
+      echo json_encode($response);
+      return;
+    }
+
+
+
+
+
+    // Crea una instancia del modelo de envío de correos y envía el correo de recuperación
+    $mailModel = new Core_Model_Sendingemail($this->_view);
+    $mail = $mailModel->enviardatos($dataCorreo);
+
+    if ($mail == '1') {
+
+      // Prepara la respuesta exitosa
+      Session::getInstance()->set("registrook", "El correo ha sido enviado correctamente, pronto nos pondremos en contacto con usted");
+      $response = [
+        'status' => 'success',
+        'message' => 'El correo ha sido enviado correctamente, pronto nos pondremos en contacto con usted',
+           
+      ];
+    } else {
+      // Prepara la respuesta de error en caso de fallo al enviar el correo
+      Session::getInstance()->set("error", "Ha ocurrido un error al enviar el correo");
+      $response = [
+        'status' => 'error',
+        'message' => 'Ha ocurrido un error al enviar el correo'
+      ];
+    }
+
+    echo json_encode($response);
+    return;
+
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   // Acción para procesar la creación de una nueva cuenta
   public function crearAction()
@@ -362,6 +469,8 @@ class Page_loginController extends Page_mainController
     // Devuelve la respuesta en formato JSON
     die(json_encode($response));
   }
+
+
 
   // Método privado para verificar el captcha
   private function verifyCaptcha($response)

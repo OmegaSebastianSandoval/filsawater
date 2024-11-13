@@ -1146,6 +1146,8 @@ HOME  INICIO
 .content-blog-home .image-content img {
   aspect-ratio: 16/9;
   transition: transform 0.4s ease-in-out;
+  width: 100%;
+  object-fit: contain;
 }
 
 
@@ -1925,6 +1927,7 @@ LOGIN FORMULARIOS INICIO
 ______________________________ */
 .container-form-login {
   background-color: var(--azul);
+  border-radius: 5px;
 }
 
 .container-form-login .form-contact label {
@@ -2053,6 +2056,13 @@ ______________________________ */
   background-color: var(--azulclaro2);
 }
 
+.container-banner-login h1{
+  color: var(--azulclaro2);
+  font-size: 38px;
+  font-weight: 600;
+  margin: 0 0 30px 0;
+  text-align: center;
+}
 
 /*-------------------------------------------------------------------------------
 LOGIN FORMULARIOS INICIO

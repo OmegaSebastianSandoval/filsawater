@@ -46,7 +46,10 @@
 
                                     <button class="btn-blue px-4 py-2 border-white" id="submit-login">Iniciar Sesión</button>
                                 </div>
-                         
+                                <div class="container-newaccount mt-2">
+                                    <a href="/page/login/crearcuenta">Crear cuenta</a>
+                                </div>
+
 
                             </div>
                         </div>
@@ -62,7 +65,7 @@
                         <br>
                         <br>
                         <div class="">
-                            <a href="/page/login/crearcuenta" class="btn-blue mx-auto">Contáctenos</a>
+                            <a href="/page/login/registro" class="btn-blue mx-auto">Contáctenos</a>
                         </div>
                     </p>
                 </div>

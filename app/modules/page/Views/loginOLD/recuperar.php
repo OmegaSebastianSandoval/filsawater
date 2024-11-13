@@ -1,7 +1,7 @@
 <div class="container-login">
     <div class="container py-5">
         <div class="row justify-content-center align-items-center">
-            <div class="col-12 col-md-7 col-lg-5 col-lg-xl-4">
+            <div class="col-12 col-md-7 col-lg-4">
                 <h2>Recuperar Contraseña</h2>
 
                 <div class="container-form-login shadow-sm p-4">
@@ -31,7 +31,9 @@
 
                                     <button class="btn-blue px-4 py-2 border-white" id="submit-recuperacion">Enviar ahora</button>
                                 </div>
-                               
+                                <div class="container-newaccount mt-2">
+                                    <a href="/page/login/crearcuenta">Crear cuenta</a>
+                                </div>
 
 
                             </div>
@@ -50,7 +52,7 @@
         background-color: #f5f5f5;
     }
 
-    @media (width >1600px) {
+    @media (width >1400px) {
         .main-general {
             height: calc(100dvh - 400px);
         }

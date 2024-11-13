@@ -35,9 +35,22 @@ class Administracion_Model_DbTable_Usuario extends Db_Table
 		$user_current_user = $data['user_current_user'];
 		$user_code = $data['user_code'];
 		$user_empresa = $data['user_empresa'];
-		$query = "INSERT INTO user(user_state, user_date, user_names, user_cedula, user_email, user_telefono, user_level, user_user, user_password, user_delete, user_current_user, user_code, user_empresa) VALUES ( '$user_state', '$user_date', '$user_names', '$user_cedula', '$user_email', '$user_telefono', '$user_level', '$user_user', '$user_password', '$user_delete', '$user_current_user', '$user_code', '$user_empresa')";
+
+		$user_addres = $data['user_addres'];
+		$user_contacto = $data['user_contacto'];
+		$user_telefono_contacto = $data['user_telefono_contacto'];
+		$user_nivel_cliente = $data['user_nivel_cliente'];
+		$user_codigo_otp = $data['user_codigo_otp'];
+		$user_fecha_codigo_otp = $data['user_fecha_codigo_otp'];
+
+
+		echo $query = "INSERT INTO user(user_state, user_date, user_names, user_cedula, user_email, user_telefono, user_level, user_user, user_password, user_delete, user_current_user, user_code, user_empresa, user_addres, user_contacto, user_telefono_contacto, user_nivel_cliente, user_codigo_otp, user_fecha_codigo_otp) VALUES ( '$user_state', '$user_date', '$user_names', '$user_cedula', '$user_email', '$user_telefono', '$user_level', '$user_user', '$user_password', '$user_delete', '$user_current_user', '$user_code', '$user_empresa', '$user_addres', '$user_contacto', '$user_telefono_contacto', '$user_nivel_cliente', '$user_codigo_otp', '$user_fecha_codigo_otp')";
 		$res = $this->_conn->query($query);
-        return mysqli_insert_id($this->_conn->getConnection());
+		return mysqli_insert_id($this->_conn->getConnection());
+
+		/* $query = "INSERT INTO user(user_state, user_date, user_names, user_cedula, user_email, user_telefono, user_level, user_user, user_password, user_delete, user_current_user, user_code, user_empresa) VALUES ( '$user_state', '$user_date', '$user_names', '$user_cedula', '$user_email', '$user_telefono', '$user_level', '$user_user', '$user_password', '$user_delete', '$user_current_user', '$user_code', '$user_empresa')";
+		$res = $this->_conn->query($query);
+        return mysqli_insert_id($this->_conn->getConnection()); */
 	}
 
 	/**
@@ -65,7 +78,19 @@ class Administracion_Model_DbTable_Usuario extends Db_Table
 		$user_current_user = $data['user_current_user'];
 		$user_code = $data['user_code'];
 		$user_empresa = $data['user_empresa'];
-		$query = "UPDATE user SET  user_state = '$user_state', user_names = '$user_names', user_cedula = '$user_cedula', user_email = '$user_email', user_telefono = '$user_telefono', user_level = '$user_level', user_user = '$user_user', user_delete = '$user_delete', user_current_user = '$user_current_user', user_code = '$user_code', user_empresa='$user_empresa' $changepasword WHERE user_id = '".$id."'";
+
+		$user_addres = $data['user_addres'];
+		$user_contacto = $data['user_contacto'];
+		$user_telefono_contacto = $data['user_telefono_contacto'];
+		$user_nivel_cliente = $data['user_nivel_cliente'];
+		$user_codigo_otp = $data['user_codigo_otp'];
+		$user_fecha_codigo_otp = $data['user_fecha_codigo_otp'];
+
+		$query = "UPDATE user SET  user_state = '$user_state', user_names = '$user_names', user_cedula = '$user_cedula', user_email = '$user_email', user_telefono = '$user_telefono', user_level = '$user_level', user_user = '$user_user', user_delete = '$user_delete', user_current_user = '$user_current_user', user_code = '$user_code', user_empresa='$user_empresa' $changepasword, user_addres = '$user_addres', user_contacto = '$user_contacto', user_telefono_contacto = '$user_telefono_contacto', user_nivel_cliente = '$user_nivel_cliente', user_codigo_otp = '$user_codigo_otp', user_fecha_codigo_otp = '$user_fecha_codigo_otp' WHERE user_id = '".$id."'";
 		$res = $this->_conn->query($query);
+
+
+		/* $query = "UPDATE user SET  user_state = '$user_state', user_names = '$user_names', user_cedula = '$user_cedula', user_email = '$user_email', user_telefono = '$user_telefono', user_level = '$user_level', user_user = '$user_user', user_delete = '$user_delete', user_current_user = '$user_current_user', user_code = '$user_code', user_empresa='$user_empresa' $changepasword WHERE user_id = '".$id."'";
+		$res = $this->_conn->query($query); */
 	}
 }
