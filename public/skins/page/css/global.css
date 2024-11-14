@@ -110,6 +110,37 @@ h2.text-center::after {
 }
 
 
+
+.has-error {
+  position: relative;
+}
+
+.has-error .form-control {
+  border-color: #ffc4c4;
+}
+
+.has-error label {
+  color: red;
+}
+
+.has-error .with-errors {
+  background: #ffc4c4;
+  color: #6b0a0a;
+  padding: 5px;
+  text-align: center;
+  border-radius: 0 0 0.5em 0.5em;
+  font-weight: 700;
+  font-size: 10px;
+  position: absolute;
+  padding: 0;
+  height: 15px;
+  padding-left: 20px;
+  padding-right: 20px;
+  margin-top: -4px;
+  width: 94%;
+}
+
+
 .contenedor-seccion {
   padding: 30px 0;
 }
@@ -2064,6 +2095,36 @@ ______________________________ */
   text-align: center;
 }
 
+.otp-input {
+  width: 2em;
+  padding: 0.5em;
+  margin: 0.2em;
+  font-size: 1.5em;
+  text-align: center;
+  border-radius: 8px;
+  border: 1px solid var(--azulclaro2);
+  color: #737373;
+  font-weight: 800;
+
+}
+.otp-input:focus-visible {
+  outline: none;
+  border: 1px solid var(--azulclaro);
+
+}
+
+.otp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.container-login .btn-blue{
+  transition: all 300ms ease;
+}
+.container-login .btn-blue:hover{
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  background-color: var(--azulclaro);
+}
 /*-------------------------------------------------------------------------------
 LOGIN FORMULARIOS INICIO
 ______________________________------------------------------------------------------- */
@@ -2108,7 +2169,7 @@ ______________________________--------------------------------------------------
 .product-card .content-image-product img {
   height: 300px;
   background-color: var(--blanco);
-  object-fit: contain;
+  object-fit: cover;
   transition: transform 300ms ease-in-out;
 }
 
@@ -2167,7 +2228,7 @@ ______________________________--------------------------------------------------
 }
 
 
-.product-card .add-cart-content .btn-add-cart {
+.product-card .add-cart-content button {
   padding: 15px;
 
   background-color: transparent;
@@ -2186,7 +2247,7 @@ ______________________________--------------------------------------------------
 
 }
 
-.product-card .add-cart-content .btn-add-cart:hover {
+.product-card .add-cart-content button:hover {
   background-color: var(--azulclaro2);
   color: var(--blanco);
 }
@@ -2333,8 +2394,22 @@ ______________________________--------------------------------------------------
   list-style: none;
   padding: 0;
   margin: 0;
+  height: 100%;
+
+}
+.container-carrito ul li{
+  border-bottom: 1px solid #59595924;
+}
+.container-carrito ul li:last-of-type{
+  border-bottom: none;
 }
 
+#micarrito{
+  min-height: 90dvh;
+}
+.container-carrito .offcanvas-body{
+  height: 100%;
+}
 .container-carrito a.enlace-cart {
   font-size: 14px;
   color: var(--azul);
@@ -2346,8 +2421,10 @@ ______________________________--------------------------------------------------
   color: var(--azulclaro2);
 }
 .container-carrito .price-cart{
-  font-size: 13px;
+  font-size: 14px;
   color: var(--gris-medio);
+  font-weight: 600;
+  margin-top: 10px;
 }
 
 .container-carrito img {
@@ -2390,6 +2467,20 @@ ______________________________--------------------------------------------------
 
 .container-carrito .btn-close-white{
   filter: brightness(0.5) !important;
+}
+.content-subtotal{
+  border-top: 1px solid #59595924;
+  padding: 10px;
+}
+.content-subtotal span{
+  color: var(--gris-medio);
+  font-weight: 500;
+  font-size: 19px;
+}
+.content-subtotal .total-cart{
+  color: var(--azul);
+  font-weight: 600;
+  font-size: 20px;
 }
 /*-------------------------------------------------------------------------------
 CARRITO FIN

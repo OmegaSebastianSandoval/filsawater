@@ -62,59 +62,6 @@ $(document).ready(function () {
   const tooltipList = [...tooltipTriggerList].map(
     (tooltipTriggerEl) => new bootstrap.Tooltip(tooltipTriggerEl)
   );
-
-  //Login Paso1:
-  $("#loginForm").on("submit", function (e) {
-    e.preventDefault();
-    let data = $(this).serialize();
-    $.ajax({
-      url: $(this).attr("action"),
-      type: $(this).attr("method"),
-      data: data,
-      dataType: "json",
-      success: function (response) {
-        switch (response.status) {
-          case "success":
-            window.location.href = "/page/login/otp?e=" + response.email;
-            break;
-          case "error":
-            Swal.fire({
-              icon: "error",
-              title: "Error",
-              text: response.message,
-              confirmButtonColor: "#192a4b",
-            });
-            break;
-        }
-      },
-    });
-  });
-  // Login Paso2:
-  $("#otpForm").on("submit", function (e) {
-    e.preventDefault();
-    let data = $(this).serialize();
-    $.ajax({
-      url: $(this).attr("action"),
-      type: $(this).attr("method"),
-      data: data,
-      dataType: "json",
-      success: function (response) {
-        switch (response.status) {
-          case "success":
-            window.location.href = "/page/home";
-            break;
-          case "error":
-            Swal.fire({
-              icon: "error",
-              title: "Error",
-              text: response.message,
-              confirmButtonColor: "#192a4b",
-            });
-            break;
-        }
-      },
-    });
-  });
 });
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -321,7 +268,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   /* ------------------------------------------------------ */
-  /* --------------------- FORMULARIO LOGIN PASO 1 ---------------- */
+  /* --------------------- FORMULARIO LOGIN ---------------- */
   /* ------------------------------------------------------ */
 
   document
@@ -361,30 +308,29 @@ document.addEventListener("DOMContentLoaded", () => {
         })
           .then((response) => response.json())
           .then((data2) => {
-            console.log(data2.email); // Verifica el valor exacto
-            switch (data2.status.trim()) {
-              case "success":
-                Swal.fire({
-                  icon: "success",
-                  text: "Hemos enviado un código de verificación a tu correo electrónico.",
-                  confirmButtonColor: "#5475a1",
-                  confirmButtonText: "Continuar",
-                }).then(() => {
-                  // Redirigir a otra página si es necesario
-                  window.location.href =  '/page/login/otp?e='+data2.email;
-                });
-                break;
-              case "error":
-                Swal.fire({
-                  icon: "error",
-                  text: data2.error,
-                  confirmButtonColor: "#5475a1",
-                  confirmButtonText: "Continuar",
-                }).then((result) => {
-                  if (data2.error == "Captcha incorrecto") {
-                    window.location.reload();
-                  }
-                });
+            console.log(data2); // Verifica el valor exacto
+
+            if (data2.status.trim().toLowerCase() === "success") {
+              Swal.fire({
+                icon: "success",
+                text: "Bienvenido.",
+                confirmButtonColor: "#5475a1",
+                confirmButtonText: "Continuar",
+              }).then(() => {
+                // Redirigir a otra página si es necesario
+                window.location.href = data2.redirect;
+              });
+            } else if (data2.status === "error") {
+              Swal.fire({
+                icon: "error",
+                text: data2.error,
+                confirmButtonColor: "#5475a1",
+                confirmButtonText: "Continuar",
+              }).then((result) => {
+                if (data2.error == "Captcha incorrecto") {
+                  window.location.reload();
+                }
+              });
             }
             // document.getElementById("form-contact").reset();
             // Habilitar botón y ocultar animación
@@ -413,7 +359,105 @@ document.addEventListener("DOMContentLoaded", () => {
   /* ------------------------------------------------------ */
 
   /* ------------------------------------------------------ */
-  /* --------------------- FORMULARIO ENVIAR DATOS---------------- */
+  /* --------------------- FORMULARIO RECUPERACION---------------- */
+  /* ------------------------------------------------------ */
+  document
+    .getElementById("form-recuperacion")
+    ?.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const response = grecaptcha.getResponse();
+      if (response.length === 0) {
+        Swal.fire({
+          icon: "warning",
+          text: "Por favor, verifica que no eres un robot.",
+          confirmButtonColor: "#5475a1",
+          confirmButtonText: "Continuar",
+        });
+      } else {
+        $(".loader-bx").addClass("show");
+
+        let submitBtn = document.getElementById("submit-recuperacion");
+        // Deshabilitar botón y mostrar animación
+        submitBtn.disabled = true;
+
+        let formData = new FormData(this);
+        let data = {};
+        formData.forEach((value, key) => {
+          data[key] = value;
+        });
+
+        fetch(this.getAttribute("action"), {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data2) => {
+            console.log(data2); // Verifica el valor exacto
+
+            if (data2.status.trim().toLowerCase() === "success") {
+              Swal.fire({
+                icon: "success",
+                text: data2.message,
+                confirmButtonColor: "#5475a1",
+                confirmButtonText: "Volver al inicio",
+              }).then(() => {
+                // Redirigir a otra página si es necesario
+                window.location.href = "/page/login";
+              });
+            } else if (data2.status === "error") {
+              Swal.fire({
+                icon: "error",
+                text: data2.message,
+                confirmButtonColor: "#5475a1",
+                confirmButtonText: "Continuar",
+              }).then((result) => {
+                if (data2.error == "Captcha incorrecto") {
+                  window.location.reload();
+                }
+              });
+            }
+            // document.getElementById("form-contact").reset();
+            // Habilitar botón y ocultar animación
+            submitBtn.disabled = false;
+            $(".loader-bx").removeClass("show");
+          })
+
+          .catch((error) => {
+            // console.log("Error:", error);
+
+            Swal.fire({
+              icon: "error",
+              text: "Ha ocurrido un error, por favor intenta de nuevo.",
+              confirmButtonColor: "#5475a1",
+              confirmButtonText: "Continuar",
+            });
+            // Habilitar botón y ocultar animación
+            submitBtn.disabled = false;
+            $(".loader-bx").removeClass("show");
+          });
+      }
+    });
+
+  /* ------------------------------------------------------ */
+  /* --------------------- FORMULARIO RECUPERACION---------------- */
+  /* ------------------------------------------------------ */
+
+
+
+
+
+
+
+
+
+
+
+  /* ------------------------------------------------------ */
+  /* --------------------- FORMULARIO RECUPERACION DE CLAVE---------------- */
   /* ------------------------------------------------------ */
   document
     .getElementById("form-enviardatos")
@@ -461,6 +505,7 @@ document.addEventListener("DOMContentLoaded", () => {
               }).then(() => {
                 // Redirigir a otra página si es necesario
                 window.location.reload();
+
               });
             } else if (data2.status === "error") {
               Swal.fire({
@@ -497,6 +542,111 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   /* ------------------------------------------------------ */
   /* --------------------- FORMULARIO RECUPERACI /* ------------------------------------------------------ */
+
+
+/* ------------------------------------------------------ */
+  /* --------------------- FORMULARIO RECUPERACION---------------- */
+  /* ------------------------------------------------------ */
+  document
+    .getElementById("form-recuperacion")
+    ?.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      const response = grecaptcha.getResponse();
+      if (response.length === 0) {
+        Swal.fire({
+          icon: "warning",
+          text: "Por favor, verifica que no eres un robot.",
+          confirmButtonColor: "#5475a1",
+          confirmButtonText: "Continuar",
+        });
+      } else {
+        $(".loader-bx").addClass("show");
+
+        let submitBtn = document.getElementById("submit-recuperacion");
+        // Deshabilitar botón y mostrar animación
+        submitBtn.disabled = true;
+
+        let formData = new FormData(this);
+        let data = {};
+        formData.forEach((value, key) => {
+          data[key] = value;
+        });
+
+        fetch(this.getAttribute("action"), {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(data),
+        })
+          .then((response) => response.json())
+          .then((data2) => {
+            console.log(data2); // Verifica el valor exacto
+
+            if (data2.status.trim().toLowerCase() === "success") {
+              Swal.fire({
+                icon: "success",
+                text: data2.message,
+                confirmButtonColor: "#5475a1",
+                confirmButtonText: "Volver al inicio",
+              }).then(() => {
+                // Redirigir a otra página si es necesario
+                window.location.href = "/page/login";
+              });
+            } else if (data2.status === "error") {
+              Swal.fire({
+                icon: "error",
+                text: data2.message,
+                confirmButtonColor: "#5475a1",
+                confirmButtonText: "Continuar",
+              }).then((result) => {
+                if (data2.error == "Captcha incorrecto") {
+                  window.location.reload();
+                }
+              });
+            }
+            // document.getElementById("form-contact").reset();
+            // Habilitar botón y ocultar animación
+            submitBtn.disabled = false;
+            $(".loader-bx").removeClass("show");
+          })
+
+          .catch((error) => {
+            // console.log("Error:", error);
+
+            Swal.fire({
+              icon: "error",
+              text: "Ha ocurrido un error, por favor intenta de nuevo.",
+              confirmButtonColor: "#5475a1",
+              confirmButtonText: "Continuar",
+            });
+            // Habilitar botón y ocultar animación
+            submitBtn.disabled = false;
+            $(".loader-bx").removeClass("show");
+          });
+      }
+    });
+
+  /* ------------------------------------------------------ */
+  /* --------------------- FORMULARIO RECUPERACION---------------- */
+  /* ------------------------------------------------------ */
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   /* ------------------------------------------------------ */
 
@@ -697,6 +847,7 @@ function initQuantityButtons() {
           alertaSwal(data); // Llama a tu función de alerta personalizada
           getCart(); // Actualiza el carrito en la UI, si tienes esta función definida
           traercarrito();
+
         })
         .catch((error) => {
           console.error("Error al actualizar la cantidad del producto:", error);

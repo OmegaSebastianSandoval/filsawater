@@ -21,7 +21,7 @@ class Page_mainController extends Controllers_Abstract
 		$categoriasModel = new Administracion_Model_DbTable_Tiendacategorias();
 		$this->_view->categoriasHeader = $categoriasModel->getList("tienda_categoria_estado='1'", "orden ASC");
 
-
+		$this->_view->usuario = $this->usuarioLogged();
 
 		$informacion = $infopageModel->getById(1);
 		$this->_view->infopage = $informacion;
@@ -29,8 +29,8 @@ class Page_mainController extends Controllers_Abstract
 		// Obtener la lista de categorías de blog
 		$this->_view->list_blog_categoria_id = $this->getCategoriasSoluciones();
 
-		$usuario = Session::getInstance()->get("usuario");
-		$this->_view->usuario = $usuario;
+
+
 		$this->_view->carrito = $this->_view->getRoutPHP('modules/page/Views/carrito/index.php');
 
 		// $this->getcartlist();
@@ -63,6 +63,19 @@ class Page_mainController extends Controllers_Abstract
 			$this->editarpage = 1;
 		}
 	}
+	public function usuarioLogged()
+	{
+		$usuario = Session::getInstance()->get("usuario");
+
+		if ($usuario->user_id) {
+			$usuarioModel = new Administracion_Model_DbTable_Usuario();
+			$usuario = $usuarioModel->getById($usuario->user_id);
+			Session::getInstance()->set("usuario", $usuario);
+
+			return $usuario;
+		}
+	}
+
 
 	/**
 	 * Genera un array con los valores del campo categoría.
@@ -98,13 +111,22 @@ class Page_mainController extends Controllers_Abstract
 
 
 		$productoModel =  new Administracion_Model_DbTable_Productos();
+		$nivelesModel = new Administracion_Model_DbTable_Niveles();
+		$usuario = $this->usuarioLogged();
+		$nivel = $nivelesModel->getById($usuario->user_nivel_cliente);
+		$descuento = $nivel->nivel_porcentaje;
 		$carrito = $this->getCarrito();
+
 
 
 		$data = [];
 		foreach ($carrito as $id => $cantidad) {
+
+			$producto = $productoModel->getById($id);
+			$producto->producto_precio -= $producto->producto_precio * $descuento / 100;
+
 			$data[$id] = [];
-			$data[$id]['detalle'] = $productoModel->getById($id);
+			$data[$id]['detalle'] = $producto;
 			$data[$id]['cantidad'] = (int)$cantidad;
 		}
 		// print_r($data);

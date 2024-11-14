@@ -5,6 +5,10 @@
         <?= $this->categoria->tienda_categoria_nombre ?>
     </h3>
 
+    <?php
+    // print_r($this->usuario);
+    ?>
+
     <div class="row mt-4">
         <?php if (is_countable($this->productos) && count($this->productos) >= 1) { ?>
             <?php foreach ($this->productos as $producto): ?>
@@ -21,23 +25,36 @@
                                 <?php } ?>
 
                                 <figcaption class="sr-only"><?= $producto->producto_nombre ?></figcaption>
-                                <?php if ( $producto->producto_precio > 1  && $producto->producto_stock >= 1) { ?>
+                             
                                     <div class="add-cart-content">
-                                        <button class="btn-add-cart" data-id="<?= $producto->producto_id ?>" aria-label="Agregar <?= $producto->producto_nombre ?> al carrito" title="Agregar al carrito">
-                                            <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+                                        <?php if ($this->usuario && $producto->producto_precio > 1  && $producto->producto_stock >= 1) { ?>
 
-                                        </button>
+                                            <button class="btn-add-cart" data-id="<?= $producto->producto_id ?>" aria-label="Agregar <?= $producto->producto_nombre ?> al carrito" title="Agregar al carrito">
+                                                <i class="fas fa-shopping-cart" aria-hidden="true"></i>
+
+                                            </button>
+                                        <?php } else { ?>
+
+                                            <button class="btn-view mt-2" aria-label="Ver info <?= $producto->producto_nombre ?> " title="Ver mas información">
+                                                <i class="fa-solid fa-eye"></i>
+
+                                            </button>
+                                        <?php } ?>
+
                                     </div>
-                                <?php } ?>
+
+                              
 
                             </figure>
                             <div class="content-info-product">
                                 <h3 class="product-title"><?= $producto->producto_nombre ?></h3>
                                 <div class="d-flex align-items-center justify-content-between mt-1">
                                     <h5 class="product-reference"><span>Ref: </span><?= $producto->producto_referencia ?></h5>
-                                    <?php if ($producto->producto_precio && $producto->producto_precio > 1) { ?>
+
+                                    <?php if ($this->usuario && $producto->producto_precio && $producto->producto_precio > 1) { ?>
                                         <p class="product-price">$<?= number_format($producto->producto_precio) ?></p>
                                     <?php } ?>
+
 
                                 </div>
                             </div>

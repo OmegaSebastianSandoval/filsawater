@@ -44,7 +44,7 @@
         <div class="col-12  col-lg-7 order-1 order-lg-2">
             <h2><?= $this->producto->producto_nombre ?></h2>
 
-            <?php if ($this->producto->producto_precio && $this->producto->producto_precio >= 1) { ?>
+            <?php if ($this->usuario && $this->producto->producto_precio && $this->producto->producto_precio >= 1) { ?>
                 <h3 class="price-product">$<?= number_format($this->producto->producto_precio) ?></h3>
             <?php } ?>
 
@@ -80,7 +80,7 @@
 
                 </div>
             <?php } ?>
-            <?php if ($this->producto->producto_stock >= 1 && $this->producto->producto_precio >= 1) { ?>
+            <?php if ($this->usuario && $this->producto->producto_stock >= 1 && $this->producto->producto_precio >= 1) { ?>
                 <div class="product-detail mt-4 ">
                     <div class="quantity-control">
                         <button class="btn-decrease">-</button>

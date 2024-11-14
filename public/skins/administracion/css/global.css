@@ -422,7 +422,7 @@ footer.panel-derechos a {
 .content-dashboard label {
   font-size: 14px;
   font-weight: 300;
-  text-transform: capitalize;
+  /* text-transform: capitalize; */
 }
 
 thead td {

@@ -196,6 +196,7 @@ class Administracion_usuarioController extends Administracion_mainController
 			$content = $this->mainModel->getById($id);
 			if ($content->user_id) {
 				$data = $this->getData();
+				print_r($data);
 				$this->mainModel->update($data, $id);
 
 				//LOG
@@ -206,7 +207,7 @@ class Administracion_usuarioController extends Administracion_mainController
 				$logModel->insert($data);
 			}
 		}
-		header('Location: ' . $this->route . '' . '');
+	header('Location: ' . $this->route . '' . '');
 	}
 
 	/**

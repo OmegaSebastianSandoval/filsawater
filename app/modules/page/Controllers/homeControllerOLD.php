@@ -21,22 +21,29 @@ class Page_homeController extends Page_mainController
   {
 
 
-  
-    $email = $this->_getSanitizedParam('user_email');
+    $nombres = $this->_getSanitizedParam('nombres');
+    $email = $this->_getSanitizedParam('email');
     $phone = $this->_getSanitizedParam('phone');
-    $addres = $this->_getSanitizedParam('user_addres');
-    $nombresContacto = $this->_getSanitizedParam('nombres-contacto');
-    $phoneContacto = $this->_getSanitizedParam('phone-contacto');
-  
+    $password = $this->_getSanitizedParam('password');
+    $password2 = $this->_getSanitizedParam('re-password');
     $id = $this->_getSanitizedParam('id');
     $usuarioModel = new Page_Model_DbTable_Usuario();
 
+    if ($password != '') {
+      if ($password === $password2) {
+        $usuarioModel->editField($id, 'user_password', password_hash($password, PASSWORD_DEFAULT));
+      } else {
+        $error = 1;
+      }
+    }    
+    if($error){
+      header("Location: /page/home/?error=1");
+      exit;
+    }
 
+    $usuarioModel->editField($id, 'user_names', $nombres);
     $usuarioModel->editField($id, 'user_email', $email);
     $usuarioModel->editField($id, 'user_telefono', $phone);
-    $usuarioModel->editField($id, 'user_addres', $addres);
-    $usuarioModel->editField($id, 'user_contacto', $nombresContacto);
-    $usuarioModel->editField($id, 'user_telefono_contacto', $phoneContacto);
     $usuario = $usuarioModel->getById($id);
     Session::getInstance()->set('usuario', $usuario);
 

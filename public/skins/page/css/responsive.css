@@ -12,6 +12,12 @@
     --gris-medio: #595959;
 
 }
+@media (width <1200px) {
+
+.product-card .content-image-product img{
+    height: 200px;
+}
+}
 
 @media (width <992px) {
 
@@ -40,19 +46,21 @@
 
     }
 
-    header .header-up .login{
+    header .header-up .login {
         font-size: 14px;
     }
+
     header nav .logo img {
-    
+
         max-width: 125px;
     }
 
-    .contenedor-detail-producto #myCarousel{
+    .contenedor-detail-producto #myCarousel {
         width: 100%;
         max-width: 100%;
     }
-    .contenedor-detail-producto .contenedorfotos{
+
+    .contenedor-detail-producto .contenedorfotos {
         margin-top: 15px;
     }
 
@@ -60,16 +68,16 @@
 
 @media (max-width:765px) {
 
-    .content-carrito{
+    .content-carrito {
         position: absolute;
         right: 20%;
         top: 50%;
-        transform: translateY(-50%); 
+        transform: translateY(-50%);
         color: var(--azulclaro2);
         font-size: 18px;
     }
 
-    .content-carrito span{
+    .content-carrito span {
         padding: 10px;
         width: 5px;
         border-radius: 50%;
@@ -177,7 +185,7 @@
 
     header .login {
         color: var(--azulclaro2);
-        font-weight: 600rthcd;
+        font-weight: 600;
         text-decoration: none;
         transition: transform 0.3s ease-in-out;
     }
@@ -321,30 +329,44 @@ BANNER INTERNAS FIN
         right: 10px;
         z-index: 99;
     }
-    .quantity-control-cart .quantity-cart{
+
+    .quantity-control-cart .quantity-cart {
         text-align: center;
     }
 
-    .container-flex-home{
+    .container-flex-home {
         flex-wrap: wrap;
     }
-    
-    .container-flex-home .nav.flex-column.nav-pills{
-       width: 100%;
+
+    .container-flex-home .nav.flex-column.nav-pills {
+        width: 100%;
     }
 
-    .quantity-control .quantity{
+    .quantity-control .quantity {
         text-align: center;
     }
 
 
-    .contenedor-detail-producto .product-description tr{
+    .contenedor-detail-producto .product-description tr {
         display: table-cell;
         width: 100%;
     }
-    .contenedor-detail-producto .product-description tr td{
-        display:block;
-   
+
+    .contenedor-detail-producto .product-description tr td {
+        display: block;
+
+    }
+
+    .slick-prev:before,
+    .slick-next:before {}
+
+    .slick-next {
+        right: 5px !important;
+    }
+
+    .slick-prev {
+        left: -5px !important;
+        z-index: 2;
     }
 }
 

@@ -26,19 +26,31 @@
 					<div class="help-block with-errors"></div>
 				</div>
 				<div class="col-12 col-md-3 form-group">
-					<label class="control-label">Tipo de usuario</label>
+					<label class="control-label">Tipo de Usuario</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono  fondo-rojo-claro "><i class="far fa-list-alt"></i></span>
 						</div>
-						<select class="form-control" name="user_level" id="user_level" required <?php echo $this->content->user_level!='' ? 'readonly disabled' : '' ?> >
-							<option value="">Seleccione...</option>
+
+						<select class="form-control" name="user_level" id="user_level" required>
+							<option value=""
+								<?php if ($this->content->user_level == 2) {
+									echo "disabled";
+								} ?>>Seleccione...</option>
 							<?php foreach ($this->list_user_level as $key => $value) { ?>
-								<option <?php if ($this->getObjectVariable($this->content, "user_level") == $key) {
+								<option
+									<?php if ($this->getObjectVariable($this->content, "user_level") == $key) {
 											echo "selected";
-										} ?> value="<?php echo $key; ?>" /> <?= $value; ?></option>
+										} ?>
+									<?php if ($this->content->user_level == 2 && $this->getObjectVariable($this->content, "user_level") != $key) {
+										echo "disabled";
+									} ?>
+									value="<?php echo $key; ?>" /> <?= $value; ?></option>
 							<?php } ?>
 						</select>
+
+
+
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -49,7 +61,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono  fondo-rojo-claro "><i class="far fa-list-alt"></i></span>
 						</div>
-						<select class="form-control requerido-cliente" name="user_nivel_cliente" id="user_nivel_cliente" >
+						<select class="form-control requerido-cliente" name="user_nivel_cliente" id="user_nivel_cliente">
 							<option value="">Seleccione...</option>
 							<?php foreach ($this->list_user_nivel_cliente as $key => $value) { ?>
 								<option <?php if ($this->getObjectVariable($this->content, "user_nivel_cliente") == $key) {
@@ -62,7 +74,7 @@
 				</div>
 				<input type="hidden" name="user_date" value="<?php echo $this->content->user_date ?>">
 				<div class="col-12 col-md-3 form-group no-cliente">
-					<label for="user_names"  class="control-label">Nombres</label>
+					<label for="user_names" class="control-label">Nombres</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono  fondo-morado "><i class="fas fa-pencil-alt"></i></span>
@@ -73,7 +85,7 @@
 				</div>
 
 				<div class="col-12 col-md-3 form-group cliente">
-					<label for="user_empresa"  class="control-label">Nombre del Cliente</label>
+					<label for="user_empresa" class="control-label">Nombre del Cliente</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono  fondo-morado "><i class="fas fa-pencil-alt"></i></span>
@@ -89,7 +101,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono  fondo-morado "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->user_cedula; ?>" name="user_cedula" id="user_cedula" onkeypress="return soloNumerosYGuion(event)" class="form-control" required>
+						<input type="text" value="<?= $this->content->user_cedula; ?>" name="user_cedula" id="user_cedula" onkeypress="return soloNumerosYGuion(event)" data-remote="/core/user/validationcedula?csrf=1&cedula=<?= $this->content->user_cedula; ?>" class="form-control" required>
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -99,7 +111,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono  fondo-rosado "><i class="fas fa-user-tie"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->user_user; ?>" name="user_user" id="user_user" class="form-control requerido-usuario"    required data-remote="/core/user/validation?csrf=1&user=<?= $this->content->user_user; ?>">
+						<input type="text" value="<?= $this->content->user_user; ?>" name="user_user" id="user_user" class="form-control requerido-usuario" required data-remote="/core/user/validation?csrf=1&user=<?= $this->content->user_user; ?>">
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -120,7 +132,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono  fondo-morado "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->user_telefono; ?>" name="user_telefono" id="user_telefono" class="form-control" onkeypress="return soloNumeros(event)" maxlength="10" minlength="10" pattern="^\d+$"required>
+						<input type="text" value="<?= $this->content->user_telefono; ?>" name="user_telefono" id="user_telefono" class="form-control" onkeypress="return soloNumeros(event)" maxlength="10" minlength="10" pattern="^\d+$" required>
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -148,33 +160,33 @@
 				</div>
 
 				<div class="col-12 col-md-3 form-group cliente">
-					<label for="user_addres"  class="control-label">Dirección</label>
+					<label for="user_addres" class="control-label">Dirección</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono  fondo-morado "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->user_addres; ?>" name="user_addres" id="user_addres" class="form-control requerido-cliente" >
+						<input type="text" value="<?= $this->content->user_addres; ?>" name="user_addres" id="user_addres" class="form-control requerido-cliente">
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
 				<div class="col-12 col-md-3 form-group cliente">
-					<label for="user_contacto"  class="control-label">Nombre de Contacto</label>
+					<label for="user_contacto" class="control-label">Nombre de Contacto</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono  fondo-morado "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->user_contacto; ?>" name="user_contacto" id="user_contacto" class="form-control requerido-cliente" >
+						<input type="text" value="<?= $this->content->user_contacto; ?>" name="user_contacto" id="user_contacto" class="form-control requerido-cliente">
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
 
 				<div class="col-12 col-md-3 form-group cliente">
-					<label for="user_telefono_contacto"class="control-label">Teléfono del Contacto</label>
+					<label for="user_telefono_contacto" class="control-label">Teléfono del Contacto</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono  fondo-morado "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->user_telefono_contacto; ?>" name="user_telefono_contacto" onkeypress="return soloNumeros(event)" maxlength="10" minlength="10" pattern="^\d+$"id="user_telefono_contacto" class="form-control requerido-cliente" required>
+						<input type="text" value="<?= $this->content->user_telefono_contacto; ?>" name="user_telefono_contacto" onkeypress="return soloNumeros(event)" maxlength="10" minlength="10" pattern="^\d+$" id="user_telefono_contacto" class="form-control requerido-cliente" required>
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -191,17 +203,17 @@
 	</form>
 </div>
 <style>
-	.cliente{
+	.cliente {
 		display: none;
 	}
 </style>
 <script>
-	
 	document.addEventListener('DOMContentLoaded', function() {
-		cambiarNivel() 
+		cambiarNivel()
+
 		function cambiarNivel() {
 			const nivel = document.getElementById('user_level');
-			
+
 			const labelNit = document.getElementById('label-nit');
 			const labelCorreo = document.getElementById('label-correo');
 			const labelTelefono = document.getElementById('label-telefono');
@@ -231,26 +243,26 @@
 	});
 
 	function soloNumeros(event) {
-        const charCode = event.keyCode ? event.keyCode : event.which;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            event.preventDefault();
-            return false;
-        }
-        return true;
-    }
+		const charCode = event.keyCode ? event.keyCode : event.which;
+		if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+			event.preventDefault();
+			return false;
+		}
+		return true;
+	}
 
-    function soloNumerosYGuion(event) {
-        const charCode = event.keyCode ? event.keyCode : event.which;
+	function soloNumerosYGuion(event) {
+		const charCode = event.keyCode ? event.keyCode : event.which;
 
-        // Permitir números (0-9) y el guion (-)
-        if (
-            charCode !== 45 && // Código ASCII del guion "-"
-            (charCode < 48 || charCode > 57) // Números (0-9)
-        ) {
-            event.preventDefault();
-            return false;
-        }
+		// Permitir números (0-9) y el guion (-)
+		if (
+			charCode !== 45 && // Código ASCII del guion "-"
+			(charCode < 48 || charCode > 57) // Números (0-9)
+		) {
+			event.preventDefault();
+			return false;
+		}
 
-        return true;
-    }
+		return true;
+	}
 </script>

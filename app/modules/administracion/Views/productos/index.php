@@ -161,10 +161,13 @@
 					<?php foreach ($this->lists as $content) { ?>
 						<?php $id =  $content->producto_id; ?>
 						<tr>
+							<?= $content->orden ?>
 							<td><?= $content->producto_estado == 1 ? 'Si' : 'No'; ?></td>
 							<td><?= $content->producto_nombre; ?></td>
 							<td><?= $content->producto_referencia; ?></td>
-							<td><?= $content->producto_precio; ?></td>
+							<td><?=
+								$content->producto_precio >= 1 ? '$' . number_format($content->producto_precio) : 'Sin Precio';
+								?></td>
 							<td>
 								<?php if ($content->producto_imagen) { ?>
 									<img src="/images/<?= $content->producto_imagen; ?>" class="img-thumbnail thumbnail-administrator" />
@@ -180,13 +183,13 @@
 							</td>
 							<td class="text-end">
 								<div>
-									
+
 									<a class="btn btn-warning btn-sm" href="/administracion/fotos/?foto_producto=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Imagenes"><i class="fa-regular fa-image"></i></a>
 									<a class="btn btn-rosado btn-sm" href="/administracion/documentos/?documento_producto=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Documentos"><i class="fa-solid fa-file"></i></a>
-									
-									
+
+
 									<a class="btn btn-verde btn-sm" href="/administracion/fotos/cargamasiva/?foto_producto=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Imagenes Carga Masiva"><i class="fa-regular fa-images"></i></a>
-									
+
 									<a class="btn btn-azul btn-sm" href="<?php echo $this->route; ?>/manage?id=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-pen-alt"></i></a>
 
 

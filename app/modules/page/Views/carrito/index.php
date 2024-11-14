@@ -5,11 +5,16 @@
                 <?php
                 $productoCarrito = $item["detalle"];
                 $cantidad = $item["cantidad"];
+                $total +=  $item["total"];
                 ?>
                 <li>
-                    <div class="row g-1 shadow-sm mb-2 p-1">
+                    <div class="row g-1  mb-2 p-1">
                         <div class="col-3">
-                            <img src="/images/<?= $productoCarrito->producto_imagen ?>" alt="" class="w-100 img-fluid object-fit-contain">
+                            <?php if ($productoCarrito->producto_imagen && file_exists($_SERVER['DOCUMENT_ROOT'] . "/images/" . $productoCarrito->producto_imagen)) { ?>
+                                <img src="/images/<?= $productoCarrito->producto_imagen ?>" alt="Imagen del producto <?= $productoCarrito->producto_nombre ?>" class="w-100 img-fluid object-fit-contain">
+                            <?php } else { ?>
+                                <img src="/assets/imagenot.jpg" alt="Imagen del producto <?= $productoCarrito->producto_nombre ?>" class="w-100 img-fluid object-fit-contain">
+                            <?php } ?>
                         </div>
                         <div class="col-8">
                             <div>
@@ -34,13 +39,26 @@
 
 
                     </div>
-                    
+
                 </li>
 
 
             <?php } ?>
 
-            <a href="/page/comprar" class="btn-blue rounded-0 mx-auto mt-3">Ir a Comprar</a>
+
+            <div class="content-subtotal mt-auto position-absolute bottom-0 w-100">
+
+                <div class="d-flex justify-content-between">
+                    <span>Total carrito </span>
+                    <span class="total-cart">$<?= number_format($total) ?></span>
+                </div>
+
+                <a href="/page/comprar" class="btn-blue rounded-0 w-100 mt-3 py-3">Ir a Comprar</a>
+            </div>
+
+
+
+
         </ul>
     <?php } else { ?>
         <div class="alert alert-warning text-center">

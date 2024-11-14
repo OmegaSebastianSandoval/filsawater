@@ -145,4 +145,23 @@ class Core_Model_Sendingemail
       return 2;
     }
   }
+
+  public function enviarOTP($user, $code)
+  {
+    $this->_view->user = $user;
+    $this->_view->code = $code;
+    $this->email->getMail()->addAddress($user->user_email, $user->user_names);
+    $this->email->getMail()->addBCC("desarrollo8@omegawebsystems.com", "Inicio de sesión FILSA WATER");
+	//$this->email->getMail()->addBCC("proyectos@omegawebsystems.com", "Registro FEINCOL");
+
+    $content = $this->_view->getRoutPHP('/../app/modules/core/Views/templatesemail/enviarOTP.php');
+    $this->email->getMail()->Subject = 'Ingreso FEINCOL';
+    $this->email->getMail()->msgHTML($content);
+    $this->email->getMail()->AltBody = $content;
+    if ($this->email->sed() == true) {
+      return 1;
+    } else {
+      return 2;
+    }
+  }
 }

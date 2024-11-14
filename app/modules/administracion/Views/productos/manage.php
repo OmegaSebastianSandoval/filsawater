@@ -2,11 +2,11 @@
 <div class="container-fluid">
 	<form class="text-left" enctype="multipart/form-data" method="post" action="<?php echo $this->routeform; ?>" data-bs-toggle="validator">
 		<div class="content-dashboard">
-			<?php if($this->error == 1){?>
-			<div class="alert alert-danger">
-				<strong>Advertencia:</strong> La referencia del producto ya existe.
-			</div>
-			<?php } ?>	
+			<?php if ($this->error == 1) { ?>
+				<div class="alert alert-danger">
+					<strong>Advertencia:</strong> La referencia del producto ya existe.
+				</div>
+			<?php } ?>
 			<input type="hidden" name="csrf" id="csrf" value="<?php echo $this->csrf ?>">
 			<input type="hidden" name="csrf_section" id="csrf_section" value="<?php echo $this->csrf_section ?>">
 			<?php if ($this->content->producto_id) { ?>
@@ -23,8 +23,8 @@
 				<div class="col-3 form-group d-grid">
 					<label class="control-label">Producto importante (Si, No)</label>
 					<input type="checkbox" name="producto_importante" value="1" class="form-control switch-form " <?php if ($this->getObjectVariable($this->content, 'producto_importante') == 1) {
-																													echo "checked";
-																												} ?>></input>
+																														echo "checked";
+																													} ?>></input>
 					<div class="help-block with-errors"></div>
 				</div>
 			</div>
@@ -46,7 +46,17 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->producto_precio; ?>" name="producto_precio" id="producto_precio" class="form-control" required>
+						<!-- <input type="text" value="<?= $this->content->producto_precio; ?>" name="producto_precio" id="producto_precio" class="form-control" required> -->
+						<input
+							type="text"
+							value="<?= number_format($this->content->producto_precio, 0, '', ','); ?>"
+							name="producto_precio"
+							id="producto_precio"
+							class="form-control"
+							required
+							inputmode="numeric"
+							autocomplete="off">
+
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -83,7 +93,7 @@
 						</div>
 					<?php } ?>
 				</div>
-				
+
 				<div class="col-5 form-group">
 					<label class="control-label">categor&iacute;a</label>
 					<label class="input-group">
@@ -114,3 +124,27 @@
 		</div>
 	</form>
 </div>
+
+<script>
+	document.addEventListener('DOMContentLoaded', () => {
+		const inputPrecio = document.getElementById('producto_precio');
+
+		// Formatear número al escribir
+		inputPrecio.addEventListener('input', (e) => {
+			const value = e.target.value.replace(/[,.]/g, ''); // Eliminar comas y puntos
+
+			// Agregar formato de separación por miles
+			e.target.value = formatNumber(value);
+		});
+
+		// Remover comas antes de enviar el formulario
+		inputPrecio.closest('form').addEventListener('submit', (e) => {
+			inputPrecio.value = inputPrecio.value.replace(/[,.]/g, ''); // Eliminar comas y puntos
+		});
+
+		// Función para formatear número con comas cada 3 dígitos
+		function formatNumber(value) {
+			return value.replace(/\B(?=(\d{3})+(?!\d))/g, ',');
+		}
+	});
+</script>

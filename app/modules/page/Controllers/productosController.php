@@ -7,6 +7,7 @@ class Page_productosController extends Page_mainController
   public $botonactivo  = 3;
   public $categoriaHeader;
 
+
   public function init()
   {
 
@@ -20,15 +21,22 @@ class Page_productosController extends Page_mainController
     $categoriaId = $this->_getSanitizedParam("categoria");
     $categoriaModel = new Administracion_Model_DbTable_Tiendacategorias();
     $productosModel = new Administracion_Model_DbTable_Productos();
+    $nivelesModel = new Administracion_Model_DbTable_Niveles();
     $categoria = $categoriaModel->getById($categoriaId);
     // $productos = $productosModel->getList("producto_categoria = '{$categoriaId}' AND producto_estado = 1 AND producto_stock>=1", "orden ASC");
     $productos = $productosModel->getList("producto_categoria = '{$categoriaId}' AND producto_estado = 1 ", "orden ASC");
+   
+    $usuario = $this->usuarioLogged();
+    $nivel = $nivelesModel->getById($usuario->user_nivel_cliente);
+    $descuento = $nivel->nivel_porcentaje;
+
+    foreach ($productos as $key => $producto) {
+      $producto->producto_precio -= $producto->producto_precio * $descuento / 100;
+    }
 
     $this->_view->categoria = $categoria;
     $this->_view->productos = $productos;
     $this->_view->productosDestacados = $this->template->productosDestacados();
-
-
   }
   public function productoAction()
   {
@@ -88,7 +96,6 @@ class Page_productosController extends Page_mainController
     $this->_view->productosDestacados = $this->template->productosDestacados();
     $this->_view->documentos = $this->generarHTMLDocumentos($documentos);
     $this->_view->hayDocumentos = count($documentos) >= 1 ? 1 : 0;
-
   }
 
   public function generarHTMLDocumentos($documentos, $nivel = 0)
@@ -116,7 +123,7 @@ class Page_productosController extends Page_mainController
         $html .= '</div></div></div>';
       } else {
         // Es un archivo
-        $html .= '<div class="container-file"> <a href="/files/' . $documento->documento_documento . '" target="_blank"> <i class="fa-solid fa-file"></i> ' . $documento->documento_nombre . ' - ' . $documento->documento_documento . '</a></div>';
+        $html .= '<div class="container-file"> <a href="/files/' . $documento->documento_documento . '" target="_blank"> <i class="fa-solid fa-file"></i> ' . $documento->documento_nombre . '</a></div>';
       }
     }
     $html .= '</div>';

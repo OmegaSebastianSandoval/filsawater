@@ -80,7 +80,7 @@
                     <?php if ($this->usuario) { ?>
                         <a href="/page/home" class="login <?php echo $this->botonactivo == 7 ? 'active' : '' ?>">
                             <i class="fa-regular fa-user"></i>
-                            <?= $this->usuario->user_names ?>
+                            <?= $this->usuario->user_empresa ?>
                         </a>
                     <?php } else { ?>
                         <a href="/page/login" class="login <?php echo $this->botonactivo == 7 ? 'active' : '' ?>">
@@ -145,7 +145,7 @@
                         Productos
                     </a>
                     <ul class="dropdown-menu">
-                      
+
                         <?php foreach ($this->categoriasHeader as $key => $categoriaHeader) { ?>
                             <li><a class="dropdown-item <?= $categoriaHeader->tienda_categoria_id  == $this->categoriaHeader ? 'active' : '' ?>" href="/page/productos/categoria?categoria=<?= $categoriaHeader->tienda_categoria_id  ?>"><?= $categoriaHeader->tienda_categoria_nombre  ?></a></li>
                         <?php } ?>
@@ -231,22 +231,31 @@
                         </div>
                     </div>
                     <div class="mt-2">
-                    <?php if ($this->usuario) { ?>
-                        <a href="/page/home" class="login <?php echo $this->botonactivo == 7 ? 'active' : '' ?>">
-                            <i class="fa-regular fa-user"></i>
-                            <?= $this->usuario->user_names ?>
-                        </a>
-                    <?php } else { ?>
-                        <a href="/page/login" class="login <?php echo $this->botonactivo == 7 ? 'active' : '' ?>">
-                            <i class="fa-regular fa-user"></i>
-                            Login
-                        </a>
-                    <?php } ?>
-                    
-                           
+                        <?php if ($this->usuario) { ?>
+                            <a href="/page/home" class="login <?php echo $this->botonactivo == 7 ? 'active' : '' ?>">
+                                <i class="fa-regular fa-user"></i>
+                                <?= $this->usuario->user_empresa ?>
+                            </a>
+                            <div>
+                                <?php if ($this->usuario) { ?>
+                                   
+                                    <a href="/page/login/logout" class="login-out login">
+                                        <i class="fa-solid fa-right-from-bracket"></i>
+                                        Salir
+                                    </a>
+                                <?php } ?>
+                            </div>
+                        <?php } else { ?>
+                            <a href="/page/login" class="login <?php echo $this->botonactivo == 7 ? 'active' : '' ?>">
+                                <i class="fa-regular fa-user"></i>
+                                Login
+                            </a>
+                        <?php } ?>
 
 
-                     
+
+
+
 
                     </div>
 

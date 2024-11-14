@@ -21,6 +21,23 @@ class Core_userController extends Controllers_Abstract
     	}
     }
 
+    public function validationcedulaAction()
+    {
+        $modelUser = new Core_Model_DbTable_User();
+        $cedula= $this->_getSanitizedParam("user_cedula");
+        $cedula2= $this->_getSanitizedParam("cedula");
+        $res_user = $modelUser->getList("user_cedula = '$cedula'" ,"");
+        if( $cedula2 !='' && $cedula2 == $cedula  ){
+            http_response_code(200);
+        } else {
+            if ( isset($res_user[0])) {
+                header("HTTP/1.0 400 cedula ya existe");
+            } else {
+                http_response_code(200);
+            }
+        }
+    }
+
     public function validationemailAction()
     {
         $modelUser = new Core_Model_DbTable_User();

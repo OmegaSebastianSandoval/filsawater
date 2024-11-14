@@ -11,79 +11,87 @@
         <div class="tab-content w-100" id="v-pills-tabContent">
             <div class="tab-pane fade  " id="v-pills-home" role="tabpanel" aria-labelledby="v-pills-home-tab" tabindex="0">...</div>
             <div class="tab-pane fade show active" id="v-pills-profile" role="tabpanel" aria-labelledby="v-pills-profile-tab" tabindex="0">
-                <?php if($this->msg){?>
-                <div class="alert alert-success text-center">
-                    Se ha actualizado correctamente.
-                </div>
+                <?php if ($this->msg) { ?>
+                    <div class="alert alert-success text-center">
+                        Se ha actualizado correctamente.
+                    </div>
                 <?php } ?>
-               
-                <form action="/page/home/updateprofile" id="update-contact" class="form-contact">
+
+                <form action="/page/home/updateprofile" id="update-contact" class="form-contact" enctype="multipart/form-data" method="post" data-toggle="validator">
                     <input type="hidden" name="id" value="<?= $this->usuario->user_id ?>">
 
                     <div class="row ">
-                        <div class="col-12 col-md-6 col-lg-4  mb-2 ">
+                        <div class="col-12 col-md-6 col-lg-4  mb-4 ">
 
                             <label>
-                                <input class="input" type="text" name="nombres" value="<?= $this->usuario->user_names ?>" required>
-                                <span>Nombres</span>
+                                <input class="input" type="text" name="user_empresa" value="<?= $this->usuario->user_empresa ?>" required readonly disabled>
+                                <span>Nombre</span>
                             </label>
                         </div>
 
-                        <div class="col-12 col-md-6 col-lg-4  mb-2 ">
+                        <div class="col-12 col-md-6 col-lg-4  mb-4 ">
 
                             <label>
                                 <input class="input" type="number" name="documento" value="<?= $this->usuario->user_cedula ?>" required readonly disabled>
-                                <span>Documento</span>
+                                <span>Nit</span>
                             </label>
                         </div>
-                        <div class="col-12 col-md-6 col-lg-4  mb-2 ">
+                        <!-- <div class="col-12 col-md-3 form-group">
+					<label for="user_email" id="label-correo" class="control-label">correo</label>
+					<label class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text input-icono  fondo-verde-claro "><i class="fas fa-envelope"></i></span>
+						</div>
+						<input type="email" value="<?= $this->content->user_email; ?>" name="user_email" id="user_email" class="form-control" required data-remote="/core/user/validationemail?csrf=1&email=<?= $this->content->user_email; ?>">
+					</label>
+					<div class="help-block with-errors"></div>
+				</div> -->
+                        <div class="col-12 col-md-6 col-lg-4 form-group mb-4   ">
                             <label>
-                                <input class="input" type="email" name="email" value="<?= $this->usuario->user_email ?>" required>
+                                <input class="input" type="email" name="user_email" value="<?= $this->usuario->user_email ?>" required data-remote="/core/user/validationemail?csrf=1&email=<?= $this->usuario->user_email; ?>">
                                 <span>Correo electrónico</span>
                             </label>
+                            <div class="help-block with-errors"></div>
+
                         </div>
-                        <div class="col-12 col-md-6 col-lg-4  mb-2 ">
+                        <div class="col-12 col-md-6 col-lg-4  mb-4 ">
+                            <label>
+                                <input class="input" type="text" name="user_addres" value="<?= $this->usuario->user_addres ?>" required>
+                                <span>Dirección</span>
+                            </label>
+                        </div>
+                        <div class="col-12 col-md-6 col-lg-4  mb-4 ">
                             <label>
                                 <input class="input" type="number" name="phone" value="<?= $this->usuario->user_telefono ?>" required>
-                                <span>Teléfono</span>
+                                <span>Teléfono del cliente</span>
                             </label>
                         </div>
-                        <div class="col-12 col-md-6 col-lg-4  mb-2 ">
-                            <label class="container-password">
-                                <input class="input" type="password" name="password" id="password" autocomplete="new-password">
-                                <span>Contraseña</span>
-                                <button type="button" class="toggle-password" data-target="password"><i class="fa-solid fa-eye"></i></button>
+                    </div>
+
+
+                    <div class="row ">
+
+                        <div class="col-12 col-md-6 col-lg-4  mb-4 ">
+                            <label>
+                                <input class="input" type="text" name="nombres-contacto" value="<?= $this->usuario->user_contacto ?>" required>
+                                <span>Nombre de Contácto</span>
                             </label>
                         </div>
-                        <div class="col-12 col-md-6 col-lg-4  mb-2 ">
-                            <label class="container-password">
-                                <input class="input" type="password" name="re-password" id="re-password" autocomplete="new-password">
-                                <span>Repetir contraseña</span>
-                                <button type="button" class="toggle-password" data-target="re-password"><i class="fa-solid fa-eye"></i></button>
+
+                        <div class="col-12 col-md-6 col-lg-4  mb-4 ">
+                            <label>
+                                <input class="input" type="input" name="phone-contacto" value="<?= $this->usuario->user_telefono_contacto ?>" onkeypress="return soloNumeros(event)" maxlength="10" minlength="10" pattern="^\d+$" required>
+                                <span>Teléfono del Contácto</span>
                             </label>
                         </div>
+
 
                         <div class="d-flex justify-content-center justify-content-md-center mt-4">
-                            <button class="btn-blue px-4 py-2 border-white" id="submit-create">Actualizar</button>
+                            <button type="submit" class="btn-blue px-4 py-2 border-white" id="submit-create">Actualizar</button>
                         </div>
 
                     </div>
-                    <div class="col-12 my-2 alert-contrasenia" id="alert-contrasenia2" style="display: none;">
-                        <div class="alert alert-danger" role="alert">
-                            Las contraseñas no son iguales.
-                        </div>
-                    </div>
-                    <div class="col-12 my-2 alert-contrasenia" id="alert-contrasenia" style="display: none;">
-                        <div class="alert alert-danger text-start" role="alert">
-                            La contraseña debe incluir al menos:
-                            <ul id="requirements" class="pl-4">
-                                <li id="length" class="invalid">8 caracteres</li>
-                                <li id="lowercase" class="invalid">Una minuscula</li>
-                                <li id="uppercase" class="invalid">Una Mayuscula</li>
-                                <li id="number" class="invalid">Un Numero</li>
-                            </ul>
-                        </div>
-                    </div>
+
                 </form>
                 <div class="tab-pane fade" id="v-pills-disabled" role="tabpanel" aria-labelledby="v-pills-disabled-tab" tabindex="0">...
                 </div>
@@ -92,113 +100,26 @@
             </div>
         </div>
     </div>
+</div>
 
 
-    <style>
-        .alert-contrasenia {
-            display: none;
-        }
-
-        .btn-blue:disabled {
+<style>
+     .btn-blue:disabled {
             background-color: #ccc !important;
         }
+    .container-profile .form-contact label .input:disabled+span {
+        top: 0;
+    }
+</style>
 
-        .container-profile .form-contact label .input:disabled+span {
-            top: 0;
+<script>
+    function soloNumeros(event) {
+        const charCode = event.keyCode ? event.keyCode : event.which;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            event.preventDefault();
+            return false;
         }
-    </style>
-
-    <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            const passwordInput = document.getElementById("password");
-            const rePasswordInput = document.getElementById("re-password");
-            const alertContrasenia = document.getElementById("alert-contrasenia");
-            const alertContrasenia2 = document.getElementById("alert-contrasenia2");
-            const submitBtn = document.getElementById("submit-create");
-
-            passwordInput.addEventListener("keyup", function() {
-                validarClave(passwordInput.value);
-                compararClaves();
-                toggleSubmitButton();
-            });
-
-            rePasswordInput.addEventListener("keyup", function() {
-                compararClaves();
-                toggleSubmitButton();
-            });
-
-            function compararClaves() {
-                const clave = passwordInput.value;
-                const clave2 = rePasswordInput.value;
-
-                if (clave === "" && clave2 === "") {
-                    alertContrasenia2.style.display = "none";
-                    return;
-                }
-
-                if (clave === clave2) {
-                    alertContrasenia2.style.display = "none";
-                } else {
-                    alertContrasenia2.style.display = "block";
-                }
-            }
-
-            function validarClave(contrasenna) {
-                if (contrasenna === "") {
-                    alertContrasenia.style.display = "none";
-                    return;
-                }
-
-                const lengthRequirement = document.getElementById("length");
-                const lowercaseRequirement = document.getElementById("lowercase");
-                const uppercaseRequirement = document.getElementById("uppercase");
-                const numberRequirement = document.getElementById("number");
-
-                const hasLength = contrasenna.length >= 8;
-                const hasLowercase = /[a-z]/.test(contrasenna);
-                const hasUppercase = /[A-Z]/.test(contrasenna);
-                const hasNumber = /\d/.test(contrasenna);
-
-                lengthRequirement.classList.toggle("valid", hasLength);
-                lengthRequirement.classList.toggle("invalid", !hasLength);
-
-                lowercaseRequirement.classList.toggle("valid", hasLowercase);
-                lowercaseRequirement.classList.toggle("invalid", !hasLowercase);
-
-                uppercaseRequirement.classList.toggle("valid", hasUppercase);
-                uppercaseRequirement.classList.toggle("invalid", !hasUppercase);
-
-                numberRequirement.classList.toggle("valid", hasNumber);
-                numberRequirement.classList.toggle("invalid", !hasNumber);
-
-                if (hasLength && hasLowercase && hasUppercase && hasNumber) {
-                    alertContrasenia.style.display = "none";
-                } else {
-                    alertContrasenia.style.display = "block";
-                }
-            }
-
-            function toggleSubmitButton() {
-                const isValidPassword =
-                    document.querySelector("#length").classList.contains("valid") &&
-                    document.querySelector("#lowercase").classList.contains("valid") &&
-                    document.querySelector("#uppercase").classList.contains("valid") &&
-                    document.querySelector("#number").classList.contains("valid");
-                const passwordsMatch = passwordInput.value === rePasswordInput.value;
-
-                // Enable submit button if both fields are empty or if they are valid and match
-                submitBtn.disabled = !(isValidPassword && passwordsMatch) && (passwordInput.value !== "" || rePasswordInput.value !== "");
-            }
-
-
-        });
-
-        function soloNumeros(event) {
-            const charCode = event.keyCode ? event.keyCode : event.which;
-            if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-                event.preventDefault();
-                return false;
-            }
-            return true;
-        }
-    </script>
+        return true;
+    }
+</script>
+<script src="/components/bootstrap-validator/dist/validator.min.js"></script>

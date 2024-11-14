@@ -86,7 +86,7 @@ class Administracion_Model_DbTable_Usuario extends Db_Table
 		$user_codigo_otp = $data['user_codigo_otp'];
 		$user_fecha_codigo_otp = $data['user_fecha_codigo_otp'];
 
-		$query = "UPDATE user SET  user_state = '$user_state', user_names = '$user_names', user_cedula = '$user_cedula', user_email = '$user_email', user_telefono = '$user_telefono', user_level = '$user_level', user_user = '$user_user', user_delete = '$user_delete', user_current_user = '$user_current_user', user_code = '$user_code', user_empresa='$user_empresa' $changepasword, user_addres = '$user_addres', user_contacto = '$user_contacto', user_telefono_contacto = '$user_telefono_contacto', user_nivel_cliente = '$user_nivel_cliente', user_codigo_otp = '$user_codigo_otp', user_fecha_codigo_otp = '$user_fecha_codigo_otp' WHERE user_id = '".$id."'";
+		 $query = "UPDATE user SET  user_state = '$user_state', user_names = '$user_names', user_cedula = '$user_cedula', user_email = '$user_email', user_telefono = '$user_telefono', user_level = '$user_level', user_user = '$user_user', user_delete = '$user_delete', user_current_user = '$user_current_user', user_code = '$user_code', user_empresa='$user_empresa' $changepasword, user_addres = '$user_addres', user_contacto = '$user_contacto', user_telefono_contacto = '$user_telefono_contacto', user_nivel_cliente = '$user_nivel_cliente', user_codigo_otp = '$user_codigo_otp', user_fecha_codigo_otp = '$user_fecha_codigo_otp' WHERE user_id = '".$id."'";
 		$res = $this->_conn->query($query);
 
 
