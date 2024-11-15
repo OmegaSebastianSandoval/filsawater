@@ -3,17 +3,17 @@
 	<form action="<?php echo $this->route . "?foto_album=" . $this->foto_album . "" . "&foto_solucion=" . $this->foto_solucion . "" . "&foto_producto=" . $this->foto_producto . ""; ?>" method="post">
 		<div class="content-dashboard">
 			<?php if ($this->foto_solucion) { ?>
-				<div class="row mb-2">
-					<div class="col-1">
-						<a href="/administracion/soluciones/?padre=<?= $this->solucion->solucion_padre ?>" class="btn btn-outline-success d-flex justify-content-center align-items-center gap-2"><i class="fa-solid fa-circle-arrow-left"></i> Volver</a>
-					</div>
+				<div class="d-flex gap-4 mb-2">
+					
+						<a href="/administracion/soluciones/?padre=<?= $this->solucion->solucion_padre ?>" class="btn btn-outline-success px-4"><i class="fa-solid fa-circle-arrow-left"></i> Volver</a>
+					
 				</div>
 			<?php } ?>
 			<?php if ($this->foto_producto) { ?>
-				<div class="row mb-2">
-					<div class="col-1">
-						<a href="/administracion/productos" class="btn btn-outline-success d-flex justify-content-center align-items-center gap-2"><i class="fa-solid fa-circle-arrow-left"></i> Volver</a>
-					</div>
+				<div class="d-flex gap-4 mb-2">
+					
+						<a href="/administracion/productos" class="btn btn-outline-success px-4"><i class="fa-solid fa-circle-arrow-left"></i> Volver</a>
+					
 				</div>
 			<?php } ?>
 			<div class="row">

@@ -19,8 +19,8 @@
 
 			<div class="row">
 
-				<div class="col-3 form-group">
-					<label for="solucion_titulo" class="control-label">titulo</label>
+				<div class="col-4 form-group">
+					<label for="solucion_titulo" class="control-label">Título</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
@@ -30,8 +30,8 @@
 					<div class="help-block with-errors"></div>
 				</div>
 				<?php if (!$this->padre) { ?>
-					<div class="col-3 form-group">
-						<label for="solucion_categoria" class="control-label">categor&iacute;a</label>
+					<div class="col-4 form-group">
+						<label for="solucion_categoria" class="control-label">Categor&iacute;a</label>
 						<label class="input-group">
 							<div class="input-group-prepend">
 								<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
@@ -41,8 +41,8 @@
 						<div class="help-block with-errors"></div>
 					</div>
 				<?php } ?>
-				<div class="col-3 form-group">
-					<label for="solucion_imagen">imagen</label>
+				<div class="col-4 form-group">
+					<label for="solucion_imagen">Imagen</label>
 					<input type="file" name="solucion_imagen" id="solucion_imagen" class="form-control  file-image" data-buttonName="btn-primary" accept="image/gif, image/jpg, image/jpeg, image/png, image/webp">
 					<div class="help-block with-errors"></div>
 					<?php if ($this->content->solucion_imagen) { ?>
@@ -52,23 +52,23 @@
 						</div>
 					<?php } ?>
 				</div>
-				<div class="col-3 form-group d-grid">
-					<label for="solucion_archivo">archivo</label>
+				<div class="col-3 form-group d-none">
+					<label for="solucion_archivo">Archivo</label>
 					<input type="file" name="solucion_archivo" id="solucion_archivo" class="form-control  file-document" data-buttonName="btn-primary" onchange="validardocumento('solucion_archivo');" accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf">
 					<div class="help-block with-errors"></div>
 				</div>
 				<div class="col-12 form-group">
-					<label for="solucion_descripcion" class="form-label">descripci&oacute;n</label>
+					<label for="solucion_descripcion" class="form-label">Descripci&oacute;n</label>
 					<textarea name="solucion_descripcion" id="solucion_descripcion" class="form-control tinyeditor" rows="10"><?= $this->content->solucion_descripcion; ?></textarea>
 					<div class="help-block with-errors"></div>
 				</div>
 				<div class="col-12 form-group">
-					<label for="solucion_introduccion" class="form-label">introducci&oacute;n</label>
+					<label for="solucion_introduccion" class="form-label">Introducci&oacute;n</label>
 					<textarea name="solucion_introduccion" id="solucion_introduccion" class="form-control tinyeditor" rows="10"><?= $this->content->solucion_introduccion; ?></textarea>
 					<div class="help-block with-errors"></div>
 				</div>
 				<div class="col-12 form-group">
-					<label for="solucion_contenido" class="form-label">contenido</label>
+					<label for="solucion_contenido" class="form-label">Contenido</label>
 					<textarea name="solucion_contenido" id="solucion_contenido" class="form-control tinyeditor" rows="10"><?= $this->content->solucion_contenido; ?></textarea>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -80,7 +80,7 @@
 																	} ?>">
 
 				<div class="col-4 form-group d-none">
-					<label for="solucion_tags" class="control-label">tags</label>
+					<label for="solucion_tags" class="control-label">Tags</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>

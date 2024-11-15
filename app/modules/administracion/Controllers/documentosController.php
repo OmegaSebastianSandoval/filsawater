@@ -279,13 +279,18 @@ class Administracion_documentosController extends Administracion_mainController
 	{
 		$filtros = " 1 = 1 ";
 		$documento_solucion = $this->_getSanitizedParam("documento_solucion");
-		$filtros = $filtros . " AND documento_solucion = '$documento_solucion' ";
+		if ($documento_solucion) {
+
+			$filtros = $filtros . " AND documento_solucion = '$documento_solucion' ";
+		}
 		$documento_producto = $this->_getSanitizedParam("documento_producto");
-		$filtros = $filtros . " AND documento_producto = '$documento_producto' ";
+		if ($documento_producto) {
+			$filtros = $filtros . " AND documento_producto = '$documento_producto' ";
+		}
 		$documento_padre = $this->_getSanitizedParam("documento_padre");
 		if ($documento_padre) {
 			$filtros = $filtros . " AND documento_padre = '$documento_padre' ";
-		}else{
+		} else {
 			$filtros = $filtros . " AND (documento_padre IS NULL OR documento_padre = '') ";
 		}
 

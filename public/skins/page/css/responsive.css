@@ -368,6 +368,19 @@ BANNER INTERNAS FIN
         left: -5px !important;
         z-index: 2;
     }
+
+    /* login */
+    .container-banner-login h1{
+        font-size: 24px;
+        margin: 0 0 10px 0;  
+    }
+    .container-profile .nav-link{
+        width: 100%;
+    }
+    .container-profile .tab-content{
+        border: none;
+    }
+
 }
 
 @media (max-width:576px) {

@@ -551,7 +551,9 @@ FOOTER FIN
   aspect-ratio: 28/9;
   object-fit: cover;
 }
+
 @media (width >1700px) {
+
   .fondo-imagen img,
   .img-banner-principal,
   .fondo-imagen-interna-video img {
@@ -1914,11 +1916,11 @@ ______________________________ */
   gap: 10px;
   align-items: center;
   font-weight: 500;
-  transition:  color 400ms ease allow-discrete;
+  transition: color 400ms ease allow-discrete;
 }
 
 .accordion-files .container-file a:hover {
-  color:  var(--azulclaro);
+  color: var(--azulclaro);
 }
 
 .accordion-files .container-file i {
@@ -2041,14 +2043,70 @@ ______________________________ */
 }
 
 
+.container-banner-login h1 {
+  color: var(--azulclaro2);
+  font-size: 38px;
+  font-weight: 600;
+  margin: 0 0 30px 0;
+  text-align: center;
+}
+
+.otp-input {
+  width: 2em;
+  padding: 0.5em;
+  margin: 0.2em;
+  font-size: 1.5em;
+  text-align: center;
+  border-radius: 8px;
+  border: 1px solid var(--azulclaro2);
+  color: #737373;
+  font-weight: 800;
+
+}
+
+.otp-input:focus-visible {
+  outline: none;
+  border: 1px solid var(--azulclaro);
+
+}
+
+.otp-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.container-login .btn-blue {
+  transition: all 300ms ease;
+}
+
+.container-login .btn-blue:hover {
+  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  background-color: var(--azulclaro);
+}
+
+
+/*-------------------------------------------------------------------------------
+LOGIN FORMULARIOS INICIO
+______________________________------------------------------------------------------- */
+
+
+/* --------------------------------------------------------------- */
+/* HOME PERFILINICIO */
+/* --------------------------------------------------------------- */
+.container-profile .tab-content {
+  border-left: 1px solid #cccccc;
+}
+
 .container-profile .form-contact {
   padding: 20px;
-  /* background-color: var(--azul) ; */
+  background-color: var(--azul);
   width: 100%;
 }
 
-.container-profile .form-contact input {
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+.container-profile .form-contact input:disabled {
+  /* box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15); */
+  background-color: #ffffff;
 }
 
 
@@ -2084,51 +2142,32 @@ ______________________________ */
 
 .container-profile .nav-pills .nav-link.active,
 .container-profile .nav-pills .show>.nav-link {
-  background-color: var(--azulclaro2);
+  background-color: var(--azul);
 }
 
-.container-banner-login h1{
-  color: var(--azulclaro2);
-  font-size: 38px;
-  font-weight: 600;
-  margin: 0 0 30px 0;
-  text-align: center;
-}
-
-.otp-input {
-  width: 2em;
-  padding: 0.5em;
-  margin: 0.2em;
-  font-size: 1.5em;
-  text-align: center;
-  border-radius: 8px;
-  border: 1px solid var(--azulclaro2);
-  color: #737373;
-  font-weight: 800;
-
-}
-.otp-input:focus-visible {
-  outline: none;
-  border: 1px solid var(--azulclaro);
-
-}
-
-.otp-container {
-  display: flex;
-  justify-content: center;
+.container-profile .nav-link {
+  /* background-color: #f2f2f2 !important; */
+  border: 0;
+  border-bottom: 1px solid #cccccc;
+  border-radius: 0;
+  color: var(--azul);
+  /* font-weight: 700; */
+  text-align: start;
+  width: 150px;
+  justify-content: start;
   align-items: center;
+  gap: 10px;
+  display: flex;
+  transition: font-weight .3s ease allow-discrete;
 }
-.container-login .btn-blue{
-  transition: all 300ms ease;
-}
-.container-login .btn-blue:hover{
-  box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
-  background-color: var(--azulclaro);
-}
-/*-------------------------------------------------------------------------------
-LOGIN FORMULARIOS INICIO
-______________________________------------------------------------------------------- */
 
+.container-profile .nav button:last-of-type {
+  /* border-bottom: none; */
+}
+
+/* --------------------------------------------------------------- */
+/* HOME perfil fin */
+/* --------------------------------------------------------------- */
 /*-------------------------------------------------------------------------------
 CATEGORIAS INICIO
 ______________________________------------------------------------------------------- */
@@ -2397,19 +2436,23 @@ ______________________________--------------------------------------------------
   height: 100%;
 
 }
-.container-carrito ul li{
+
+.container-carrito ul li {
   border-bottom: 1px solid #59595924;
 }
-.container-carrito ul li:last-of-type{
+
+.container-carrito ul li:last-of-type {
   border-bottom: none;
 }
 
-#micarrito{
+#micarrito {
   min-height: 90dvh;
 }
-.container-carrito .offcanvas-body{
+
+.container-carrito .offcanvas-body {
   height: 100%;
 }
+
 .container-carrito a.enlace-cart {
   font-size: 14px;
   color: var(--azul);
@@ -2417,10 +2460,12 @@ ______________________________--------------------------------------------------
   width: 100%;
   transition: color 300ms ease;
 }
+
 .container-carrito a.enlace-cart:hover {
   color: var(--azulclaro2);
 }
-.container-carrito .price-cart{
+
+.container-carrito .price-cart {
   font-size: 14px;
   color: var(--gris-medio);
   font-weight: 600;
@@ -2465,23 +2510,27 @@ ______________________________--------------------------------------------------
   font-weight: 300;
 }
 
-.container-carrito .btn-close-white{
+.container-carrito .btn-close-white {
   filter: brightness(0.5) !important;
 }
-.content-subtotal{
+
+.content-subtotal {
   border-top: 1px solid #59595924;
   padding: 10px;
 }
-.content-subtotal span{
+
+.content-subtotal span {
   color: var(--gris-medio);
   font-weight: 500;
   font-size: 19px;
 }
-.content-subtotal .total-cart{
+
+.content-subtotal .total-cart {
   color: var(--azul);
   font-weight: 600;
   font-size: 20px;
 }
+
 /*-------------------------------------------------------------------------------
 CARRITO FIN
 ______________________________------------------------------------------------------- */
@@ -2489,15 +2538,16 @@ ______________________________--------------------------------------------------
 /*-------------------------------------------------------------------------------
 CARRUSEL PRODUCTOS IMPORTANTES
 /*-----------------------------------------------------------------------------------------*/
-.important-products{
+.important-products {
 
 
   padding: 50px 0;
 }
+
 .important-products {
   position: relative;
   /* Asegúrate de que el contenedor tenga un contexto de apilamiento */
-  z-index: 0; 
+  z-index: 0;
 }
 
 .important-products::before {
@@ -2511,23 +2561,28 @@ CARRUSEL PRODUCTOS IMPORTANTES
   background-size: cover;
   background-position: center;
   background-repeat: no-repeat;
-  opacity: 0.4; /* Cambia el valor para ajustar la opacidad */
-  z-index: -1; /* Ponerlo detrás del contenido */
+  opacity: 0.4;
+  /* Cambia el valor para ajustar la opacidad */
+  z-index: -1;
+  /* Ponerlo detrás del contenido */
 }
-.important-products  .product-item .product-image {
+
+.important-products .product-item .product-image {
   position: relative;
   overflow: hidden;
   clip-path: inset(0 0 0 0 round 0px);
   height: 300px;
   margin: 0;
 }
+
 .important-products .product-item .product-image img {
   width: 100%;
   height: 100%;
   object-fit: cover;
   background-color: var(--blanco);
 }
-.important-products  .product-item .product-title{
+
+.important-products .product-item .product-title {
   color: var(--blanco);
   font-size: 13px;
   font-weight: 600;
@@ -2541,12 +2596,13 @@ CARRUSEL PRODUCTOS IMPORTANTES
   height: 17px;
 }
 
-.important-products  .product-item .content-info-important{
+.important-products .product-item .content-info-important {
   background: linear-gradient(90deg, #3a8db9, #35cda7);
 
 
 }
-.important-products  .product-item .content-info-important a{
+
+.important-products .product-item .content-info-important a {
   display: flex;
   justify-content: space-between;
   gap: 20px;
@@ -2557,16 +2613,156 @@ CARRUSEL PRODUCTOS IMPORTANTES
 }
 
 
-.important-products  .product-item .content-info-important i{
+.important-products .product-item .content-info-important i {
   color: var(--blanco);
   margin-right: 30px;
   transition: margin-right 300ms ease
 }
 
-.important-products .product-item .content-info-important:hover  i{
+.important-products .product-item .content-info-important:hover i {
   margin-right: 0px;
 
 }
+
 /*-------------------------------------------------------------------------------
 CARRUSEL PRODUCTOS IMPORTANTES FIN
 /*-----------------------------------------------------------------------------------------
+
+
+
+/*-------------------------------------------------------------------------------
+COMPRAR INICIO
+/*-----------------------------------------------------------------------------------------*/
+.contendor-comprar {}
+
+.contendor-comprar table {
+  background-color: var(--blanco);
+  border-radius: 15px;
+ 
+
+}
+
+.contendor-comprar table th{
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--azul);
+}
+.contendor-comprar table tbody tr{
+  border-top: 1px solid #59595924;
+}
+.contendor-comprar table tbody tr:last-of-type{
+  /* border-bottom: none; */
+}
+.contendor-comprar table th,
+.contendor-comprar table td
+ {
+  padding: 14px;
+  text-align: center;
+}
+
+.contendor-comprar .producto img{
+  background-color: var(--gris-claro);
+  border-radius: 5px;
+  height: 120px;
+  object-fit: contain;
+
+}
+.contendor-comprar .producto h5{
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--azul);
+  margin: 0;
+  text-wrap: pretty;
+  text-align: start;
+}
+.contendor-comprar .producto h6{
+  font-size: 12px;
+  font-weight: 400;
+  color: var(--gris-medio);
+  margin: 0;
+  text-wrap: pretty;
+  text-align: start;
+}
+.contendor-comprar .producto h6 span{
+  font-weight: 600;
+}
+
+
+
+
+.contendor-comprar  .precio,
+.contendor-comprar  .total
+{
+  font-size: 14px;
+  font-weight: 500;
+  color: var(--gris-medio);
+}
+
+
+.quantity-control-cart-shop {
+  display: flex;
+  align-items: center;
+  /* border: 1px solid #ddd; */
+  border-radius: 5px;
+}
+
+.quantity-control-cart-shop button {
+  width: 37px;
+  height: 37px;
+  font-size: 23px;
+  background-color: #f0f0f0;
+  border: none;
+  cursor: pointer;
+  font-weight: 300;
+
+}
+
+.quantity-control-cart-shop .quantity-cart-shop {
+  width: 40px;
+  height: 35px;
+  text-align: end;
+  border: none;
+  font-size: 16px;
+  font-weight: 300;
+}
+#contenido_info{
+  position: -webkit-sticky;
+  position: sticky;
+  top: 145px;
+  z-index: 2;
+}
+.resume{
+  background-color: var(--blanco);
+  border-radius: 15px;
+  padding: 15px;
+
+}
+.resume h3{
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--azul);
+  /* margin: 0; */
+  text-wrap: pretty;
+}
+.resume span{
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--gris-medio);
+}
+
+.resume span#total,
+.resume span.total-spam
+{
+  font-weight: 600;
+  color: var(--azul);
+  font-size: 16px;
+
+}
+
+
+
+
+/*-
+------------------------------------------------------------------------------
+COMPRAR FIN
+/*-----------------------------------------------------------------------------------------*/

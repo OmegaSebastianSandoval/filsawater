@@ -3,15 +3,14 @@
 	<form action="<?php echo $this->route . "?padre=" . $this->padre . ""; ?>" method="post">
 		<div class="content-dashboard">
 			<?php if ($this->padre) { ?>
-				<div class="row mb-2">
-					<div class="col-1">
-						<a href="/administracion/soluciones/" class="btn btn-outline-success d-flex justify-content-center align-items-center gap-2"><i class="fa-solid fa-circle-arrow-left"></i> Volver</a>
-					</div>
-				</div>
+
+
+				<a href="/administracion/soluciones/" class="btn btn-outline-success  px-4"><i class="fa-solid fa-circle-arrow-left"></i> Volver</a>
+
 			<?php } ?>
 			<div class="row">
 				<div class="col-3">
-					<label>titulo</label>
+					<label>Título</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
@@ -20,7 +19,7 @@
 					</label>
 				</div>
 				<div class="col-3">
-					<label>categor&iacute;a</label>
+					<label>Categor&iacute;a</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
@@ -34,10 +33,20 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" class="form-control" name="solucion_estado" value="<?php echo $this->getObjectVariable($this->filters, 'solucion_estado') ?>"></input>
+						<!-- <input type="text" class="form-control" name="solucion_estado" value="<?php echo $this->getObjectVariable($this->filters, 'solucion_estado') ?>"></input> -->
+						<select name="" id="" class="form-control">
+							<option value="" selected disabled>--Seleccione--</option>
+							
+							<option value="1" <?php if ($this->getObjectVariable($this->filters, 'solucion_estado') == 1) {
+													echo 'selected';
+												} ?>>Si</option>
+							<option value="0" <?php if ($this->getObjectVariable($this->filters, 'solucion_estado') == 0) {
+													echo 'selected';
+												} ?>>No</option>
+						</select>
 					</label>
 				</div>
-				<div class="col-3">
+				<div class="col-3 d-none">
 					<label>solucion_padre</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
@@ -112,9 +121,14 @@
 				<thead>
 					<tr>
 						<td>titulo</td>
-						<td>categor&iacute;a</td>
+						<?php if (!$this->padreContenido) { ?>
+							<td>categor&iacute;a</td>
+						<?php } ?>
+
 						<td>Activo(S&iacute;, No)</td>
-						<td>solucion_padre</td>
+						<?php if ($this->padreContenido) { ?>
+							<td>solucion padre</td>
+						<?php } ?>
 						<td width="100">Orden</td>
 						<td width="250"></td>
 					</tr>
@@ -124,9 +138,15 @@
 						<?php $id =  $content->solucion_id; ?>
 						<tr>
 							<td><?= $content->solucion_titulo; ?></td>
-							<td><?= $content->solucion_categoria; ?></td>
+							<?php if (!$this->padreContenido) { ?>
+								<td><?= $content->solucion_categoria; ?></td>
+							<?php } ?>
+
 							<td><?= $content->solucion_estado; ?></td>
-							<td><?= $content->solucion_padre; ?></td>
+							<?php if ($this->padreContenido) { ?>
+								<td><?= $this->padreContenido->solucion_titulo; ?></td>
+							<?php } ?>
+
 							<td>
 								<input type="hidden" id="<?= $id; ?>" value="<?= $content->orden; ?>"></input>
 								<button class="up_table btn btn-primary btn-sm"><i class="fas fa-angle-up"></i></button>

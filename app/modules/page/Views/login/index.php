@@ -1,7 +1,7 @@
 <div class="container-login">
     <div class="container py-5">
         <div class="row justify-content-center align-items-center">
-            <div class="col-12 col-md-6 col-lg-5">
+            <div class="col-12 col-md-6 col-lg-5 order-2 order-lg-1">
                 
 
                 <div class="container-form-login shadow-sm p-4">
@@ -34,7 +34,7 @@
                     </form>
                 </div>
             </div>
-            <div class="col-12 col-md-6 col-lg-7">
+            <div class="col-12 col-md-6 col-lg-7 order-1 order-lg-2">
 
                 <div class="container-banner-login">
                     <h1>¿Quieres ser distribuidor de Filsa Water?</h1>

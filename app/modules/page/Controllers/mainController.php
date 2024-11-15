@@ -19,6 +19,8 @@ class Page_mainController extends Controllers_Abstract
 		$this->template = new Page_Model_Template_Template($this->_view);
 		$infopageModel = new Page_Model_DbTable_Informacion();
 		$categoriasModel = new Administracion_Model_DbTable_Tiendacategorias();
+		
+
 		$this->_view->categoriasHeader = $categoriasModel->getList("tienda_categoria_estado='1'", "orden ASC");
 
 		$this->_view->usuario = $this->usuarioLogged();

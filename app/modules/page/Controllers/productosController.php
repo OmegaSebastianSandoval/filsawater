@@ -18,26 +18,70 @@ class Page_productosController extends Page_mainController
   public function indexAction() {}
   public function categoriaAction()
   {
+    // Obtiene el parámetro 'categoria' de la solicitud, asegurándose de que esté sanitizado para evitar inyecciones
     $categoriaId = $this->_getSanitizedParam("categoria");
+
+    // Instancia de los modelos de categorías, productos y niveles de cliente
     $categoriaModel = new Administracion_Model_DbTable_Tiendacategorias();
     $productosModel = new Administracion_Model_DbTable_Productos();
     $nivelesModel = new Administracion_Model_DbTable_Niveles();
-    $categoria = $categoriaModel->getById($categoriaId);
-    // $productos = $productosModel->getList("producto_categoria = '{$categoriaId}' AND producto_estado = 1 AND producto_stock>=1", "orden ASC");
-    $productos = $productosModel->getList("producto_categoria = '{$categoriaId}' AND producto_estado = 1 ", "orden ASC");
-   
-    $usuario = $this->usuarioLogged();
-    $nivel = $nivelesModel->getById($usuario->user_nivel_cliente);
-    $descuento = $nivel->nivel_porcentaje;
 
+    // Obtiene la información de la categoría seleccionada por su ID
+    $categoria = $categoriaModel->getById($categoriaId);
+
+    // Obtiene la lista de productos que pertenecen a la categoría seleccionada, 
+    // filtrando por productos activos (estado = 1), ordenados por el campo 'orden' en orden ascendente.
+    // Se comenta el filtrado por stock mínimo mayor o igual a 1, para que traiga todos los productos activos sin importar el stock
+    // $productos = $productosModel->getList("producto_categoria = '{$categoriaId}' AND producto_estado = 1 AND producto_stock >= 1", "orden ASC");
+    $productos = $productosModel->getList("producto_categoria = '{$categoriaId}' AND producto_estado = 1", "orden ASC");
+
+    // Obtiene la información del usuario actualmente logueado
+    $usuario = $this->usuarioLogged();
+
+    // Obtiene el nivel del cliente del usuario logueado para calcular el descuento
+    $nivel = $nivelesModel->getById($usuario->user_nivel_cliente);
+    $descuento = $nivel->nivel_porcentaje; // Porcentaje de descuento basado en el nivel del cliente
+
+    // Obtiene la configuración general del sistema para acceder al porcentaje de IVA
+    $confifModel = new Administracion_Model_DbTable_Config();
+    $config = $confifModel->getById(1);
+    $iva = $config->configuracion_iva; // Porcentaje de IVA
+
+    // Recorre la lista de productos para aplicar el descuento y el IVA al precio de cada producto
     foreach ($productos as $key => $producto) {
-      $producto->producto_precio -= $producto->producto_precio * $descuento / 100;
+      /*  // Aplica el IVA al precio del producto después de aplicar el descuento
+      $producto->producto_precio *= 1 + $iva / 100;
+      // Aplica el descuento al precio del producto
+      $producto->producto_precio -= $producto->producto_precio * $descuento / 100; */
+      // Precio original antes de descuento e IVA
+      $precioOriginal = $producto->producto_precio;
+
+      // Calcular el descuento
+      $montoDescuento = $precioOriginal * $descuento / 100;
+
+      // Precio después de aplicar el descuento
+      $precioConDescuento = $precioOriginal - $montoDescuento;
+
+      // Calcular IVA sobre el precio con descuento
+      // $montoIva = $precioOriginal * $iva / 100;
+      $montoIva = $precioConDescuento * $iva / 100;
+
+      // Precio final con IVA aplicado
+      $precioFinal = $precioConDescuento + $montoIva;
+
+      $producto->producto_precio = $precioFinal;
     }
 
+    // Asigna la categoría obtenida al atributo de vista para su uso en la plantilla
     $this->_view->categoria = $categoria;
+
+    // Asigna la lista de productos modificados al atributo de vista
     $this->_view->productos = $productos;
+
+    // Obtiene y asigna los productos destacados al atributo de vista
     $this->_view->productosDestacados = $this->template->productosDestacados();
   }
+
   public function productoAction()
   {
     $productoId = $this->_getSanitizedParam("producto");
@@ -73,7 +117,7 @@ class Page_productosController extends Page_mainController
     } else {
       $producto->fotos = [$productoImagen];
     }
-
+    //
     //traer documentos
 
     $documentosModel = new Administracion_Model_DbTable_Documentos();
@@ -88,7 +132,20 @@ class Page_productosController extends Page_mainController
       }
     }
 
+    //ajuustar el precio del producto con el descuento y con el IVA
+    $nivelesModel = new Administracion_Model_DbTable_Niveles();
+    // Obtiene la información del usuario actualmente logueado
+    $usuario = $this->usuarioLogged();
+    // Obtiene el nivel del cliente del usuario logueado para calcular el descuento
+    $nivel = $nivelesModel->getById($usuario->user_nivel_cliente);
+    $descuento = $nivel->nivel_porcentaje; // Porcentaje de descuento basado en el nivel del cliente
 
+    // Obtiene la configuración general del sistema para acceder al porcentaje de IVA
+    $confifModel = new Administracion_Model_DbTable_Config();
+    $config = $confifModel->getById(1);
+    $iva = $config->configuracion_iva; // Porcentaje de IVA
+    $producto->producto_precio *= 1 + $iva / 100;
+    $producto->producto_precio -= $producto->producto_precio * $descuento / 100;
     // print_r($producto);
     // Muestra o envía el producto con sus fotos
     $this->_view->producto = $producto;

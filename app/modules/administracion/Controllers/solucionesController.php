@@ -104,6 +104,9 @@ class Administracion_solucionesController extends Administracion_mainController
 		$this->_view->lists = $this->mainModel->getListPages($filters,$order,$start,$amount);
 		$this->_view->csrf_section = $this->_csrf_section;
 		$this->_view->padre = $this->_getSanitizedParam("padre");
+		if($this->_getSanitizedParam("padre")){
+			$this->_view->padreContenido = $this->mainModel->getById($this->_getSanitizedParam("padre"));
+		}
 	}
 
 	/**

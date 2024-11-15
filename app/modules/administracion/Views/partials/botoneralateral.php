@@ -7,6 +7,13 @@
       </a>
     </li>
   <?php } ?>
+  <li <?php if ($this->botonpanel == 11) { ?>class="activo" <?php } ?>>
+      <a href="/administracion/config">
+      <i class="fa-solid fa-gear"></i>
+        Administrar Configuración
+      </a>
+    </li>
+ 
   <li <?php if ($this->botonpanel == 2) { ?>class="activo" <?php } ?>>
     <a href="/administracion/publicidad">
       <i class="far fa-images"></i>
@@ -32,6 +39,13 @@
     </a>
   </li> -->
 
+  <li <?php if ($this->botonpanel == 7) { ?>class="activo" <?php } ?>>
+    <a href="/administracion/soluciones">
+      <i class="fa-brands fa-blogger-b"></i>
+      Administrar Soluciones
+    </a>
+  </li>
+
   <li <?php if ($this->botonpanel == 8) { ?>class="activo" <?php } ?>>
     <a href="/administracion/tiendacategorias">
     <i class="fa-solid fa-list"></i>
@@ -45,12 +59,7 @@
     </a>
   </li>
 
-  <li <?php if ($this->botonpanel == 7) { ?>class="activo" <?php } ?>>
-    <a href="/administracion/soluciones">
-      <i class="fa-brands fa-blogger-b"></i>
-      Administrar Soluciones
-    </a>
-  </li>
+
   <li <?php if ($this->botonpanel == 15) { ?>class="activo" <?php } ?>>
     <a href="/administracion/correosinformacion">
       <i class="fa-regular fa-envelope"></i>
