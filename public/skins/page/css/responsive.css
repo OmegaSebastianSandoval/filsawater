@@ -378,6 +378,7 @@ BANNER INTERNAS FIN
         width: 100%;
     }
     .container-profile .tab-content{
+        padding-top: 15px;
         border: none;
     }
 

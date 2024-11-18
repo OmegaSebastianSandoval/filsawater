@@ -37,6 +37,10 @@
             opacity: 1;
         }
     }
+
+    .contendor-comprar {
+        min-height: 60dvh;
+    }
 </style>
 
 <script>

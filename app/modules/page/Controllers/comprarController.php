@@ -60,6 +60,115 @@ class Page_comprarController extends Page_mainController
     $this->_view->carrito = $data;
   }
 
+  public function continuarAction()
+  {
+    $this->setLayout('blanco');
+    $productoModel =  new Administracion_Model_DbTable_Productos();
+    $categoriaModel = new Administracion_Model_DbTable_Tiendacategorias();
+    $nivelesModel = new Administracion_Model_DbTable_Niveles();
+    $confifModel = new Administracion_Model_DbTable_Config();
+    $pedidosModel = new Administracion_Model_DbTable_Pedidos();
+    $productosPedidosModel = new Administracion_Model_DbTable_Pedidos_productos();
+
+    $config = $confifModel->getById(1);
+    $iva = $config->configuracion_iva; // Porcentaje de IVA
+    $usuario = $this->usuarioLogged();
+    $nivel = $nivelesModel->getById($usuario->user_nivel_cliente);
+    $descuento = $nivel->nivel_porcentaje;
+    $carrito = $this->getCarrito();
+
+    //insertar el pedido y los productos, para continuar con la compra
+    /*
+	pedido_documento	v
+	pedido_fecha	
+	pedido_total			
+	pedido_subtotal	float		
+  pedido_procentaje_descuento	float
+	pedido_procentaje_iva	
+	pedido_descuento	float			
+	pedido_iva	float			
+	pedido_estado	varchar(255)	
+	pedido_ciudad	varchar(255)	
+	1pedido_direccion	varchar(255)	
+	1pedido_correo	varchar(255)	
+	1pedido_nombre	varchar(255)	
+	1pedido_telefono	varchar(255)	
+	1pedido_respuesta	text	
+	1pedido_validacion	varchar(255)	
+	1pedido_validacion2	varchar(255)	
+	1pedido_entidad	varchar(255)	
+	1pedido_porcentaje_iv */
+  
+    $dataPedido = [];
+
+    $dataPedido["pedido_subtotal"] = $this->_getSanitizedParam('subtotal');
+    $dataPedido["pedido_total"] = $descuento;
+    $dataPedido["pedido_total"] = $this->_getSanitizedParam('descuento');
+
+    $dataPedido["pedido_total"] = $this->_getSanitizedParam('iva');
+    $dataPedido["pedido_total"] = $this->_getSanitizedParam('total');
+
+
+
+
+    foreach ($carrito as $id => $cantidad) {
+
+      $producto = $productoModel->getById($id);
+
+      // Precio original antes de descuento e IVA
+      $precioOriginal = $producto->producto_precio;
+
+      // Calcular el descuento
+      $montoDescuento = $precioOriginal * $descuento / 100;
+
+      // Precio después de aplicar el descuento
+      $precioConDescuento = $precioOriginal - $montoDescuento;
+
+      // Calcular IVA sobre el precio con descuento
+      // $montoIva = $precioOriginal * $iva / 100;
+      $montoIva = $precioConDescuento * $iva / 100;
+
+      // Precio final con IVA aplicado
+      $precioFinal = $precioConDescuento + $montoIva;
+
+      $producto->producto_precio = $precioFinal;
+
+
+      // Datos del producto
+      $data[$id] = [];
+      $data[$id]['detalle'] = $producto;
+      $data[$id]['cantidad'] = (int)$cantidad;
+
+      // Total por producto
+      $data[$id]['total'] = $producto->producto_precio * $cantidad;
+    }
+  }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   public function productosAction()
   {
     $this->setLayout('blanco');
@@ -102,28 +211,6 @@ class Page_comprarController extends Page_mainController
       $precioFinal = $precioConDescuento + $montoIva;
 
 
-      //debug
-      if ($_GET["prueba"] == 1) {
-        echo "precio: " . $producto->producto_precio;
-        echo "<br>";
-        echo "descuento: " . $descuento;
-        echo "<br>";
-        echo "iva: " . $iva;
-        echo "<br>";
-        echo "precioOriginal: " . $precioOriginal;
-        echo "<br>";
-        echo "montoDescuento: " . $montoDescuento;
-        echo "<br>";
-        echo "precioConDescuento: " . $precioConDescuento;
-        echo "<br>";
-        echo "montoIva: " . $montoIva;
-        echo "<br>";
-        echo "precioFinal: " . $precioFinal;
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-        echo "<br>";
-      }
 
       $producto->producto_precio = $precioFinal;
       // Aplica el IVA al precio del producto después de aplicar el descuento

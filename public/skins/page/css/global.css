@@ -468,6 +468,10 @@ footer {
   background-color: var(--gris-oscuro);
   padding: 25px 0;
   color: var(--gris-claro);
+  position: absolute;
+  /* bottom: 0; */
+  width: 100%;
+  z-index: 2;
 }
 
 footer .icons-red a i {
@@ -2153,16 +2157,43 @@ ______________________________--------------------------------------------------
   color: var(--azul);
   /* font-weight: 700; */
   text-align: start;
-  width: 150px;
+  width: 190px;
   justify-content: start;
   align-items: center;
   gap: 10px;
   display: flex;
   transition: font-weight .3s ease allow-discrete;
+  padding: 10px 6px;
 }
 
 .container-profile .nav button:last-of-type {
+
+
   /* border-bottom: none; */
+}
+
+
+.table-info {
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.modal-transparente .modal-body {
+  padding: 0;
+}
+
+.modal-transparente .modal-content {
+  background-color: transparent;
+  border: 0;
+}
+
+.modal-transparente .modal-header {
+  background-color: transparent;
+  border: 0;
+}
+
+.modal-transparente .modal-header button {
+  filter: invert(1);
 }
 
 /* --------------------------------------------------------------- */
@@ -2638,36 +2669,39 @@ COMPRAR INICIO
 .contendor-comprar table {
   background-color: var(--blanco);
   border-radius: 15px;
- 
+
 
 }
 
-.contendor-comprar table th{
+.contendor-comprar table th {
   font-size: 14px;
   font-weight: 500;
   color: var(--azul);
 }
-.contendor-comprar table tbody tr{
+
+.contendor-comprar table tbody tr {
   border-top: 1px solid #59595924;
 }
-.contendor-comprar table tbody tr:last-of-type{
+
+.contendor-comprar table tbody tr:last-of-type {
   /* border-bottom: none; */
 }
+
 .contendor-comprar table th,
-.contendor-comprar table td
- {
+.contendor-comprar table td {
   padding: 14px;
   text-align: center;
 }
 
-.contendor-comprar .producto img{
+.contendor-comprar .producto img {
   background-color: var(--gris-claro);
   border-radius: 5px;
   height: 120px;
   object-fit: contain;
 
 }
-.contendor-comprar .producto h5{
+
+.contendor-comprar .producto h5 {
   font-size: 13px;
   font-weight: 500;
   color: var(--azul);
@@ -2675,7 +2709,8 @@ COMPRAR INICIO
   text-wrap: pretty;
   text-align: start;
 }
-.contendor-comprar .producto h6{
+
+.contendor-comprar .producto h6 {
   font-size: 12px;
   font-weight: 400;
   color: var(--gris-medio);
@@ -2683,16 +2718,16 @@ COMPRAR INICIO
   text-wrap: pretty;
   text-align: start;
 }
-.contendor-comprar .producto h6 span{
+
+.contendor-comprar .producto h6 span {
   font-weight: 600;
 }
 
 
 
 
-.contendor-comprar  .precio,
-.contendor-comprar  .total
-{
+.contendor-comprar .precio,
+.contendor-comprar .total {
   font-size: 14px;
   font-weight: 500;
   color: var(--gris-medio);
@@ -2725,34 +2760,37 @@ COMPRAR INICIO
   font-size: 16px;
   font-weight: 300;
 }
-#contenido_info{
+
+#contenido_info {
   position: -webkit-sticky;
   position: sticky;
   top: 145px;
   z-index: 2;
 }
-.resume{
+
+.resume {
   background-color: var(--blanco);
   border-radius: 15px;
   padding: 15px;
 
 }
-.resume h3{
+
+.resume h3 {
   font-size: 18px;
   font-weight: 600;
   color: var(--azul);
   /* margin: 0; */
   text-wrap: pretty;
 }
-.resume span{
+
+.resume span {
   font-size: 14px;
   font-weight: 400;
   color: var(--gris-medio);
 }
 
 .resume span#total,
-.resume span.total-spam
-{
+.resume span.total-spam {
   font-weight: 600;
   color: var(--azul);
   font-size: 16px;
