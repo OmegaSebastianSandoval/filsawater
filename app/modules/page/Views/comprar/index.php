@@ -1,6 +1,36 @@
 <div class="container contendor-comprar pt-4 h-100 pb-4">
-    <h2 class="text-center">Carrito de compras</h2>
-    <?php if (is_countable($this->carrito) && count($this->carrito) > 0) { ?>
+    <!-- <h2 class="text-center">Carrito de compras</h2> -->
+    <div class="line_box">
+        <div class="text_circle done-partial">
+            <div class="circle">
+                <h4>Carrito</h4>
+
+            </div>
+            <span class="tvar shadow"><i class="fa-solid fa-cart-shopping"></i></span>
+        </div>
+        <div class="text_circle">
+            <div class="circle">
+                <h4>Envío</h4>
+
+            </div>
+            <span class="tvar shadow"><i class="fa-solid fa-truck"></i></span>
+        </div>
+        <div class="text_circle">
+            <div class="circle">
+                <h4>Pago</h4>
+
+            </div>
+            <span class="tvar shadow"><i class="fa-solid fa-credit-card"></i></span>
+        </div>
+        <div class="text_circle">
+            <div class="circle">
+                <h4>Proceso de Pago Finalizado</h4>
+
+            </div>
+            <span class="tvar shadow"><i class="fa-solid fa-check"></i></span>
+        </div>
+    </div>
+    <?php if (is_countable($this->carrito) && count($this->carrito) >= 1) { ?>
         <div class="row mt-4">
             <div class="col-12 col-md-12 col-lg-8">
                 <div id="contenido_tabla">

@@ -29,7 +29,7 @@ class Page_homeController extends Page_mainController
 
     $usuario = $this->usuarioLogged();
 
-    $direcciones = $direccionesModel->getList("direccion_cliente = '{$usuario->user_id}'");
+    $direcciones = $direccionesModel->getList("direccion_cliente = '{$usuario->user_cedula}'");
     foreach ($direcciones  as $value) {
       $departamento = $departamentosModel->getById($value->direccion_departamento);
       $municipio = $municipiosModel->getById($value->direccion_ciudad);
@@ -82,7 +82,7 @@ class Page_homeController extends Page_mainController
 
 
     $data = [];
-    $data["direccion_cliente"] = $this->usuarioLogged()->user_id;
+    $data["direccion_cliente"] = $this->usuarioLogged()->user_cedula;
     $data["direccion_departamento"] = $this->_getSanitizedParam('departamento');
     $data["direccion_ciudad"] = $this->_getSanitizedParam('municipio');
     $data["direccion_direccion"] = $this->_getSanitizedParam('direccion');
@@ -103,7 +103,7 @@ class Page_homeController extends Page_mainController
   public function editaddresAction()
   {
     $data = [];
-    $data["direccion_cliente"] = $this->usuarioLogged()->user_id;
+    $data["direccion_cliente"] = $this->usuarioLogged()->user_cedula;
     $data["direccion_departamento"] = $this->_getSanitizedParam('departamento');
     $data["direccion_ciudad"] = $this->_getSanitizedParam('municipio');
     $data["direccion_direccion"] = $this->_getSanitizedParam('direccion');

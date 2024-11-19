@@ -88,14 +88,14 @@
                             Login
                         </a>
                     <?php } ?>
-                    <div class="vr"></div>
-
-                    <span class="content-carrito  d-none d-md-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-                        <i class="fa-solid fa-cart-shopping"></i>
-                        <span id="count-carrito"></span>
-                    </span>
                     <?php if ($this->usuario) { ?>
                         <div class="vr"></div>
+
+                        <span class="content-carrito  d-none d-md-block" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                            <i class="fa-solid fa-cart-shopping"></i>
+                            <span id="count-carrito"></span>
+                        </span>
+                        <div class="vr ocultar-carrito"></div>
                         <a href="/page/login/logout" class="login-out">
                             <i class="fa-solid fa-right-from-bracket"></i>
                             Salir
@@ -238,7 +238,7 @@
                             </a>
                             <div>
                                 <?php if ($this->usuario) { ?>
-                                   
+
                                     <a href="/page/login/logout" class="login-out login">
                                         <i class="fa-solid fa-right-from-bracket"></i>
                                         Salir
@@ -262,10 +262,12 @@
 
                 </div>
             </ul>
-            <span class="content-carrito d-block d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
-                <i class="fa-solid fa-cart-shopping"></i>
-                <span id="count-carrito-responsive"></span>
-            </span>
+            <?php if ($this->usuario) { ?>
+                <span class="content-carrito d-block d-md-none" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasDarkNavbar" aria-controls="offcanvasDarkNavbar" aria-label="Toggle navigation">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                    <span id="count-carrito-responsive"></span>
+                </span>
+            <?php } ?>
             <label for="nav-toggle" class="icon-burger">
                 <div class="line"></div>
                 <div class="line"></div>

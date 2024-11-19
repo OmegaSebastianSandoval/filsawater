@@ -350,7 +350,7 @@ document.addEventListener("DOMContentLoaded", () => {
           data[key] = value;
         });
 
-        console.log(data);
+        // console.log(data);
 
         fetch(this.getAttribute("action"), {
           method: "POST",
@@ -361,7 +361,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
           .then((response) => response.json())
           .then((data2) => {
-            console.log(data2.email); // Verifica el valor exacto
+            // console.log(data2.email); // Verifica el valor exacto
             switch (data2.status.trim()) {
               case "success":
                 Swal.fire({
@@ -450,7 +450,7 @@ document.addEventListener("DOMContentLoaded", () => {
         })
           .then((response) => response.json())
           .then((data2) => {
-            console.log(data2); // Verifica el valor exacto
+            // console.log(data2); // Verifica el valor exacto
 
             if (data2.status.trim().toLowerCase() === "success") {
               Swal.fire({
@@ -481,7 +481,7 @@ document.addEventListener("DOMContentLoaded", () => {
           })
 
           .catch((error) => {
-            // console.log("Error:", error);
+           console.log("Error:", error);
 
             Swal.fire({
               icon: "error",
@@ -530,7 +530,7 @@ document.addEventListener("DOMContentLoaded", () => {
           return response.json(); // Si esperas una respuesta en JSON
         })
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           resetQuantity();
           alertaSwal(data);
           getCart();
@@ -591,7 +591,7 @@ function eliminarProducto(id) {
     cancelButtonText: "Cancelar",
   }).then((result) => {
     if (result.isConfirmed) {
-      console.log("Eliminar producto con id:", id);
+      // console.log("Eliminar producto con id:", id);
 
       fetch("/page/index/deleteitem", {
         method: "POST",
@@ -607,7 +607,7 @@ function eliminarProducto(id) {
           return response.json(); // Si esperas una respuesta en JSON
         })
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           alertaSwal(data);
           getCart();
           traercarrito();
@@ -699,7 +699,7 @@ function initQuantityButtons() {
           return response.json();
         })
         .then((data) => {
-          console.log(data);
+          // console.log(data);
           alertaSwal(data); // Llama a tu función de alerta personalizada
           getCart(); // Actualiza el carrito en la UI, si tienes esta función definida
           traercarrito();

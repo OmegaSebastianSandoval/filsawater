@@ -2799,6 +2799,393 @@ COMPRAR INICIO
 
 
 
+/* From Uiverse.io by Na3ar-17 */
+.radio-input {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.radio-input * {
+  box-sizing: border-box;
+  padding: 0;
+  margin: 0;
+}
+
+.radio-input label {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  padding: 0px 20px;
+  width: 100%;
+  cursor: pointer;
+  height: 50px;
+  position: relative;
+}
+
+.radio-input label::before {
+  position: absolute;
+  content: "";
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+  height: 45px;
+  z-index: -1;
+  transition: all 0.3s ease;
+  border-radius: 10px;
+  border: 1px solid var(--azul);
+  /* background-color: var(--gris-medio); */
+}
+
+.radio-input label:hover::before {
+  transition: all 0.2s ease;
+  background-color: #00b8c32e;
+  border-color: #00b8c32e;
+
+}
+
+.radio-input .label:has(input:checked)::before {
+  background-color: #00b8c32e;
+  border-color: var(--azul);
+  height: 50px;
+}
+
+.radio-input .label .text {
+  color: var(--gris-medio);
+  font-weight: 400;
+
+}
+
+.radio-input .label input[type="radio"] {
+  background-color: #5475a180;
+  appearance: none;
+  width: 17px;
+  height: 17px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.radio-input .label input[type="radio"]:checked {
+  background-color: var(--azul);
+  -webkit-animation: puls 0.7s forwards;
+  animation: pulse 0.7s forwards;
+}
+
+.radio-input .label input[type="radio"]:checked .text {
+  color: var(--blanco);
+}
+
+.radio-input .label input[type="radio"]:before {
+  content: "";
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  transition: all 0.1s cubic-bezier(0.165, 0.84, 0.44, 1);
+  background-color: #fff;
+  transform: scale(0);
+}
+
+.radio-input .label input[type="radio"]:checked::before {
+  transform: scale(1);
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0.4);
+  }
+
+  70% {
+    box-shadow: 0 0 0 8px rgba(255, 255, 255, 0);
+  }
+
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 255, 255, 0);
+  }
+}
+
+
+#contenido_info2 {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 145px;
+  z-index: 2;
+}
+
+.producto-direccion {
+
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.producto-direccion h5 {
+  font-size: 13px;
+  color: var(--azul);
+  font-weight: 600;
+}
+
+.producto-direccion h6 {
+  font-size: 12px;
+  color: var(--gris-medio);
+}
+
+.producto-total {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+}
+.seleccion-direccion{
+  font-weight: 600;
+  color: var(--gris-medio);
+}
+.producto-total .total {
+  font-weight: 600;
+  color: var(--gris-medio);
+
+}
+
+.cantidad-direccion {
+  position: absolute;
+
+  background-color: var(--azul);
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  color: var(--blanco) !important;
+  right: -3px;
+  top: -2px;
+}
+
+.img-carrito {
+  background-color: var(--gris-claro);
+  border: 1px solid var(--gris-medio);
+  height: 90px;
+  max-width: 90px;
+  display: block;
+  margin: 0 auto;
+}
+
+.resume span.total-precio {
+  font-size: 17px;
+  font-weight: 600;
+}
+
+.contenedor-nueva-direccion .form-check-input:checked {
+  background-color: var(--naranja);
+  border-color: var(--naranja);
+}
+
+.form-check-label {
+  font-weight: 500;
+}
+
+.contendor-pago .resume span {
+  font-weight: 600;
+}
+
+.contendor-pago .resume span.info {
+  font-weight: 400;
+}
+
+.resume-pago {
+  position: -webkit-sticky;
+  position: sticky;
+  top: 142px;
+  z-index: 2;
+}
+
+.line_box {
+  display: flex;
+  margin-bottom: 40px;
+  width: 66%;
+}
+
+.text_circle {
+  flex: 1;
+  text-align: center;
+  position: relative;
+}
+
+.text_circle:after {
+  background-color: grey;
+  bottom: 1.25em;
+  content: "";
+  display: block;
+  height: 3px;
+  position: absolute;
+  right: 0;
+  width: 50%;
+  z-index: -1;
+}
+
+.stav_projektu .text_circle:after,
+.stav_projektu .text_circle:before {
+  background-color: grey;
+}
+
+.line_box h4 {
+  color: var(--azul);
+  font-weight: 600;
+}
+
+.line_box h4 {
+  font-size: 13px;
+  margin-bottom: 0;
+  padding: 0 5px;
+}
+
+.subline {
+  position: absolute;
+  right: -25px;
+  bottom: -43%;
+}
+
+.subline:before {
+  content: "";
+  position: absolute;
+  height: 15px;
+  width: 15px;
+  bottom: 14px;
+  right: 15px;
+  background-color: #189599;
+  border-radius: 50%;
+  top: -25px;
+}
+
+.subline h6 {
+  margin-bottom: 0;
+}
+
+.timeline {
+  margin: 40px 0;
+}
+
+.text_circle.done:after,
+.text_circle.done+.text_circle:before,
+.stav_projektu .text_circle.done:after,
+.stav_projektu .text_circle.done+.text_circle:before {
+  background-color: var(--azulclaro2);
+}
+
+.text_circle.sub:after {
+  background-color: #189599;
+}
+
+.text_circle:not(:first-child):before {
+  bottom: 1.25em;
+  content: "";
+  display: block;
+  height: 3px;
+  position: absolute;
+  left: 0;
+  width: 50%;
+  z-index: -1;
+  background-color: grey;
+}
+
+.stav_projektu .text_circle:not(:first-child):before {
+  background-color: grey;
+}
+
+.text_circle:last-child:after {
+  width: 0;
+}
+
+.circle {
+  height: 100%;
+}
+
+.tvar {
+  height: 40px;
+  width: 40px;
+  /* border: 2px solid #189599; */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  border-radius: 100%;
+  top: -43px;
+  margin: 3px auto;
+  background-color: #fff;
+  color: var(--azul);
+}
+.text_circle.done .tvar{
+  color: var(--azulclaro2) !important;
+}
+.text_circle.done-partial .tvar{
+  color: var(--azulclaro2) !important;
+}
+.tvar span {
+  margin: 25% auto;
+  height: 20px;
+  width: 20px;
+  background-color: #189599;
+  border-radius: 100%;
+  color: #fff;
+}
+
+.stav_projektu .tvar {
+  border: 2px solid grey;
+}
+
+.stav_projektu .done .tvar,
+.stav_projektu .sub .tvar {
+  border: 2px solid #189599;
+}
+
+.subline h6 {
+  color: #189599;
+}
+
+.timeline .card-header:hover {
+  background-color: #ececec;
+  cursor: pointer;
+}
+
+/* iPhone X ----------------------------------- */
+@media only screen and (device-width : 375px) and (device-height : 812px) and (-webkit-device-pixel-ratio : 3) {
+  .subline:before {
+      top: -43px;
+  }
+}
+
+@media only screen and (device-width : 812px) and (device-height : 375px) and (orientation : landscape) and (-webkit-device-pixel-ratio : 3) {
+  .subline:before {
+      top: -31px;
+  }
+}
+
+/* iPad portrait ----------------------------------- */
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (orientation : portrait) {
+  .subline:before {
+      top: -29px;
+  }
+}
+
+/* mobile width till 767px ----------------------------------- */
+@media (max-width: 767px) {
+  .subline:before {
+      top: -30px;
+  }
+}
+
+/* Portrait iPad Pro */
+@media only screen and (min-width: 1024px) and (max-height: 1366px) and (orientation: portrait) and (-webkit-min-device-pixel-ratio: 1.5) {
+  .subline:before {
+      top: -23px;
+  }
+}
+
+/* mobile width till 480px ----------------------------------- */
+@media (max-width: 480px) {
+  .subline:before {
+      top: -43px;
+  }
+}
 
 /*-
 ------------------------------------------------------------------------------
