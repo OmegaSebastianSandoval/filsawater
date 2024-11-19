@@ -1,8 +1,8 @@
 <?php 
 /**
-* clase que genera la insercion y edicion  de pedido_producto en la base de datos
+* clase que genera la insercion y edicion  de productosporpedido en la base de datos
 */
-class Administracion_Model_DbTable_PedidosProductos extends Db_Table
+class Administracion_Model_DbTable_Productosporpedido extends Db_Table
 {
 	/**
 	 * [ nombre de la tabla actual]
@@ -17,7 +17,7 @@ class Administracion_Model_DbTable_PedidosProductos extends Db_Table
 	protected $_id = 'pedido_producto_id';
 
 	/**
-	 * insert recibe la informacion de un pedido_producto y la inserta en la base de datos
+	 * insert recibe la informacion de un productosporpedido y la inserta en la base de datos
 	 * @param  array Array array con la informacion con la cual se va a realizar la insercion en la base de datos
 	 * @return integer      identificador del  registro que se inserto
 	 */
@@ -38,7 +38,7 @@ class Administracion_Model_DbTable_PedidosProductos extends Db_Table
 	}
 
 	/**
-	 * update Recibe la informacion de un pedido_producto  y actualiza la informacion en la base de datos
+	 * update Recibe la informacion de un productosporpedido  y actualiza la informacion en la base de datos
 	 * @param  array Array Array con la informacion con la cual se va a realizar la actualizacion en la base de datos
 	 * @param  integer    identificador al cual se le va a realizar la actualizacion
 	 * @return void

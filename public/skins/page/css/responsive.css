@@ -12,11 +12,12 @@
     --gris-medio: #595959;
 
 }
+
 @media (width <1200px) {
 
-.product-card .content-image-product img{
-    height: 200px;
-}
+    .product-card .content-image-product img {
+        height: 200px;
+    }
 }
 
 @media (width <992px) {
@@ -63,6 +64,11 @@
     .contenedor-detail-producto .contenedorfotos {
         margin-top: 15px;
     }
+
+    #contenido_info {
+        margin-top: 15px;
+    }
+
 
 }
 
@@ -370,14 +376,16 @@ BANNER INTERNAS FIN
     }
 
     /* login */
-    .container-banner-login h1{
+    .container-banner-login h1 {
         font-size: 24px;
-        margin: 0 0 10px 0;  
+        margin: 0 0 10px 0;
     }
-    .container-profile .nav-link{
+
+    .container-profile .nav-link {
         width: 100%;
     }
-    .container-profile .tab-content{
+
+    .container-profile .tab-content {
         padding-top: 15px;
         border: none;
     }

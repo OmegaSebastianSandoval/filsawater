@@ -1,11 +1,11 @@
 <?php
 /**
-* Controlador de Pedidos que permite la  creacion, edicion  y eliminacion de los pedido del Sistema
+* Controlador de Productosporpedido que permite la  creacion, edicion  y eliminacion de los productosporpedido del Sistema
 */
-class Administracion_pedidosController extends Administracion_mainController
+class Administracion_productosporpedidoController extends Administracion_mainController
 {
 	/**
-	 * $mainModel  instancia del modelo de  base de datos pedido
+	 * $mainModel  instancia del modelo de  base de datos productosporpedido
 	 * @var modeloContenidos
 	 */
 	public $mainModel;
@@ -32,7 +32,7 @@ class Administracion_pedidosController extends Administracion_mainController
 	 * $_csrf_section  nombre de la variable general csrf  que se va a almacenar en la session
 	 * @var string
 	 */
-	protected $_csrf_section = "administracion_pedidos";
+	protected $_csrf_section = "administracion_productosporpedido";
 
 	/**
 	 * $namepages nombre de la pvariable en la cual se va a guardar  el numero de seccion en la paginacion del controlador
@@ -43,17 +43,17 @@ class Administracion_pedidosController extends Administracion_mainController
 
 
 	/**
-     * Inicializa las variables principales del controlador pedidos .
+     * Inicializa las variables principales del controlador productosporpedido .
      *
      * @return void.
      */
 	public function init()
 	{
-		$this->mainModel = new Administracion_Model_DbTable_Pedidos();
-		$this->namefilter = "parametersfilterpedidos";
-		$this->route = "/administracion/pedidos";
-		$this->namepages ="pages_pedidos";
-		$this->namepageactual ="page_actual_pedidos";
+		$this->mainModel = new Administracion_Model_DbTable_Productosporpedido();
+		$this->namefilter = "parametersfilterproductosporpedido";
+		$this->route = "/administracion/productosporpedido";
+		$this->namepages ="pages_productosporpedido";
+		$this->namepageactual ="page_actual_productosporpedido";
 		$this->_view->route = $this->route;
 		if(Session::getInstance()->get($this->namepages)){
 			$this->pages = Session::getInstance()->get($this->namepages);
@@ -65,13 +65,13 @@ class Administracion_pedidosController extends Administracion_mainController
 
 
 	/**
-     * Recibe la informacion y  muestra un listado de  pedido con sus respectivos filtros.
+     * Recibe la informacion y  muestra un listado de  productosporpedido con sus respectivos filtros.
      *
      * @return void.
      */
 	public function indexAction()
 	{
-		$title = "Aministración de pedido";
+		$title = "Aministración de productosporpedido";
 		$this->getLayout()->setTitle($title);
 		$this->_view->titlesection = $title;
 		$this->filters();
@@ -103,42 +103,42 @@ class Administracion_pedidosController extends Administracion_mainController
 	}
 
 	/**
-     * Genera la Informacion necesaria para editar o crear un  pedido  y muestra su formulario
+     * Genera la Informacion necesaria para editar o crear un  productosporpedido  y muestra su formulario
      *
      * @return void.
      */
 	public function manageAction()
 	{
 		$this->_view->route = $this->route;
-		$this->_csrf_section = "manage_pedidos_".date("YmdHis");
+		$this->_csrf_section = "manage_productosporpedido_".date("YmdHis");
 		$this->_csrf->generateCode($this->_csrf_section);
 		$this->_view->csrf_section = $this->_csrf_section;
 		$this->_view->csrf = Session::getInstance()->get('csrf')[$this->_csrf_section];
 		$id = $this->_getSanitizedParam("id");
 		if ($id > 0) {
 			$content = $this->mainModel->getById($id);
-			if($content->pedido_id){
+			if($content->pedido_producto_id){
 				$this->_view->content = $content;
 				$this->_view->routeform = $this->route."/update";
-				$title = "Actualizar pedido";
+				$title = "Actualizar productosporpedido";
 				$this->getLayout()->setTitle($title);
 				$this->_view->titlesection = $title;
 			}else{
 				$this->_view->routeform = $this->route."/insert";
-				$title = "Crear pedido";
+				$title = "Crear productosporpedido";
 				$this->getLayout()->setTitle($title);
 				$this->_view->titlesection = $title;
 			}
 		} else {
 			$this->_view->routeform = $this->route."/insert";
-			$title = "Crear pedido";
+			$title = "Crear productosporpedido";
 			$this->getLayout()->setTitle($title);
 			$this->_view->titlesection = $title;
 		}
 	}
 
 	/**
-     * Inserta la informacion de un pedido  y redirecciona al listado de pedido.
+     * Inserta la informacion de un productosporpedido  y redirecciona al listado de productosporpedido.
      *
      * @return void.
      */
@@ -149,9 +149,9 @@ class Administracion_pedidosController extends Administracion_mainController
 			$data = $this->getData();
 			$id = $this->mainModel->insert($data);
 			
-			$data['pedido_id']= $id;
+			$data['pedido_producto_id']= $id;
 			$data['log_log'] = print_r($data,true);
-			$data['log_tipo'] = 'CREAR PEDIDO';
+			$data['log_tipo'] = 'CREAR PRODUCTOSPORPEDIDO';
 			$logModel = new Administracion_Model_DbTable_Log();
 			$logModel->insert($data);
 		}
@@ -159,7 +159,7 @@ class Administracion_pedidosController extends Administracion_mainController
 	}
 
 	/**
-     * Recibe un identificador  y Actualiza la informacion de un pedido  y redirecciona al listado de pedido.
+     * Recibe un identificador  y Actualiza la informacion de un productosporpedido  y redirecciona al listado de productosporpedido.
      *
      * @return void.
      */
@@ -169,20 +169,20 @@ class Administracion_pedidosController extends Administracion_mainController
 		if (Session::getInstance()->get('csrf')[$this->_getSanitizedParam("csrf_section")] == $csrf ) {
 			$id = $this->_getSanitizedParam("id");
 			$content = $this->mainModel->getById($id);
-			if ($content->pedido_id) {
+			if ($content->pedido_producto_id) {
 				$data = $this->getData();
 					$this->mainModel->update($data,$id);
 			}
-			$data['pedido_id']=$id;
+			$data['pedido_producto_id']=$id;
 			$data['log_log'] = print_r($data,true);
-			$data['log_tipo'] = 'EDITAR PEDIDO';
+			$data['log_tipo'] = 'EDITAR PRODUCTOSPORPEDIDO';
 			$logModel = new Administracion_Model_DbTable_Log();
 			$logModel->insert($data);}
 		header('Location: '.$this->route.''.'');
 	}
 
 	/**
-     * Recibe un identificador  y elimina un pedido  y redirecciona al listado de pedido.
+     * Recibe un identificador  y elimina un productosporpedido  y redirecciona al listado de productosporpedido.
      *
      * @return void.
      */
@@ -197,7 +197,7 @@ class Administracion_pedidosController extends Administracion_mainController
 				if (isset($content)) {
 					$this->mainModel->deleteRegister($id);$data = (array)$content;
 					$data['log_log'] = print_r($data,true);
-					$data['log_tipo'] = 'BORRAR PEDIDO';
+					$data['log_tipo'] = 'BORRAR PRODUCTOSPORPEDIDO';
 					$logModel = new Administracion_Model_DbTable_Log();
 					$logModel->insert($data); }
 			}
@@ -206,56 +206,50 @@ class Administracion_pedidosController extends Administracion_mainController
 	}
 
 	/**
-     * Recibe la informacion del formulario y la retorna en forma de array para la edicion y creacion de Pedidos.
+     * Recibe la informacion del formulario y la retorna en forma de array para la edicion y creacion de Productosporpedido.
      *
      * @return array con toda la informacion recibida del formulario.
      */
 	private function getData()
 	{
 		$data = array();
-		$data['pedido_documento'] = $this->_getSanitizedParam("pedido_documento");
-		$data['pedido_fecha'] = $this->_getSanitizedParam("pedido_fecha");
-		if($this->_getSanitizedParam("pedido_total") == '' ) {
-			$data['pedido_total'] = '0';
+		$data['pedido_producto_pedido'] = $this->_getSanitizedParam("pedido_producto_pedido");
+		$data['pedido_producto_producto'] = $this->_getSanitizedParam("pedido_producto_producto");
+		$data['pedido_producto_nombre'] = $this->_getSanitizedParam("pedido_producto_nombre");
+		if($this->_getSanitizedParam("pedido_producto_cantidad") == '' ) {
+			$data['pedido_producto_cantidad'] = '0';
 		} else {
-			$data['pedido_total'] = $this->_getSanitizedParam("pedido_total");
+			$data['pedido_producto_cantidad'] = $this->_getSanitizedParam("pedido_producto_cantidad");
 		}
-		if($this->_getSanitizedParam("pedido_subtotal") == '' ) {
-			$data['pedido_subtotal'] = '0';
+		if($this->_getSanitizedParam("pedido_producto_valor") == '' ) {
+			$data['pedido_producto_valor'] = '0';
 		} else {
-			$data['pedido_subtotal'] = $this->_getSanitizedParam("pedido_subtotal");
+			$data['pedido_producto_valor'] = $this->_getSanitizedParam("pedido_producto_valor");
 		}
-		if($this->_getSanitizedParam("pedido_procentaje_descuento") == '' ) {
-			$data['pedido_procentaje_descuento'] = '0';
+		if($this->_getSanitizedParam("pedido_producto_iva") == '' ) {
+			$data['pedido_producto_iva'] = '0';
 		} else {
-			$data['pedido_procentaje_descuento'] = $this->_getSanitizedParam("pedido_procentaje_descuento");
+			$data['pedido_producto_iva'] = $this->_getSanitizedParam("pedido_producto_iva");
 		}
-		if($this->_getSanitizedParam("pedido_descuento") == '' ) {
-			$data['pedido_descuento'] = '0';
+		if($this->_getSanitizedParam("pedido_producto_valor_iva") == '' ) {
+			$data['pedido_producto_valor_iva'] = '0';
 		} else {
-			$data['pedido_descuento'] = $this->_getSanitizedParam("pedido_descuento");
+			$data['pedido_producto_valor_iva'] = $this->_getSanitizedParam("pedido_producto_valor_iva");
 		}
-		if($this->_getSanitizedParam("pedido_iva") == '' ) {
-			$data['pedido_iva'] = '0';
+		if($this->_getSanitizedParam("pedido_producto_descuento") == '' ) {
+			$data['pedido_producto_descuento'] = '0';
 		} else {
-			$data['pedido_iva'] = $this->_getSanitizedParam("pedido_iva");
+			$data['pedido_producto_descuento'] = $this->_getSanitizedParam("pedido_producto_descuento");
 		}
-		$data['pedido_estado'] = $this->_getSanitizedParam("pedido_estado");
-		$data['pedido_departamento'] = $this->_getSanitizedParam("pedido_departamento");
-		$data['pedido_ciudad'] = $this->_getSanitizedParam("pedido_ciudad");
-		$data['pedido_direccion'] = $this->_getSanitizedParam("pedido_direccion");
-		$data['pedido_direccion_observacion'] = $this->_getSanitizedParam("pedido_direccion_observacion");
-		$data['pedido_correo'] = $this->_getSanitizedParam("pedido_correo");
-		$data['pedido_nombre'] = $this->_getSanitizedParam("pedido_nombre");
-		$data['pedido_telefono'] = $this->_getSanitizedParam("pedido_telefono");
-		$data['pedido_respuesta'] = $this->_getSanitizedParam("pedido_respuesta");
-		$data['pedido_validacion'] = $this->_getSanitizedParam("pedido_validacion");
-		$data['pedido_validacion2'] = $this->_getSanitizedParam("pedido_validacion2");
-		$data['pedido_entidad'] = $this->_getSanitizedParam("pedido_entidad");
-		if($this->_getSanitizedParam("pedido_porcentaje_iva") == '' ) {
-			$data['pedido_porcentaje_iva'] = '0';
+		if($this->_getSanitizedParam("pedido_producto_valor_descuento") == '' ) {
+			$data['pedido_producto_valor_descuento'] = '0';
 		} else {
-			$data['pedido_porcentaje_iva'] = $this->_getSanitizedParam("pedido_porcentaje_iva");
+			$data['pedido_producto_valor_descuento'] = $this->_getSanitizedParam("pedido_producto_valor_descuento");
+		}
+		if($this->_getSanitizedParam("pedido_producto_precio_final") == '' ) {
+			$data['pedido_producto_precio_final'] = '0';
+		} else {
+			$data['pedido_producto_precio_final'] = $this->_getSanitizedParam("pedido_producto_precio_final");
 		}
 		return $data;
 	}

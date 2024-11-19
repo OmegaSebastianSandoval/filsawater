@@ -60,16 +60,6 @@
 					<div class="help-block with-errors"></div>
 				</div>
 				<div class="col-12 form-group">
-					<label for="pedido_procentaje_iva"  class="control-label">pedido_procentaje_iva</label>
-					<label class="input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
-						</div>
-						<input type="text" value="<?= $this->content->pedido_procentaje_iva; ?>" name="pedido_procentaje_iva" id="pedido_procentaje_iva" class="form-control"   >
-					</label>
-					<div class="help-block with-errors"></div>
-				</div>
-				<div class="col-12 form-group">
 					<label for="pedido_descuento"  class="control-label">pedido_descuento</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
@@ -100,6 +90,16 @@
 					<div class="help-block with-errors"></div>
 				</div>
 				<div class="col-12 form-group">
+					<label for="pedido_departamento"  class="control-label">pedido_departamento</label>
+					<label class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
+						</div>
+						<input type="text" value="<?= $this->content->pedido_departamento; ?>" name="pedido_departamento" id="pedido_departamento" class="form-control"   >
+					</label>
+					<div class="help-block with-errors"></div>
+				</div>
+				<div class="col-12 form-group">
 					<label for="pedido_ciudad"  class="control-label">pedido_ciudad</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
@@ -116,6 +116,16 @@
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
 						</div>
 						<input type="text" value="<?= $this->content->pedido_direccion; ?>" name="pedido_direccion" id="pedido_direccion" class="form-control"   >
+					</label>
+					<div class="help-block with-errors"></div>
+				</div>
+				<div class="col-12 form-group">
+					<label for="pedido_direccion_observacion"  class="control-label">pedido_direccion_observacion</label>
+					<label class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
+						</div>
+						<input type="text" value="<?= $this->content->pedido_direccion_observacion; ?>" name="pedido_direccion_observacion" id="pedido_direccion_observacion" class="form-control"   >
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>

@@ -371,7 +371,7 @@ document.addEventListener("DOMContentLoaded", () => {
                   confirmButtonText: "Continuar",
                 }).then(() => {
                   // Redirigir a otra página si es necesario
-                  window.location.href =  '/page/login/otp?e='+data2.email;
+                  window.location.href = "/page/login/otp?e=" + data2.email;
                 });
                 break;
               case "error":
@@ -569,6 +569,12 @@ document.addEventListener("DOMContentLoaded", () => {
       quantityInput.value = quantity + 1;
     }
   });
+
+  document
+    .getElementById("comprar-continuar")
+    ?.addEventListener("submit", function (e) {
+      $(".loader-bx").addClass("show");
+    });
 });
 
 /* ------------------------------------------------------ */

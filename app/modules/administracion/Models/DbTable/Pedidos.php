@@ -27,12 +27,13 @@ class Administracion_Model_DbTable_Pedidos extends Db_Table
 		$pedido_total = $data['pedido_total'];
 		$pedido_subtotal = $data['pedido_subtotal'];
 		$pedido_procentaje_descuento = $data['pedido_procentaje_descuento'];
-		$pedido_procentaje_iva = $data['pedido_procentaje_iva'];
 		$pedido_descuento = $data['pedido_descuento'];
 		$pedido_iva = $data['pedido_iva'];
 		$pedido_estado = $data['pedido_estado'];
+		$pedido_departamento = $data['pedido_departamento'];
 		$pedido_ciudad = $data['pedido_ciudad'];
 		$pedido_direccion = $data['pedido_direccion'];
+		$pedido_direccion_observacion = $data['pedido_direccion_observacion'];
 		$pedido_correo = $data['pedido_correo'];
 		$pedido_nombre = $data['pedido_nombre'];
 		$pedido_telefono = $data['pedido_telefono'];
@@ -41,7 +42,7 @@ class Administracion_Model_DbTable_Pedidos extends Db_Table
 		$pedido_validacion2 = $data['pedido_validacion2'];
 		$pedido_entidad = $data['pedido_entidad'];
 		$pedido_porcentaje_iva = $data['pedido_porcentaje_iva'];
-		$query = "INSERT INTO pedidos( pedido_documento, pedido_fecha, pedido_total, pedido_subtotal, pedido_procentaje_descuento, pedido_procentaje_iva, pedido_descuento, pedido_iva, pedido_estado, pedido_ciudad, pedido_direccion, pedido_correo, pedido_nombre, pedido_telefono, pedido_respuesta, pedido_validacion, pedido_validacion2, pedido_entidad, pedido_porcentaje_iva) VALUES ( '$pedido_documento', '$pedido_fecha', '$pedido_total', '$pedido_subtotal', '$pedido_procentaje_descuento', '$pedido_procentaje_iva', '$pedido_descuento', '$pedido_iva', '$pedido_estado', '$pedido_ciudad', '$pedido_direccion', '$pedido_correo', '$pedido_nombre', '$pedido_telefono', '$pedido_respuesta', '$pedido_validacion', '$pedido_validacion2', '$pedido_entidad', '$pedido_porcentaje_iva')";
+		$query = "INSERT INTO pedidos( pedido_documento, pedido_fecha, pedido_total, pedido_subtotal, pedido_procentaje_descuento, pedido_descuento, pedido_iva, pedido_estado, pedido_departamento, pedido_ciudad, pedido_direccion, pedido_direccion_observacion, pedido_correo, pedido_nombre, pedido_telefono, pedido_respuesta, pedido_validacion, pedido_validacion2, pedido_entidad, pedido_porcentaje_iva) VALUES ( '$pedido_documento', '$pedido_fecha', '$pedido_total', '$pedido_subtotal', '$pedido_procentaje_descuento', '$pedido_descuento', '$pedido_iva', '$pedido_estado', '$pedido_departamento', '$pedido_ciudad', '$pedido_direccion', '$pedido_direccion_observacion', '$pedido_correo', '$pedido_nombre', '$pedido_telefono', '$pedido_respuesta', '$pedido_validacion', '$pedido_validacion2', '$pedido_entidad', '$pedido_porcentaje_iva')";
 		$res = $this->_conn->query($query);
         return mysqli_insert_id($this->_conn->getConnection());
 	}
@@ -59,12 +60,13 @@ class Administracion_Model_DbTable_Pedidos extends Db_Table
 		$pedido_total = $data['pedido_total'];
 		$pedido_subtotal = $data['pedido_subtotal'];
 		$pedido_procentaje_descuento = $data['pedido_procentaje_descuento'];
-		$pedido_procentaje_iva = $data['pedido_procentaje_iva'];
 		$pedido_descuento = $data['pedido_descuento'];
 		$pedido_iva = $data['pedido_iva'];
 		$pedido_estado = $data['pedido_estado'];
+		$pedido_departamento = $data['pedido_departamento'];
 		$pedido_ciudad = $data['pedido_ciudad'];
 		$pedido_direccion = $data['pedido_direccion'];
+		$pedido_direccion_observacion = $data['pedido_direccion_observacion'];
 		$pedido_correo = $data['pedido_correo'];
 		$pedido_nombre = $data['pedido_nombre'];
 		$pedido_telefono = $data['pedido_telefono'];
@@ -73,7 +75,7 @@ class Administracion_Model_DbTable_Pedidos extends Db_Table
 		$pedido_validacion2 = $data['pedido_validacion2'];
 		$pedido_entidad = $data['pedido_entidad'];
 		$pedido_porcentaje_iva = $data['pedido_porcentaje_iva'];
-		$query = "UPDATE pedidos SET  pedido_documento = '$pedido_documento', pedido_fecha = '$pedido_fecha', pedido_total = '$pedido_total', pedido_subtotal = '$pedido_subtotal', pedido_procentaje_descuento = '$pedido_procentaje_descuento', pedido_procentaje_iva = '$pedido_procentaje_iva', pedido_descuento = '$pedido_descuento', pedido_iva = '$pedido_iva', pedido_estado = '$pedido_estado', pedido_ciudad = '$pedido_ciudad', pedido_direccion = '$pedido_direccion', pedido_correo = '$pedido_correo', pedido_nombre = '$pedido_nombre', pedido_telefono = '$pedido_telefono', pedido_respuesta = '$pedido_respuesta', pedido_validacion = '$pedido_validacion', pedido_validacion2 = '$pedido_validacion2', pedido_entidad = '$pedido_entidad', pedido_porcentaje_iva = '$pedido_porcentaje_iva' WHERE pedido_id = '".$id."'";
+		$query = "UPDATE pedidos SET  pedido_documento = '$pedido_documento', pedido_fecha = '$pedido_fecha', pedido_total = '$pedido_total', pedido_subtotal = '$pedido_subtotal', pedido_procentaje_descuento = '$pedido_procentaje_descuento', pedido_descuento = '$pedido_descuento', pedido_iva = '$pedido_iva', pedido_estado = '$pedido_estado', pedido_departamento = '$pedido_departamento', pedido_ciudad = '$pedido_ciudad', pedido_direccion = '$pedido_direccion', pedido_direccion_observacion = '$pedido_direccion_observacion', pedido_correo = '$pedido_correo', pedido_nombre = '$pedido_nombre', pedido_telefono = '$pedido_telefono', pedido_respuesta = '$pedido_respuesta', pedido_validacion = '$pedido_validacion', pedido_validacion2 = '$pedido_validacion2', pedido_entidad = '$pedido_entidad', pedido_porcentaje_iva = '$pedido_porcentaje_iva' WHERE pedido_id = '".$id."'";
 		$res = $this->_conn->query($query);
 	}
 }

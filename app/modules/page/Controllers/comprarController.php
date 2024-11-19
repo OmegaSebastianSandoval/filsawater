@@ -10,6 +10,8 @@ class Page_comprarController extends Page_mainController
     $productoModel =  new Administracion_Model_DbTable_Productos();
     $categoriaModel = new Administracion_Model_DbTable_Tiendacategorias();
     $nivelesModel = new Administracion_Model_DbTable_Niveles();
+    $productosPedidosModel =  new Administracion_Model_DbTable_Productosporpedido();
+
     // Obtiene la configuración general del sistema para acceder al porcentaje de IVA
     $confifModel = new Administracion_Model_DbTable_Config();
     $config = $confifModel->getById(1);
@@ -56,19 +58,21 @@ class Page_comprarController extends Page_mainController
 
 
     // print_r($data);
-
+    $this->_view->error_compra = Session::getInstance()->get("error_compra");
+    Session::getInstance()->set("error_compra", "");
     $this->_view->carrito = $data;
   }
 
   public function continuarAction()
   {
     $this->setLayout('blanco');
+    error_reporting(E_ALL);
     $productoModel =  new Administracion_Model_DbTable_Productos();
     $categoriaModel = new Administracion_Model_DbTable_Tiendacategorias();
     $nivelesModel = new Administracion_Model_DbTable_Niveles();
     $confifModel = new Administracion_Model_DbTable_Config();
     $pedidosModel = new Administracion_Model_DbTable_Pedidos();
-    $productosPedidosModel = new Administracion_Model_DbTable_Pedidos_productos();
+    $productosPedidosModel = new Administracion_Model_DbTable_Productosporpedido();
 
     $config = $confifModel->getById(1);
     $iva = $config->configuracion_iva; // Porcentaje de IVA
@@ -98,17 +102,30 @@ class Page_comprarController extends Page_mainController
 	1pedido_validacion2	varchar(255)	
 	1pedido_entidad	varchar(255)	
 	1pedido_porcentaje_iv */
-  
+
     $dataPedido = [];
+    $dataPedido["pedido_documento"] = $usuario->user_cedula;
+    $dataPedido["pedido_fecha"] = date('Y-m-d H:i:s');
+    $dataPedido["pedido_nombre"] = $usuario->user_names;
+    $dataPedido["pedido_telefono"] = $usuario->user_telefono;
+    $dataPedido["pedido_correo"] = $usuario->user_email;
 
     $dataPedido["pedido_subtotal"] = $this->_getSanitizedParam('subtotal');
-    $dataPedido["pedido_total"] = $descuento;
-    $dataPedido["pedido_total"] = $this->_getSanitizedParam('descuento');
-
-    $dataPedido["pedido_total"] = $this->_getSanitizedParam('iva');
+    $dataPedido["pedido_procentaje_descuento"] = $descuento;
+    $dataPedido["pedido_porcentaje_iva"] = $iva;
+    $dataPedido["pedido_descuento"] = $this->_getSanitizedParam('descuento');
+    $dataPedido["pedido_iva"] = $this->_getSanitizedParam('iva');
     $dataPedido["pedido_total"] = $this->_getSanitizedParam('total');
+    $dataPedido["pedido_estado"] = 1;
 
 
+    $idPedido = $pedidosModel->insert($dataPedido);
+
+    if (!$idPedido) {
+      Session::getInstance()->set("error_compra", "Error al guardar el pedido");
+      header('Location: /page/comprar');
+      return;
+    }
 
 
     foreach ($carrito as $id => $cantidad) {
@@ -141,7 +158,27 @@ class Page_comprarController extends Page_mainController
 
       // Total por producto
       $data[$id]['total'] = $producto->producto_precio * $cantidad;
+
+      $dataProductoPedido = [];
+      $dataProductoPedido["pedido_producto_pedido"] = $idPedido;
+      $dataProductoPedido["pedido_producto_producto"] = $producto->producto_id;
+      $dataProductoPedido["pedido_producto_nombre"] = $producto->producto_nombre;
+      $dataProductoPedido["pedido_producto_cantidad"] = (int)$cantidad;
+      $dataProductoPedido["pedido_producto_valor"] = $precioOriginal;
+      $dataProductoPedido["pedido_producto_iva"] = $iva;
+      $dataProductoPedido["pedido_producto_valor_iva"] = $montoIva;
+      $dataProductoPedido["pedido_producto_descuento"] = $descuento;
+      $dataProductoPedido["pedido_producto_valor_descuento"] = $montoDescuento;
+      $dataProductoPedido["pedido_producto_precio_final"] = (int)$cantidad * $precioFinal;
+
+      $idPedidoProducto = $productosPedidosModel->insert($dataProductoPedido);
     }
+    if (!$idPedidoProducto) {
+      Session::getInstance()->set("error_compra", "Error al guardar el pedido");
+      header('Location: /page/comprar');
+      return;
+    }
+    header('Location: /page/comprar/direccion?id=' . $idPedido);
   }
 
 
