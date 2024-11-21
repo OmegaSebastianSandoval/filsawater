@@ -147,7 +147,7 @@
                             <span id="total">$<?= number_format($this->pedido->pedido_total, 2) ?></span>
                         </div>
                     </div>
-                    <form action="/page/comprar/continuar3" id="comprar-continuar" method="POST" class="desactivar-submit">
+                    <form action="/page/comprar/generarpago" id="comprar-continuar" method="POST" class="desactivar-submit">
 
                         <input type="hidden" name="total" value="<?= $this->pedido->pedido_total ?>">
                         <input type="hidden" name="pedido_id" value="<?= $this->pedido->pedido_id ?>">

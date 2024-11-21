@@ -1,8 +1,7 @@
-
-<div style="width: 100%; background: #FFF; padding: 50px; font-size: 15px;">
-    <table style="width: 700px; border: 0px solid #00b8c3; margin: auto; padding: 20px; background:#f5f5f5">
+<div style="background: #FFF; font-size: 15px;">
+    <table style="width: 100%;max-width:700px; border: 0px solid #00b8c3; margin: auto; padding: 20px; background:#f5f5f5">
         <tr style="">
-            <td width="500px">
+            <td  style="vertical-align: baseline;" width="500px">
                 <table>
                     <thead>
                         <tr>
@@ -78,7 +77,7 @@
                     </tbody>
                 </table>
             </td>
-            <td style="display:block;" width="30%">
+            <td style="vertical-align: baseline;" width="30%">
                 <table>
                     <tr>
                         <td style="font-family:Helvetica,Arial,sans-serif;font-style:normal;font-weight:bold;font-size:14px;letter-spacing:0.01em;color:#000;color:#4b4b50;text-transform:uppercase;box-sizing:border-box;line-height:1.25!important">
@@ -87,7 +86,7 @@
                     </tr>
                     <tr style="height:20px;">
                         <td style="padding-top:2px;box-sizing:border-box;color:#777!important;font-size:12.5px">
-                             <?= $this->pedido->pedido_nombre ?>
+                            <?= $this->pedido->pedido_nombre ?>
                         </td>
                     </tr>
                     <tr style="height:20px;">
@@ -97,20 +96,20 @@
                     </tr>
                     <tr style="height:20px;">
                         <td style="padding-top:2px;box-sizing:border-box;color:#777!important;font-size:12.5px">
-                             <?= $this->pedido->pedido_telefono ?>
+                            <?= $this->pedido->pedido_telefono ?>
                         </td>
                     </tr>
                     <tr style="height:20px;">
                         <td style="padding-top:2px;box-sizing:border-box;color:#777!important;font-size:12.5px">
-                             <?= $this->pedido->departamento_nombre . ", " .
-                                                    $this->pedido->ciudad_nombre . ", " .
-                                                    $this->pedido->pedido_direccion ?>
+                            <?= $this->pedido->departamento_nombre . ", " .
+                                $this->pedido->ciudad_nombre . ", " .
+                                $this->pedido->pedido_direccion ?>
                         </td>
                     </tr>
                     <?php if ($this->pedido->pedido_direccion_observacion) { ?>
                         <tr>
                             <td style="padding-top:2px;box-sizing:border-box;color:#777!important;font-size:12.5px">
-                                 <?= $this->pedido->pedido_direccion_observacion ?>
+                                <?= $this->pedido->pedido_direccion_observacion ?>
                             </td>
                         </tr>
                     <?php } ?>
@@ -120,20 +119,20 @@
                         <td style="padding-bottom:5px;font-size:13.5px;color:#777!important;line-height:20px;box-sizing:border-box;border-collapse:collapse;vertical-align:top!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
                             <br>
                             <br>
-                          
+
                             Subtotal:
                         </td>
                     </tr>
                     <tr>
                         <td style="padding-top:2px;box-sizing:border-box;font-size:12.5px;font-weight:700;">
-                            
+
                             $<?= number_format($this->pedido->pedido_subtotal, 2) ?>
                         </td>
                     </tr>
                     <tr>
-                    
+
                         <td style="padding-bottom:5px;font-size:13.5px;color:#777!important;line-height:20px;box-sizing:border-box;border-collapse:collapse;vertical-align:top!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
-                        <br>
+                            
                             Descuento:
                         </td>
                     </tr>
@@ -144,7 +143,7 @@
                     </tr>
                     <tr>
                         <td style="padding-bottom:5px;font-size:13.5px;color:#777!important;line-height:20px;box-sizing:border-box;border-collapse:collapse;vertical-align:top!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
-                        <br>
+                            
                             IVA:
                         </td>
                     </tr>
@@ -155,7 +154,7 @@
                     </tr>
                     <tr>
                         <td style="padding-bottom:5px;font-size:13.5px;color:#777!important;line-height:20px;box-sizing:border-box;border-collapse:collapse;vertical-align:top!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
-                        <br>
+                           
                             Total:
                         </td>
                     </tr>

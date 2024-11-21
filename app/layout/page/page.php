@@ -65,6 +65,8 @@
   <!-- Main Js -->
   <script src="/skins/page/js/main.js?v=2"></script>
 
+  <!-- <script type="text/javascript" #5475a1src="https://checkout.wompi.co/widget.js"></script> -->
+
 
   <!-- Recaptcha -->
   <script src='https://www.google.com/recaptcha/api.js'></script>
@@ -116,9 +118,9 @@
 </head>
 
 <body>
- 
-    <?= $this->_data['carrito']; ?>
- 
+
+  <?= $this->_data['carrito']; ?>
+
 
   <header>
     <?= $this->_data['header']; ?>

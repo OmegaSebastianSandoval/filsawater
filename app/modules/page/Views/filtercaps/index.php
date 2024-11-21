@@ -5,7 +5,7 @@ echo $this->banner;
     <div class="row g-3 ">
 
 
-        <div class="col-12 col-md-3 col-lg-3">
+        <div class="col-12 col-md-3 col-lg-3 d-none">
             <aside class="aside-recents">
                 <h3>Recientes</h3>
                 <div class="row g-0 content-importants-blog">
@@ -33,7 +33,7 @@ echo $this->banner;
 
             </aside>
         </div>
-        <div class="col-12 col-md-9 col-lg-9">
+        <div class="col-12 col-md-12 col-lg-12">
             <?php echo $this->contenido ?>
 
 

@@ -54,7 +54,7 @@
                         <div class="col-12 col-md-6 col-lg-3  mb-4 ">
 
                             <label>
-                                <input class="input" type="number" name="documento" value="<?= $this->usuario->user_cedula ?>" required readonly disabled>
+                                <input class="input" type="text" name="documento" value="<?= $this->usuario->user_cedula ?>" required readonly disabled>
                                 <span>Nit</span>
                             </label>
                         </div>

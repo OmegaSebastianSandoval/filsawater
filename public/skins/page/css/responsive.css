@@ -81,6 +81,26 @@
 
 @media (max-width:765px) {
 
+    .floating-btn {
+        gap: 5px;
+        align-items: center;
+        padding: 0;
+    }
+
+    .floating-btn a {
+        display: grid !important;
+        width: auto !important;
+        line-height: 1;
+        padding: 5px;
+    }
+
+   
+    .floating-btn a span {
+        font-size: 12px;
+    }
+
+
+
     .content-carrito {
         position: absolute;
         right: 20%;

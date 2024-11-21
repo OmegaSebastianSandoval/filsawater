@@ -30,8 +30,10 @@ class Page_mainController extends Controllers_Abstract
 
 		// Obtener la lista de categorías de blog
 		$this->_view->list_blog_categoria_id = $this->getCategoriasSoluciones();
+		$publicidadModel = new Page_Model_DbTable_Publicidad();
 
 
+		$this->_view->botonesFlotantes = $publicidadModel->getList("publicidad_seccion='100' AND publicidad_estado='1'", "orden ASC");
 
 		$this->_view->carrito = $this->_view->getRoutPHP('modules/page/Views/carrito/index.php');
 
@@ -39,7 +41,6 @@ class Page_mainController extends Controllers_Abstract
 		$this->getLayout()->setData("meta_description", "$informacion->info_pagina_descripcion");
 		$this->getLayout()->setData("meta_keywords", "$informacion->info_pagina_tags");
 		$this->getLayout()->setData("scripts", "$informacion->info_pagina_scripts");
-		$publicidadModel = new Page_Model_DbTable_Publicidad();
 		$this->_view->botones = $publicidadModel->getList("publicidad_seccion='3' AND publicidad_estado='1'", "orden ASC");
 		$this->_view->popup = $publicidadModel->getList("publicidad_seccion='101' AND publicidad_estado=1", "")[0];
 

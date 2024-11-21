@@ -303,7 +303,7 @@ class Page_comprarController extends Page_mainController
     header('Location: /page/comprar/pago?id=' . $idPedido);
   }
 
-  
+
 
 
   public function pagoAction()
@@ -349,8 +349,80 @@ class Page_comprarController extends Page_mainController
     $this->_view->productos = $productos;
   }
 
+  public function generarpagoAction()
+  {
+    $this->setLayout("blanco");
+    $pedidosModel = new Administracion_Model_DbTable_Pedidos();
+    $productoPedidoModel = new Administracion_Model_DbTable_Productosporpedido();
+    $departamentosModel = new Administracion_Model_DbTable_Departamentos();
+    $municipiosModel = new Administracion_Model_DbTable_Municipios();
+    $idPedido = $this->_getSanitizedParam('pedido_id');
+    //echo $idPedido;
+    $pedido = $pedidosModel->getById($idPedido);
+    $pedido->ciudad_nombre = $municipiosModel->getById($pedido->pedido_ciudad)->municipio;
+    $pedido->departamento_nombre = $departamentosModel->getById($pedido->pedido_departamento)->departamento;
+    $pedido->pedido_tipo_documento  = "NIT";
+    $pedido->pedido_pais  = "CO";
+    $productos = $productoPedidoModel->getList("pedido_producto_pedido='{$idPedido}'");
+    $total = $pedido->pedido_total;
 
 
+    /* 	$placetopay = Payment_Placetopay::getInstance()->getPlacetopay();
+		$placetopayData = Payment_Placetopay::getInstance()->getData(); */
+
+    $wompi = Payment_Wompi::getInstance()->getData();
+    // print_r($wompi);
+
+    $redirectUrl = $wompi["redirectUrl"];
+    $publicKey = $wompi["publicKey"];
+    $secretKey = $wompi["secretKey"];
+    $events = $wompi["events"];
+    $integrity = $wompi["integrity"];
+    $reference = $idPedido;
+    $moneda = "COP";
+
+
+    // Fecha actual
+    // Crear el objeto DateTime con la fecha y hora actual
+    $date = date_create(); // Crear la fecha actual
+    date_modify($date, '+15 minutes'); // Sumar 15 minutos
+    $fechaExpiracion =  date_format($date, 'c'); // Formatear y mostrar la fecha
+
+
+    $cadena = $reference . intval($total*100). $moneda . $fechaExpiracion . $integrity;
+    echo "referencia: ".$reference;
+    echo "<br>";
+    echo "total: ". intval($total*100) ;
+    echo "<br>";
+    echo "moneda: ".$moneda;
+    echo "<br>";
+    echo "fechaExpiracion: ".$fechaExpiracion;
+    echo "<br>";
+    echo "integrity: ".$integrity;
+    echo "<br>";
+
+    // $cadena = $reference . intval($total) . $moneda . $integrity;
+    echo "Cadena: ". $cadena;
+    echo "<br>";
+
+    $cadenaHash = hash("sha256", $cadena);
+
+     echo "Cadena encriptada: ".$cadenaHash;
+    $this->_view->cadenaHash = $cadenaHash;
+    $this->_view->redirectUrl = $redirectUrl;
+    $this->_view->publicKey = $publicKey;
+    $this->_view->secretKey = $secretKey;
+    $this->_view->events = $events;
+    $this->_view->id = $pedido;
+    $this->_view->pedido = $pedido;
+    $this->_view->moneda = $moneda;
+    $this->_view->fechaExpiracion = $fechaExpiracion;
+  }
+
+  public function respuestaAction()
+  {
+    $id = $this->_getSanitizedParam("id");
+  }
   public function continuar3Action()
   {
     // Establece el layout en blanco, útil si este método se llama mediante AJAX o requiere una salida mínima.
@@ -405,8 +477,6 @@ class Page_comprarController extends Page_mainController
 
     $mailModel = new Core_Model_Sendingemail($this->_view);
     $mail = $mailModel->enviarCorreoTienda($pedido, $productos, $usuario);
-  
-
   }
 
 

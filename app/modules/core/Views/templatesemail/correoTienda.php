@@ -1,7 +1,7 @@
-<div style="width: 100%; background: #FFF; padding: 50px; font-size: 15px;">
-    <table style="width: 700px; border: 0px solid #00b8c3; margin: auto; padding: 20px; background:#f5f5f5">
+<div style="background: #FFF; font-size: 15px;">
+    <table style="width: 100%;max-width:700px; border: 0px solid #00b8c3; margin: auto; padding: 20px; background:#f5f5f5">
         <tr style="">
-            <td width="500px">
+            <td  style="vertical-align: baseline;" width="500px">
                 <table>
                     <thead>
                         <tr>
@@ -77,7 +77,7 @@
                     </tbody>
                 </table>
             </td>
-            <td style="display:block;" width="30%">
+            <td style="vertical-align: baseline;" width="30%">
                 <table>
                     <tr>
                         <td style="font-family:Helvetica,Arial,sans-serif;font-style:normal;font-weight:bold;font-size:14px;letter-spacing:0.01em;color:#000;color:#4b4b50;text-transform:uppercase;box-sizing:border-box;line-height:1.25!important">
@@ -132,7 +132,7 @@
                     <tr>
 
                         <td style="padding-bottom:5px;font-size:13.5px;color:#777!important;line-height:20px;box-sizing:border-box;border-collapse:collapse;vertical-align:top!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
-                            <br>
+                            
                             Descuento:
                         </td>
                     </tr>
@@ -143,7 +143,7 @@
                     </tr>
                     <tr>
                         <td style="padding-bottom:5px;font-size:13.5px;color:#777!important;line-height:20px;box-sizing:border-box;border-collapse:collapse;vertical-align:top!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
-                            <br>
+                            
                             IVA:
                         </td>
                     </tr>
@@ -154,7 +154,7 @@
                     </tr>
                     <tr>
                         <td style="padding-bottom:5px;font-size:13.5px;color:#777!important;line-height:20px;box-sizing:border-box;border-collapse:collapse;vertical-align:top!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
-                            <br>
+                           
                             Total:
                         </td>
                     </tr>

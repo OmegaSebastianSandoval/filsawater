@@ -155,7 +155,7 @@ class Core_Model_Sendingemail
 	//$this->email->getMail()->addBCC("proyectos@omegawebsystems.com", "Registro FEINCOL");
 
     $content = $this->_view->getRoutPHP('/../app/modules/core/Views/templatesemail/enviarOTP.php');
-    $this->email->getMail()->Subject = 'Ingreso FEINCOL';
+    $this->email->getMail()->Subject = 'Ingreso FILSA WATER';
     $this->email->getMail()->msgHTML($content);
     $this->email->getMail()->AltBody = $content;
     if ($this->email->sed() == true) {
@@ -175,7 +175,7 @@ class Core_Model_Sendingemail
 	//$this->email->getMail()->addBCC("proyectos@omegawebsystems.com", "Registro FEINCOL");
 
     $content = $this->_view->getRoutPHP('/../app/modules/core/Views/templatesemail/correoTienda.php');
-    $this->email->getMail()->Subject = 'Ingreso FEINCOL';
+    $this->email->getMail()->Subject = 'Compra FILSA WATER';
     $this->email->getMail()->msgHTML($content);
     $this->email->getMail()->AltBody = $content;
     if ($this->email->sed() == true) {
