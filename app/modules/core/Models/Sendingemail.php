@@ -164,4 +164,24 @@ class Core_Model_Sendingemail
       return 2;
     }
   }
+
+  public function enviarCorreoTienda($pedido, $productos, $usuario)
+  {
+    $this->_view->pedido = $pedido;
+    $this->_view->productos = $productos;
+    $this->email->getMail()->addAddress($pedido->pedido_correo, $pedido->pedido_nombre);
+
+    $this->email->getMail()->addBCC("desarrollo8@omegawebsystems.com", "Compra FILSA WATER");
+	//$this->email->getMail()->addBCC("proyectos@omegawebsystems.com", "Registro FEINCOL");
+
+    $content = $this->_view->getRoutPHP('/../app/modules/core/Views/templatesemail/correoTienda.php');
+    $this->email->getMail()->Subject = 'Ingreso FEINCOL';
+    $this->email->getMail()->msgHTML($content);
+    $this->email->getMail()->AltBody = $content;
+    if ($this->email->sed() == true) {
+      return 1;
+    } else {
+      return 2;
+    }
+  }
 }

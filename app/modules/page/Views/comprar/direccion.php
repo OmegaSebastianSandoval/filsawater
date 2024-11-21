@@ -1,5 +1,5 @@
 <section class="direccion-compra">
-    <div class="container pt-3 pb-5">
+    <div class="container pt-1 pt-md-3 pb-5">
         <a class="btn-blue btn-outline gap-2  my-3" href="/page/comprar/?id=<?= $this->pedido->pedido_id ?>"> <i class="fa-regular fa-circle-left"></i> Volver</a>
 
         <!-- <h2>Dirección de envío</h2> -->
@@ -27,7 +27,7 @@
             </div>
             <div class="text_circle">
                 <div class="circle">
-                    <h4>Proceso de Pago Finalizado</h4>
+                    <h4>Finalización</h4>
 
                 </div>
                 <span class="tvar shadow"><i class="fa-solid fa-check"></i></span>
@@ -44,7 +44,7 @@
 
 
             <div class="col-12 col-md-12 col-lg-8 container-profile">
-                <form action="/page/comprar/continuar2" id="form-direccion" method="post" class="mt-3 form-contact">
+                <form action="/page/comprar/continuar2" id="form-direccion" method="post" class="mt-3 form-contact desactivar-submit">
                     <input type="hidden" name="pedido-id" value="<?= $this->idPedido ?>">
                     <?php if (is_countable($this->direcciones) && count($this->direcciones) >= 1) { ?>
                         <span class="seleccion-direccion">Seleccione una dirección:</span>

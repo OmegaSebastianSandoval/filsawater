@@ -73,6 +73,10 @@
         margin-top: 15px;
     }
 
+    .line_box {
+        width: 100%;
+    }
+
 }
 
 @media (max-width:765px) {
@@ -392,7 +396,76 @@ BANNER INTERNAS FIN
         padding-top: 15px;
         border: none;
     }
+    .table-cart{
+        width: 100%;
+    }
+    .table-cart thead {
+        border: none;
+        clip: rect(0 0 0 0);
+        height: 1px;
+        margin: -1px;
+        overflow: hidden;
+        padding: 0;
+        position: absolute;
+        width: 1px;
+    }
 
+    .table-cart tr {
+        border-bottom: 3px solid #ddd;
+        display: block;
+        /* margin-bottom: .625em; */
+    }
+
+    .table-cart td {
+        border-bottom: 1px solid #ddd;
+        display: flex;
+        font-size: .8em;
+        text-align: right !important;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+
+    .table-cart td::before {
+        /*
+        * aria-label has no advantage, it won't be read inside a table
+        content: attr(aria-label);
+        */
+        content: attr(data-label);
+        float: left;
+        font-weight: 500;
+        color: var(--azul);
+        /* text-transform: uppercase; */
+    }
+
+
+    .table-cart td:last-child {
+        border-bottom: 0;
+    }
+    .table-cart th{
+        width: 100% !important; 
+    }
+
+    .table-cart .producto{
+        /* justify-content: end; */
+        width: 100%;
+        margin-left: 30px;
+
+    }
+    .quantity-control-cart-shop{
+        justify-content: end;
+    }
+
+    .quantity-control-cart-shop .quantity-cart-shop{
+        text-align: center;
+    }
+
+    .contendor-comprar .producto h5{
+        font-size: 12px;
+    }
+    .contendor-comprar .producto img{
+        /* margin-right: auto; */
+    }
 }
 
 @media (max-width:576px) {

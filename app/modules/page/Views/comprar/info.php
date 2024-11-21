@@ -19,7 +19,7 @@
             <span id="total">$<?= number_format($this->totalConIvaYDescuento, 2) ?></span>
         </div>
     </div>
-    <form action="/page/comprar/continuar" id="comprar-continuar" method="POST">
+    <form action="/page/comprar/continuar" id="comprar-continuar" class="desactivar-submit" method="POST">
         <input type="hidden" name="subtotal" value="<?= $this->subtotalSinIva ?>">
         <input type="hidden" name="descuento" value="<?= $this->totalDescuento ?>">
         <input type="hidden" name="iva" value="<?= $this->totalIva ?>">

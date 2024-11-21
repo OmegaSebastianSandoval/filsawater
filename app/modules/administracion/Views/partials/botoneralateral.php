@@ -59,6 +59,13 @@
     </a>
   </li>
 
+  <li <?php if ($this->botonpanel == 12) { ?>class="activo" <?php } ?>>
+    <a href="/administracion/pedidos">
+    <i class="fa-solid fa-boxes-packing"></i>
+      Administrar Pedidos
+    </a>
+  </li>
+
 
   <li <?php if ($this->botonpanel == 15) { ?>class="activo" <?php } ?>>
     <a href="/administracion/correosinformacion">

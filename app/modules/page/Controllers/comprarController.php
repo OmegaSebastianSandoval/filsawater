@@ -108,7 +108,7 @@ class Page_comprarController extends Page_mainController
       "pedido_descuento" => $this->_getSanitizedParam('descuento'), // Monto del descuento
       "pedido_iva" => $this->_getSanitizedParam('iva'),           // Monto del IVA
       "pedido_total" => $this->_getSanitizedParam('total'),       // Total a pagar
-      "pedido_estado" => 1, // Estado inicial del pedido (1 = activo)
+      "pedido_estado" => 2, // Estado inicial del pedido (1 = activo)
     ];
 
     // Insertar el pedido en la base de datos
@@ -174,7 +174,8 @@ class Page_comprarController extends Page_mainController
     $pedidosModel = new Administracion_Model_DbTable_Pedidos();
     $pedido = $pedidosModel->getById($idPedido);
 
-    if (!$idPedido && $pedido->pedido_estado != 1) {
+    // if (!$idPedido && $pedido->pedido_estado != 1) {
+    if (!$idPedido) {
       Session::getInstance()->set("error_compra", "Error al continuar con la compra");
       header('Location: /page/comprar');
       return;
@@ -225,7 +226,8 @@ class Page_comprarController extends Page_mainController
     $pedido = $pedidosModel->getById($idPedido);
 
     // Validar que exista el ID del pedido y que el estado del pedido sea válido
-    if (!$idPedido || $pedido->pedido_estado != 1) {
+    // if (!$idPedido || $pedido->pedido_estado != 1) {
+    if (!$idPedido || !$pedido) {
       Session::getInstance()->set("error_compra", "Error al continuar con la compra");
       header('Location: /page/comprar'); // Redirigir en caso de error
       return;
@@ -297,9 +299,12 @@ class Page_comprarController extends Page_mainController
     $pedidosModel->editField($idPedido, "pedido_ciudad", $municipioId);
     $pedidosModel->editField($idPedido, "pedido_direccion", $direccion);
     $pedidosModel->editField($idPedido, "pedido_direccion_observacion", $observacion);
-    // $pedidosModel->editField($idPedido, "pedido_estado", 1);
-     header('Location: /page/comprar/pago?id=' . $idPedido);
+    $pedidosModel->editField($idPedido, "pedido_estado", 3);
+    header('Location: /page/comprar/pago?id=' . $idPedido);
   }
+
+  
+
 
   public function pagoAction()
   {
@@ -346,7 +351,63 @@ class Page_comprarController extends Page_mainController
 
 
 
+  public function continuar3Action()
+  {
+    // Establece el layout en blanco, útil si este método se llama mediante AJAX o requiere una salida mínima.
+    $this->setLayout('blanco');
+    // error_reporting(E_ALL);
 
+    // Obtener ID del pedido desde los parámetros sanitizados
+    $idPedido = $this->_getSanitizedParam('pedido_id');
+
+    // Inicialización de modelos
+    $pedidosModel = new Administracion_Model_DbTable_Pedidos();
+    $productoPedidoModel = new Administracion_Model_DbTable_Productosporpedido();
+    $productosModel = new Administracion_Model_DbTable_Productos();
+    $tiendaCategoria = new Administracion_Model_DbTable_Tiendacategorias();
+    $departamentosModel = new Administracion_Model_DbTable_Departamentos();
+    $municipiosModel = new Administracion_Model_DbTable_Municipios();
+    $nivelesModel = new Administracion_Model_DbTable_Niveles();
+    // Obtiene la configuración general del sistema para acceder al porcentaje de IVA
+    $confifModel = new Administracion_Model_DbTable_Config();
+
+    // Obtener datos del usuario autenticado
+    $usuario = $this->usuarioLogged();
+
+    // Obtener el pedido asociado al ID proporcionado
+    $pedido = $pedidosModel->getById($idPedido);
+
+    // Validar que exista el ID del pedido y que el estado del pedido sea válido
+    // if (!$idPedido || $pedido->pedido_estado != 1) {
+    if (!$idPedido || !$pedido) {
+      Session::getInstance()->set("error_compra", "Error al continuar con la compra");
+      header('Location: /page/comprar'); // Redirigir en caso de error
+      return;
+    }
+
+    $pedido = $pedidosModel->getById($idPedido);
+    $productos = $productoPedidoModel->getList("pedido_producto_pedido='{$idPedido}'");
+
+    foreach ($productos as $producto) {
+
+      $productoDetalle = $productosModel->getById($producto->pedido_producto_producto);
+      $producto->producto_categoriainfo = $tiendaCategoria->getById($productoDetalle->producto_categoria)->tienda_categoria_nombre;
+      $producto->producto_imagen = $productoDetalle->producto_imagen;
+    }
+
+    $pedido->ciudad_nombre = $municipiosModel->getById($pedido->pedido_ciudad)->municipio;
+    $pedido->departamento_nombre = $departamentosModel->getById($pedido->pedido_departamento)->departamento;
+    // echo "<pre>";
+    // print_r($pedido);
+    // echo "</pre>";
+    $this->_view->pedido = $pedido;
+    $this->_view->productos = $productos;
+
+    $mailModel = new Core_Model_Sendingemail($this->_view);
+    $mail = $mailModel->enviarCorreoTienda($pedido, $productos, $usuario);
+  
+
+  }
 
 
 

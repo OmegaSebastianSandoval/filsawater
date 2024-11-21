@@ -1,4 +1,12 @@
 <div class="container contendor-comprar pt-4 h-100 pb-4">
+    <?php if ($this->error_compra) { ?>
+
+        <div class="alert alert-warning w-100 text-center mt-4" role="alert">
+            <strong>¡Atención!</strong> <?= $this->error_compra ?>
+        </div>
+    <?php } ?>
+
+
     <!-- <h2 class="text-center">Carrito de compras</h2> -->
     <div class="line_box">
         <div class="text_circle done-partial">
@@ -24,7 +32,7 @@
         </div>
         <div class="text_circle">
             <div class="circle">
-                <h4>Proceso de Pago Finalizado</h4>
+                <h4>Finalización</h4>
 
             </div>
             <span class="tvar shadow"><i class="fa-solid fa-check"></i></span>
@@ -70,6 +78,10 @@
 
     .contendor-comprar {
         min-height: 60dvh;
+    }
+    .content-carrito,
+    .ocultar-carrito {
+        display: none !important;
     }
 </style>
 

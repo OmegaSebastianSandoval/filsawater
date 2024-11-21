@@ -481,7 +481,7 @@ document.addEventListener("DOMContentLoaded", () => {
           })
 
           .catch((error) => {
-           console.log("Error:", error);
+            console.log("Error:", error);
 
             Swal.fire({
               icon: "error",
@@ -611,6 +611,8 @@ function eliminarProducto(id) {
           alertaSwal(data);
           getCart();
           traercarrito();
+          traerproductos();
+          traerinfo();
         })
         .catch((error) => {
           console.error("Error al eliminar el producto:", error);
@@ -717,3 +719,21 @@ function initQuantityButtons() {
 
 // Llama a initQuantityButtons al cargar la página
 document.addEventListener("DOMContentLoaded", initQuantityButtons);
+
+document.addEventListener("DOMContentLoaded", function () {
+  // Escucha el evento submit en cualquier formulario con la clase 'desactivar-submit'
+  document.body.addEventListener("submit", function (event) {
+    const form = event.target; // Identifica el formulario que disparó el evento
+    console.log(form);
+    if (form.classList.contains("desactivar-submit")) {
+      const submitButton = document.querySelector(
+        `button[type='submit'][form='${form.id}']`
+      );
+      console.log(submitButton);
+      if (submitButton) {
+        submitButton.disabled = true;
+        submitButton.textContent = "Enviando...";
+      }
+    }
+  });
+});

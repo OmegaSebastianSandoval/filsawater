@@ -26,7 +26,7 @@
         </div>
         <div class="text_circle">
             <div class="circle">
-                <h4>Proceso de Pago Finalizado</h4>
+                <h4>Finalización</h4>
 
             </div>
             <span class="tvar shadow"><i class="fa-solid fa-check"></i></span>
@@ -50,7 +50,7 @@
                     foreach ($this->productos as $producto) {
                     ?>
                         <tr>
-                            <td>
+                            <td  data-label="Producto">
                                 <div class="producto d-flex gap-2 align-items-center">
                                    
 
@@ -67,17 +67,18 @@
                                     </div>
                                 </div>
                             </td>
-                            <td>
+                            <td data-label="Precio">
                                 <span class="precio">
-                                    $<?php echo number_format($producto->pedido_producto_precio_final, 2); ?>
+                                    <?php $precioProducto = $producto->pedido_producto_precio_final/$producto->pedido_producto_cantidad?>
+                                    $<?php echo number_format($precioProducto, 2); ?>
                                 </span>
                             </td>
-                            <td>
+                            <td data-label="Cantidad">
                                 <span class="cantidad">
                                     <?php echo $producto->pedido_producto_cantidad; ?>
                                 </span>
                             </td>
-                            <td>
+                            <td data-label="Total">
                                 <span class="total" id="total-producto">
                                     $<?php echo number_format($producto->pedido_producto_precio_final, 2); ?>
                                 </span>
@@ -146,7 +147,7 @@
                             <span id="total">$<?= number_format($this->pedido->pedido_total, 2) ?></span>
                         </div>
                     </div>
-                    <form action="/page/comprar/continuar" id="comprar-continuar" method="POST">
+                    <form action="/page/comprar/continuar3" id="comprar-continuar" method="POST" class="desactivar-submit">
 
                         <input type="hidden" name="total" value="<?= $this->pedido->pedido_total ?>">
                         <input type="hidden" name="pedido_id" value="<?= $this->pedido->pedido_id ?>">

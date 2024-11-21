@@ -16,7 +16,7 @@
             $total += $producto['total'];
         ?>
             <tr>
-                <td>
+                <td data-label="Producto">
                     <div class="producto d-flex gap-2 align-items-center">
 
                         <?php if ($producto['detalle']->producto_imagen && file_exists($_SERVER['DOCUMENT_ROOT'] . "/images/" . $producto['detalle']->producto_imagen)) { ?>
@@ -32,12 +32,12 @@
                         </div>
                     </div>
                 </td>
-                <td>
+                <td data-label="Precio">
                     <span class="precio">
                         $<?php echo number_format($producto['detalle']->producto_precio, 2); ?>
                     </span>
                 </td>
-                <td>
+                <td data-label="Cantidad">
                     <span class="cantidad">
 
 
@@ -51,7 +51,7 @@
                         </div>
                     </span>
                 </td>
-                <td>
+                <td data-label="Total">
                     <span class="total" id="total-producto">
                         $<?php echo number_format($producto['total'], 2); ?>
                     </span>

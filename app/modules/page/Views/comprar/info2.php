@@ -9,7 +9,7 @@
         <div class="row g-2 py-1 border-bottom">
 
 
-            <div class="col-4">
+            <div class="col-3">
 
                 <div class="mx-auto" style="max-width:100px">
 
@@ -34,7 +34,7 @@
                 <h6>Categoría: <span><?php echo $producto['detalle']->producto_categoriainfo->tienda_categoria_nombre; ?></span></h6>
             </div>
 
-            <div class="col-3 producto-total text-end">
+            <div class="col-4  producto-total text-end">
                 <span class="total">
                     $<?php echo number_format($producto['total'], 2); ?>
                 </span>

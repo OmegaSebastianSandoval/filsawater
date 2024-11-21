@@ -50,13 +50,22 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" class="form-control" name="documento_estado" value="<?php echo $this->getObjectVariable($this->filters, 'documento_estado') ?>"></input>
+						<!-- <input type="text" class="form-control" name="documento_estado" value="<?php echo $this->getObjectVariable($this->filters, 'documento_estado') ?>"></input> -->
+
+						<select class="form-control" name="documento_estado">
+							<option value="1" <?php if ($this->getObjectVariable($this->filters, 'documento_estado') == 1) {
+													echo 'selected';
+												} ?>>Si</option>
+							<option value="0" <?php if ($this->getObjectVariable($this->filters, 'documento_estado') == 0) {
+													echo 'selected';
+												} ?>>No</option>
+						</select>
 					</label>
 				</div>
 
 
 				<div class="col-3">
-					<label>nombre</label>
+					<label>Nombre</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>

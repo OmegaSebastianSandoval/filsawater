@@ -15,10 +15,9 @@
 																														} ?>></input>
 					<div class="help-block with-errors"></div>
 				</div>
-			</div>
-			<div class="row">
-				<div class="col-6 form-group">
-					<label for="tienda_categoria_nombre" class="control-label">nombre</label>
+		
+				<div class="col-10 form-group">
+					<label for="tienda_categoria_nombre" class="control-label">Nombre</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
@@ -27,7 +26,7 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-6 form-group">
+				<div class="col-6 form-group d-none">
 					<label for="tienda_categoria_imagen">imagen</label>
 					<input type="file" name="tienda_categoria_imagen" id="tienda_categoria_imagen" class="form-control  file-image" data-buttonName="btn-primary" accept="image/gif, image/jpg, image/jpeg, image/png">
 					<div class="help-block with-errors"></div>
@@ -38,7 +37,7 @@
 						</div>
 					<?php } ?>
 				</div>
-				<div class="col-12 form-group">
+				<div class="col-12 form-group  d-none">
 					<label for="tienda_categoria_descripcion" class="form-label">descripci&oacute;n</label>
 					<textarea name="tienda_categoria_descripcion" id="tienda_categoria_descripcion" class="form-control tinyeditor" rows="10"><?= $this->content->tienda_categoria_descripcion; ?></textarea>
 					<div class="help-block with-errors"></div>

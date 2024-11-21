@@ -253,6 +253,10 @@ class Administracion_fotosController extends Administracion_mainController
 
 	public function cargamasivaAction()
 	{
+
+		
+		$this->getLayout()->setTitle("Carga masiva de fotos");
+
 		$this->_view->foto_solucion = $this->_getSanitizedParam("foto_solucion");
 		if ($this->_view->foto_solucion) {
 			$solucionesModel = new Administracion_Model_DbTable_Soluciones();

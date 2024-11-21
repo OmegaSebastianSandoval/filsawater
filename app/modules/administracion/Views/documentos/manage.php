@@ -19,7 +19,7 @@
 			<div class="row">
 
 				<div class="col-6 form-group">
-					<label for="documento_nombre" class="control-label">nombre</label>
+					<label for="documento_nombre" class="control-label">Nombre</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
@@ -29,7 +29,7 @@
 					<div class="help-block with-errors"></div>
 				</div>
 				<div class="col-6 form-group">
-					<label for="documento_documento">documento</label>
+					<label for="documento_documento">Documento</label>
 					<input type="file" name="documento_documento" id="documento_documento" class="form-control  file-document" data-buttonName="btn-primary" onchange="validardocumento('documento_documento');" accept="application/msword, application/vnd.ms-excel, application/vnd.ms-powerpoint, text/plain, application/pdf">
 					<div class="help-block with-errors"></div>
 				</div>

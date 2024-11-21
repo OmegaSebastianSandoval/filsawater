@@ -61,7 +61,7 @@ abstract class Db_Table
     if ($order != '') {
       $orders = ' ORDER BY ' . $order;
     }
-    $select = 'SELECT * FROM ' . $this->_name . ' ' . $filter . ' ' . $orders . ' LIMIT ' . $page . ' , ' . $amount;
+     $select = 'SELECT * FROM ' . $this->_name . ' ' . $filter . ' ' . $orders . ' LIMIT ' . $page . ' , ' . $amount;
     $res = $this->_conn->query($select)->fetchAsObject();
     return $res;
   }

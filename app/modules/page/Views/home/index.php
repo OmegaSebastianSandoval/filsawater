@@ -19,7 +19,7 @@
         activateTabFromHash();
     });
 </script>
-<div class="container container-profile pt-3 ">
+<div class="container container-profile py-3 ">
     <h2><i class="fa-regular fa-user me-2"></i>Perfil</h2>
     <div class="d-flex align-items-start container-flex-home">
         <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">

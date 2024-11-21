@@ -9,8 +9,8 @@
 				<input type="hidden" name="id" id="id" value="<?= $this->content->pedido_id; ?>" />
 			<?php }?>
 			<div class="row">
-				<div class="col-12 form-group">
-					<label for="pedido_documento"  class="control-label">pedido_documento</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_documento"  class="control-label">Documento</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -19,8 +19,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_fecha"  class="control-label">pedido_fecha</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_fecha"  class="control-label">Fecha</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -29,8 +29,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_total"  class="control-label">pedido_total</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_total"  class="control-label">Total</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -39,8 +39,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_subtotal"  class="control-label">pedido_subtotal</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_subtotal"  class="control-label">Subtotal</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -49,8 +49,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_procentaje_descuento"  class="control-label">pedido_procentaje_descuento</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_procentaje_descuento"  class="control-label">Procentaje Descuento</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -59,8 +59,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_descuento"  class="control-label">pedido_descuento</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_descuento"  class="control-label">Descuento</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -69,8 +69,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_iva"  class="control-label">pedido_iva</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_iva"  class="control-label">Iva</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -79,8 +79,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_estado"  class="control-label">pedido_estado</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_estado"  class="control-label">Estado</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -89,8 +89,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_departamento"  class="control-label">pedido_departamento</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_departamento"  class="control-label">Departamento</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -99,8 +99,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_ciudad"  class="control-label">pedido_ciudad</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_ciudad"  class="control-label">Ciudad</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -109,8 +109,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_direccion"  class="control-label">pedido_direccion</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_direccion"  class="control-label">Dirección</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -119,8 +119,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_direccion_observacion"  class="control-label">pedido_direccion_observacion</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_direccion_observacion"  class="control-label">Dirección Observación</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -129,8 +129,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_correo"  class="control-label">pedido_correo</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_correo"  class="control-label">Correo</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -139,8 +139,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_nombre"  class="control-label">pedido_nombre</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_nombre"  class="control-label">Nombre</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -149,8 +149,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_telefono"  class="control-label">pedido_telefono</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_telefono"  class="control-label">Teléfono</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -159,8 +159,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_respuesta"  class="control-label">pedido_respuesta</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_respuesta"  class="control-label">Respuesta</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -169,8 +169,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_validacion"  class="control-label">pedido_validacion</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_validacion"  class="control-label">Validación</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -179,8 +179,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_validacion2"  class="control-label">pedido_validacion2</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_validacion2"  class="control-label">Validación 2</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -189,8 +189,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_entidad"  class="control-label">pedido_entidad</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_entidad"  class="control-label">Entidad</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -199,8 +199,8 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 form-group">
-					<label for="pedido_porcentaje_iva"  class="control-label">pedido_porcentaje_iva</label>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_porcentaje_iva"  class="control-label">Porcentaje iva</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>

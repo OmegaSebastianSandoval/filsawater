@@ -22,7 +22,7 @@
 					</label>
 				</div>
 				<div class="col-2">
-					<label>nombre</label>
+					<label>Nombre</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
@@ -161,7 +161,7 @@
 					<?php foreach ($this->lists as $content) { ?>
 						<?php $id =  $content->producto_id; ?>
 						<tr>
-							<?= $content->orden ?>
+						
 							<td><?= $content->producto_estado == 1 ? 'Si' : 'No'; ?></td>
 							<td><?= $content->producto_nombre; ?></td>
 							<td><?= $content->producto_referencia; ?></td>
@@ -194,7 +194,7 @@
 
 
 
-									<span data-bs-toggle="tooltip" data-placement="top" title="Eliminar"><a class="btn btn-rojo btn-sm" data-bs-toggle="modal" data-bs-target="#modal<?= $id ?>"><i class="fas fa-trash-alt"></i></a></span>
+									<!-- <span data-bs-toggle="tooltip" data-placement="top" title="Eliminar"><a class="btn btn-rojo btn-sm" data-bs-toggle="modal" data-bs-target="#modal<?= $id ?>"><i class="fas fa-trash-alt"></i></a></span> -->
 								</div>
 								<!-- Modal -->
 								<div class="modal fade text-left" id="modal<?= $id ?>" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
