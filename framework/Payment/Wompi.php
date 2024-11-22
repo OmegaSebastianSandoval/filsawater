@@ -5,6 +5,7 @@ final class Payment_Wompi
     protected $_data = null;
     private static $_instance = null;
     protected $wompi;
+    protected $resClient;
 
     private function __construct()
     {
@@ -37,6 +38,11 @@ final class Payment_Wompi
         return $this->_data;
     }
 
+    public function getTransaction($id)
+    {
+        return isset($this->transactions[$id]) ? $this->transactions[$id] : null;
+    }
+   
 
     public static function getInstance()
     {

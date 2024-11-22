@@ -389,25 +389,25 @@ class Page_comprarController extends Page_mainController
     $fechaExpiracion =  date_format($date, 'c'); // Formatear y mostrar la fecha
 
 
-    $cadena = $reference . intval($total*100). $moneda . $fechaExpiracion . $integrity;
-    echo "referencia: ".$reference;
+    $cadena = $reference . intval($total * 100) . $moneda . $fechaExpiracion . $integrity;
+    echo "referencia: " . $reference;
     echo "<br>";
-    echo "total: ". intval($total*100) ;
+    echo "total: " . intval($total * 100);
     echo "<br>";
-    echo "moneda: ".$moneda;
+    echo "moneda: " . $moneda;
     echo "<br>";
-    echo "fechaExpiracion: ".$fechaExpiracion;
+    echo "fechaExpiracion: " . $fechaExpiracion;
     echo "<br>";
-    echo "integrity: ".$integrity;
+    echo "integrity: " . $integrity;
     echo "<br>";
 
     // $cadena = $reference . intval($total) . $moneda . $integrity;
-    echo "Cadena: ". $cadena;
+    echo "Cadena: " . $cadena;
     echo "<br>";
 
     $cadenaHash = hash("sha256", $cadena);
 
-     echo "Cadena encriptada: ".$cadenaHash;
+    echo "Cadena encriptada: " . $cadenaHash;
     $this->_view->cadenaHash = $cadenaHash;
     $this->_view->redirectUrl = $redirectUrl;
     $this->_view->publicKey = $publicKey;
@@ -421,7 +421,63 @@ class Page_comprarController extends Page_mainController
 
   public function respuestaAction()
   {
+    $this->setLayout("blanco");
     $id = $this->_getSanitizedParam("id");
+    $response = $this->consultarVentaById($id);
+    echo "<pre>"; 
+    print_r($response);
+    echo "</pre>";
+    /* stdClass Object ( [data] => stdClass Object ( [id] => 1106153-1732242821-22096 [created_at] => 2024-11-22T02:33:45.034Z [finalized_at] => 2024-11-22T02:33:45.648Z [amount_in_cents] => 53550000 [reference] => 22 [currency] => COP [payment_method_type] => CARD [payment_method] => stdClass Object ( [type] => CARD [extra] => stdClass Object ( [name] => VISA-4242 [brand] => VISA [card_type] => CREDIT [last_four] => 4242 [is_three_ds] => 1 [three_ds_auth] => stdClass Object ( [three_ds_auth] => stdClass Object ( [current_step] => AUTHENTICATION [current_step_status] => COMPLETED ) ) [three_ds_auth_type] => [external_identifier] => iCR7Fi2CZS [processor_response_code] => 00 ) [installments] => 1 ) [payment_link_id] => [redirect_url] => http://localhost:8043/page/comprar/respuesta [status] => APPROVED [status_message] => [merchant] => stdClass Object ( [id] => 106153 [name] => JUMACATA SAS [legal_name] => JUMACATA SAS [contact_name] => MARTHA ISABEL MELO AVENDAÑO [phone_number] => +573115108984 [logo_url] => [legal_id_type] => NIT [email] => jumacata.sas@gmail.com [legal_id] => 901108494-9 [public_key] => pub_test_IgJV5KZuyaM9JRr037F84I12pgvKJ1T9 ) [taxes] => Array ( [0] => stdClass Object ( [type] => VAT [amount_in_cents] => 8550000 ) ) [tip_in_cents] => ) [meta] => stdClass Object ( ) )
+ */
+    /* http://localhost:8043/page/comprar/respuesta?id=1106153-1732247192-17654&env=test */
+    /* http://localhost:8043/page/comprar/respuesta?id=1106153-1732243356-63688&env=test */
+  }
+  public function consultarVentaById($transaction_id)
+  {
+
+    $wompi = Payment_Wompi::getInstance()->getData();
+
+    $publicKey = $wompi["publicKey"];
+
+    $api_url = "https://sandbox.wompi.co/v1/transactions/$transaction_id";
+
+    $curl = curl_init();
+
+    curl_setopt_array($curl, array(
+      CURLOPT_URL => $api_url,
+      CURLOPT_RETURNTRANSFER => true,
+      CURLOPT_ENCODING => "",
+      CURLOPT_MAXREDIRS => 10,
+      CURLOPT_TIMEOUT => 30,
+      CURLOPT_HTTP_VERSION => CURL_HTTP_VERSION_1_1,
+      CURLOPT_CUSTOMREQUEST => "GET",
+      CURLOPT_SSL_VERIFYPEER => false, // Desactiva la verificación del certificado
+      CURLOPT_HTTPHEADER => array(
+        "Authorization: Bearer $publicKey"
+      ),
+    ));
+    $response = curl_exec($curl);
+    $err = curl_error($curl);
+
+    curl_close($curl);
+
+    if ($err) {
+      echo "cURL Error #:" . $err;
+    } else {
+
+      return json_decode($response)->data;
+    }
+  }
+  public function confirmacionAction()
+  {
+    //log si algo entra
+
+
+
+    $data['log_log'] = print_r($_POST, true);
+    $data['log_tipo'] = 'ENTRO CONFIRMACION';
+    $logModel = new Administracion_Model_DbTable_Log();
+    $logModel->insert($data);
   }
   public function continuar3Action()
   {

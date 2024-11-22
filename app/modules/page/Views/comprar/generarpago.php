@@ -8,6 +8,7 @@
 
 
 
+    <input type="hidden" name="redirect-url" value="http://localhost:8043/page/comprar/respuesta" />
 
     <input type="hidden" name="expiration-time" value="<?= $this->fechaExpiracion ?>" />
     <input type="hidden" name="tax-in-cents:vat" value="<?= intval($this->pedido->pedido_iva * 100)  ?>" />
