@@ -38,12 +38,6 @@ final class Payment_Wompi
         return $this->_data;
     }
 
-    public function getTransaction($id)
-    {
-        return isset($this->transactions[$id]) ? $this->transactions[$id] : null;
-    }
-   
-
     public static function getInstance()
     {
         if (null == self::$_instance) {

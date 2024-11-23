@@ -9,7 +9,7 @@ class Page_comprarController extends Page_mainController
 
     //si no existe un usuario activo llevar al paso 1
     if (!Session::getInstance()->get('usuario')) {
-      header("Location: /");
+      // header("Location: /");
     }
     parent::init();
   }
@@ -121,8 +121,19 @@ class Page_comprarController extends Page_mainController
       return;
     }
 
+
+
+
     // Procesar cada producto en el carrito
     foreach ($carrito as $id => $cantidad) {
+
+      $disnponibilidadProducto = $this->descontarInventarioIndividual($id, $cantidad);
+      if ($disnponibilidadProducto["error"]) {
+        Session::getInstance()->set("error_compra", $disnponibilidadProducto["error"]);
+        header('Location: /page/comprar'); // Redirigir en caso de error
+        return;
+      }
+      
       // Obtener datos del producto actual
       $producto = $productoModel->getById($id);
 
@@ -160,6 +171,15 @@ class Page_comprarController extends Page_mainController
         return;
       }
     }
+
+    /* $descontarInventario =  $this->descontarInventario($idPedido);
+
+    if ($descontarInventario["error"]) {
+      Session::getInstance()->set("error_compra", $descontarInventario["error"]);
+      header('Location: /page/comprar'); // Redirigir en caso de error
+      return;
+    } */
+
 
     // Redirigir a la página de dirección para completar el pedido
     header('Location: /page/comprar/direccion?id=' . $idPedido);
@@ -424,13 +444,16 @@ class Page_comprarController extends Page_mainController
     $this->setLayout("blanco");
     $id = $this->_getSanitizedParam("id");
     $response = $this->consultarVentaById($id);
-    echo "<pre>"; 
+    echo "<pre>";
     print_r($response);
     echo "</pre>";
     /* stdClass Object ( [data] => stdClass Object ( [id] => 1106153-1732242821-22096 [created_at] => 2024-11-22T02:33:45.034Z [finalized_at] => 2024-11-22T02:33:45.648Z [amount_in_cents] => 53550000 [reference] => 22 [currency] => COP [payment_method_type] => CARD [payment_method] => stdClass Object ( [type] => CARD [extra] => stdClass Object ( [name] => VISA-4242 [brand] => VISA [card_type] => CREDIT [last_four] => 4242 [is_three_ds] => 1 [three_ds_auth] => stdClass Object ( [three_ds_auth] => stdClass Object ( [current_step] => AUTHENTICATION [current_step_status] => COMPLETED ) ) [three_ds_auth_type] => [external_identifier] => iCR7Fi2CZS [processor_response_code] => 00 ) [installments] => 1 ) [payment_link_id] => [redirect_url] => http://localhost:8043/page/comprar/respuesta [status] => APPROVED [status_message] => [merchant] => stdClass Object ( [id] => 106153 [name] => JUMACATA SAS [legal_name] => JUMACATA SAS [contact_name] => MARTHA ISABEL MELO AVENDAÑO [phone_number] => +573115108984 [logo_url] => [legal_id_type] => NIT [email] => jumacata.sas@gmail.com [legal_id] => 901108494-9 [public_key] => pub_test_IgJV5KZuyaM9JRr037F84I12pgvKJ1T9 ) [taxes] => Array ( [0] => stdClass Object ( [type] => VAT [amount_in_cents] => 8550000 ) ) [tip_in_cents] => ) [meta] => stdClass Object ( ) )
  */
     /* http://localhost:8043/page/comprar/respuesta?id=1106153-1732247192-17654&env=test */
     /* http://localhost:8043/page/comprar/respuesta?id=1106153-1732243356-63688&env=test */
+    /* http://localhost:8043/page/comprar/respuesta?id=1106153-1732283305-81883&env=test */
+
+    /* http://localhost:8043/page/comprar/respuesta?id=1106153-1732283664-17975&env=test */
   }
   public function consultarVentaById($transaction_id)
   {
@@ -470,15 +493,110 @@ class Page_comprarController extends Page_mainController
   }
   public function confirmacionAction()
   {
-    //log si algo entra
+    // Leer el cuerpo de la solicitud (JSON enviado por Wompi)
+    $payload = file_get_contents('php://input');
 
+    // Intentar decodificar el JSON
+    $dataReceived = json_decode($payload, true);
 
+    // Preparar el log
+    $logData = [];
+    if ($dataReceived) {
+      // Si los datos son válidos, guardar lo recibido
+      $logData['log_log'] = print_r($dataReceived, true);
+      $logData['log_tipo'] = 'DATOS RECIBIDOS DE WOMPI';
+    } else {
+      // Si no se pudo decodificar, registrar el cuerpo como texto
+      $logData['log_log'] = $payload;
+      $logData['log_tipo'] = 'ENTRO CONFIRMACION (NO SE PUDO DECODIFICAR)';
+    }
 
-    $data['log_log'] = print_r($_POST, true);
-    $data['log_tipo'] = 'ENTRO CONFIRMACION';
+    // Insertar el log en la base de datos
     $logModel = new Administracion_Model_DbTable_Log();
-    $logModel->insert($data);
+    $logModel->insert($logData);
+
+    // Responder a Wompi
+    http_response_code(200);
+    echo json_encode(['message' => 'Evento recibido correctamente']);
   }
+
+
+
+
+  public function descontarInventarioIndividual($productoId, $cantidad)
+  {
+    $productosModel = new Administracion_Model_DbTable_Productos();
+    $productoDetalle = $productosModel->getById($productoId);
+    if ($productoDetalle->producto_stock < $cantidad) {
+      $res = [
+        "error" => "No hay suficiente stock para el producto: " . $productoDetalle->producto_nombre,
+        "producto" => $productoDetalle->producto_nombre,
+        "stock" => $productoDetalle->producto_stock,
+        "cantidad" => $cantidad
+      ];
+      return $res;
+    }
+    $nuevoStock = $productoDetalle->producto_stock - $cantidad;
+    $productosModel->editField($productoId, "producto_stock", $nuevoStock);
+    $res = [
+      "error" => false,
+      "mensaje" => "Inventario actualizado correctamente"
+    ];
+  }
+
+
+
+
+
+
+  public function descontarInventario($pedidoId)
+  {
+
+    $productoPedidoModel = new Administracion_Model_DbTable_Productosporpedido();
+    $productosModel = new Administracion_Model_DbTable_Productos();
+
+    $productos = $productoPedidoModel->getList("pedido_producto_pedido='{$pedidoId}'");
+
+    foreach ($productos as $producto) {
+      $productoDetalle = $productosModel->getById($producto->pedido_producto_producto);
+
+      if ($productoDetalle->producto_stock < $producto->pedido_producto_cantidad) {
+
+        $res = [
+          "error" => "No hay suficiente stock para el producto: " . $productoDetalle->producto_nombre,
+          "producto" => $productoDetalle->producto_nombre,
+          "stock" => $productoDetalle->producto_stock,
+          "cantidad" => $producto->pedido_producto_cantidad
+        ];
+        return $res;
+        exit;
+      }
+      $nuevoStock = $productoDetalle->producto_stock - $producto->pedido_producto_cantidad;
+      $productosModel->editField($producto->pedido_producto_producto, "producto_stock", $nuevoStock);
+    }
+
+    $res = [
+      "error" => false,
+      "mensaje" => "Inventario actualizado correctamente"
+    ];
+    return $res;
+  }
+
+
+  public function retornarInventario($pedidoId)
+  {
+
+    $productoPedidoModel = new Administracion_Model_DbTable_Productosporpedido();
+    $productosModel = new Administracion_Model_DbTable_Productos();
+    $productos = $productoPedidoModel->getList("pedido_producto_pedido='{$pedidoId}'");
+
+    foreach ($productos as $producto) {
+      $productoDetalle = $productosModel->getById($producto->pedido_producto_producto);
+      $nuevoStock = $productoDetalle->producto_stock + $producto->pedido_producto_cantidad;
+      $productosModel->editField($producto->pedido_producto_producto, "producto_stock", $nuevoStock);
+    }
+  }
+
   public function continuar3Action()
   {
     // Establece el layout en blanco, útil si este método se llama mediante AJAX o requiere una salida mínima.
