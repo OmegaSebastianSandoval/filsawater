@@ -31,7 +31,9 @@
   <!-- Dropzone -->
   <link rel="stylesheet" href="/components/dropzone/dist/dropzone.css">
   <script src="/components/dropzone/dist/dropzone.js"></script>
+  <!-- json-viewer-js -->
 
+  <link href="https://rawgit.com/summerstyle/jsonTreeViewer/master/libs/jsonTree/jsonTree.css" rel="stylesheet" />
   <script type="text/javascript">
     var map;
     var longitude = 0;
@@ -105,8 +107,8 @@
   </script>
   <script src="/components/bootstrap-validator/dist/validator.min.js">
   </script>
-
-
+  <!-- json-viewer-js -->
+  <script src="/components/json-viewer/json-viewer.js"></script>
   <!-- File Input -->
   <script src="/components/bootstrap-fileinput/js/fileinput.min.js"></script>
   <script src="/components/bootstrap-fileinput/js/locales/es.js"></script>

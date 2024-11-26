@@ -78,4 +78,13 @@ class Administracion_Model_DbTable_Pedidos extends Db_Table
 		$query = "UPDATE pedidos SET  pedido_documento = '$pedido_documento', pedido_fecha = '$pedido_fecha', pedido_total = '$pedido_total', pedido_subtotal = '$pedido_subtotal', pedido_procentaje_descuento = '$pedido_procentaje_descuento', pedido_descuento = '$pedido_descuento', pedido_iva = '$pedido_iva', pedido_estado = '$pedido_estado', pedido_departamento = '$pedido_departamento', pedido_ciudad = '$pedido_ciudad', pedido_direccion = '$pedido_direccion', pedido_direccion_observacion = '$pedido_direccion_observacion', pedido_correo = '$pedido_correo', pedido_nombre = '$pedido_nombre', pedido_telefono = '$pedido_telefono', pedido_respuesta = '$pedido_respuesta', pedido_validacion = '$pedido_validacion', pedido_validacion2 = '$pedido_validacion2', pedido_entidad = '$pedido_entidad', pedido_porcentaje_iva = '$pedido_porcentaje_iva' WHERE pedido_id = '".$id."'";
 		$res = $this->_conn->query($query);
 	}
+
+
+	//editar response
+	public function editarResponse($id, $value)
+	{
+		 $query = 'UPDATE ' . $this->_name . ' SET pedido_response = \'' . $value . '\' WHERE ' . $this->_id . ' = "' . $id . '"';
+
+		$res = $this->_conn->query($query);
+	}
 }

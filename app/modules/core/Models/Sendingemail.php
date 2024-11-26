@@ -117,7 +117,7 @@ class Core_Model_Sendingemail
 
     $content = $this->_view->getRoutPHP('/../app/modules/core/Views/templatesemail/registro.php');
     $this->email->getMail()->Subject = 'Registro exitoso en FILSA WATER';
-  
+
 
     $this->email->getMail()->msgHTML($content);
     $this->email->getMail()->AltBody = $content;
@@ -152,7 +152,7 @@ class Core_Model_Sendingemail
     $this->_view->code = $code;
     $this->email->getMail()->addAddress($user->user_email, $user->user_names);
     $this->email->getMail()->addBCC("desarrollo8@omegawebsystems.com", "Inicio de sesión FILSA WATER");
-	//$this->email->getMail()->addBCC("proyectos@omegawebsystems.com", "Registro FEINCOL");
+    //$this->email->getMail()->addBCC("proyectos@omegawebsystems.com", "Registro FEINCOL");
 
     $content = $this->_view->getRoutPHP('/../app/modules/core/Views/templatesemail/enviarOTP.php');
     $this->email->getMail()->Subject = 'Ingreso FILSA WATER';
@@ -165,23 +165,87 @@ class Core_Model_Sendingemail
     }
   }
 
-  public function enviarCorreoTienda($pedido, $productos, $usuario)
+  public function enviarCorreoTienda($idPedido)
   {
+    // Modelos utilizados para manejar datos relacionados con pedidos, productos y usuarios
+    $pedidosModel = new Administracion_Model_DbTable_Pedidos();
+    $productosModel = new Administracion_Model_DbTable_Productos();
+    $productoPedidoModel = new Administracion_Model_DbTable_Productosporpedido();
+    $tiendaCategoria = new Administracion_Model_DbTable_Tiendacategorias();
+    $municipiosModel = new Administracion_Model_DbTable_Municipios();
+    $departamentosModel = new Administracion_Model_DbTable_Departamentos();
+
+    // Obtener detalles del pedido por su ID
+    $pedido = $pedidosModel->getById($idPedido);
+    $pedido->ciudad_nombre = $municipiosModel->getById($pedido->pedido_ciudad)->municipio;
+    $pedido->departamento_nombre = $departamentosModel->getById($pedido->pedido_departamento)->departamento;
+
+    // Obtener la lista de productos asociados al pedido
+    $productos = $productoPedidoModel->getList("pedido_producto_pedido='{$idPedido}'");
+
+    // Enriquecer información de los productos (categoría e imagen)
+    foreach ($productos as $producto) {
+      $productoDetalle = $productosModel->getById($producto->pedido_producto_producto);
+      $producto->producto_categoriainfo = $tiendaCategoria->getById($productoDetalle->producto_categoria)->tienda_categoria_nombre;
+      $producto->producto_imagen = $productoDetalle->producto_imagen;
+    }
+
+    // Configurar datos para la vista
     $this->_view->pedido = $pedido;
     $this->_view->productos = $productos;
+
+    // Agregar dirección de correo principal para el cliente
     $this->email->getMail()->addAddress($pedido->pedido_correo, $pedido->pedido_nombre);
 
-    $this->email->getMail()->addBCC("desarrollo8@omegawebsystems.com", "Compra FILSA WATER");
-	//$this->email->getMail()->addBCC("proyectos@omegawebsystems.com", "Registro FEINCOL");
+    // Determinar estado, asunto y contenido del correo según el estado del pedido
+    $estadoInfo = [
+      5 =>
+      [
+        'estado' => 'Aprobado',
+        'asunto' => 'Compra Aprobada FILSA WATER',
+        'template' => 'correoTienda.php'
+      ],
+      6 =>
+      [
+        'estado' => 'Declinado',
+        'asunto' => 'Compra Declinada FILSA WATER',
+        'template' => 'correoTiendaInfo.php'
+      ],
+      7 =>
+      [
+        'estado' => 'Anulado',
+        'asunto' => 'Compra Anulada FILSA WATER',
+        'template' => 'correoTiendaInfo.php'
+      ],
+      8 =>
+      [
+        'estado' => 'Error',
+        'asunto' => 'Compra con Error FILSA WATER',
+        'template' => 'correoTiendaInfo.php'
+      ],
+    ];
 
-    $content = $this->_view->getRoutPHP('/../app/modules/core/Views/templatesemail/correoTienda.php');
-    $this->email->getMail()->Subject = 'Compra FILSA WATER';
+    $defaultInfo = ['estado' => 'Pendiente', 'asunto' => 'Compra Pendiente FILSA WATER', 'template' => 'correoTiendaInfo.php'];
+
+    // Buscar información del estado actual o asignar valores predeterminados
+    $info = $estadoInfo[$pedido->pedido_estado] ?? $defaultInfo;
+
+    // Generar el contenido del correo utilizando la plantilla correspondiente
+    $content = $this->_view->getRoutPHP("/../app/modules/core/Views/templatesemail/" . $info['template']);
+
+    // Agregar copia oculta (BCC) del correo
+    $this->email->getMail()->addBCC("desarrollo8@omegawebsystems.com", $info['asunto']);
+    // $this->email->getMail()->addBCC("desarrollo8@omegawebsystems.com", $info['asunto']);
+
+    // Configurar asunto y contenido del correo
+    $this->email->getMail()->Subject = $info['asunto'];
     $this->email->getMail()->msgHTML($content);
     $this->email->getMail()->AltBody = $content;
-    if ($this->email->sed() == true) {
-      return 1;
-    } else {
-      return 2;
-    }
+
+    //debug
+
+
+    // Enviar el correo y devolver el resultado
+    return $this->email->sed() ? 1 : 2;
   }
 }

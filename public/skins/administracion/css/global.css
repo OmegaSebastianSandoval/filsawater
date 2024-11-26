@@ -1634,3 +1634,21 @@ footer{
   font-weight: 300;
 
 }
+
+.input-APPROVED {
+  background-color: #66cc67 !important;
+  color: #FFF;
+}
+.input-DECLINED {
+  background-color: #e2504c !important;
+  color: #FFF;
+
+}
+.input-ERROR {
+  color: #FFF;
+  background-color: #e2504c !important;
+}
+.input-VOIDED {
+  color: #FFF;
+  background-color: #FFDD33 !important;
+}

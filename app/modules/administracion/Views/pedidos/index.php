@@ -3,7 +3,7 @@
 	<form action="<?php echo $this->route; ?>" method="post">
 		<div class="content-dashboard">
 			<div class="row">
-			<div class="col-3">
+				<div class="col-3">
 					<label>Número de Pedido</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
@@ -96,6 +96,12 @@
 			?>
 		</ul>
 	</div>
+	<?php if ($this->message) { ?>
+		<div class="alert alert-success text-center">
+			<?php echo $this->message; ?>
+		</div>
+	<?php } ?>
+
 	<div class="content-dashboard">
 		<div class="franja-paginas">
 			<div class="row">
@@ -153,7 +159,10 @@
 							<td class="text-end">
 								<div>
 									<a class="btn btn-azul btn-sm" href="<?php echo $this->route; ?>/info?id=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Ver"><i class="fa-solid fa-eye"></i></a>
+									<?php if ($content->pedido_validacion2 == 2) { ?>
+										<a class="btn btn-warning btn-sm" href="<?php echo $this->route; ?>/reenviarcorreo?id=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Reenviar Correo De Estado"><i class="fa-solid fa-envelope"></i></a>
 
+									<?php } ?>
 									<!-- 	<a class="btn btn-azul btn-sm" href="<?php echo $this->route; ?>/manage?id=<?= $id ?>"  data-bs-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-pen-alt"></i></a>
 								<span  data-bs-toggle="tooltip" data-placement="top" title="Eliminar"><a class="btn btn-rojo btn-sm"  data-bs-toggle="modal" data-bs-target="#modal<?= $id ?>"  ><i class="fas fa-trash-alt" ></i></a></span>
  -->

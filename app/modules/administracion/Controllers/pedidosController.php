@@ -82,7 +82,7 @@ class Administracion_pedidosController extends Administracion_mainController
 		$filters = (object)Session::getInstance()->get($this->namefilter);
 		$this->_view->filters = $filters;
 		$filters = $this->getFilter();
-		$order = "pedido_fecha ASC";
+		$order = "pedido_fecha DESC";
 		$list = $this->mainModel->getList($filters, $order);
 		$amount = $this->pages;
 		$page = $this->_getSanitizedParam("page");
@@ -106,6 +106,8 @@ class Administracion_pedidosController extends Administracion_mainController
 		$this->_view->list_direccion_departamento = $this->getDirecciondepartamento();
 		$this->_view->list_direccion_ciudad = $this->getDireccionciudad();
 		$this->_view->list_pedido_estado = $this->getPedidoestado();
+		$this->_view->message = Session::getInstance()->get('message');
+		Session::getInstance()->set('message', '');
 	}
 
 	/**
@@ -164,6 +166,8 @@ class Administracion_pedidosController extends Administracion_mainController
 
 		if ($id > 0) {
 			$content = $this->mainModel->getById($id);
+
+
 
 			$productoPedidoModel = new Administracion_Model_DbTable_Productosporpedido();
 			$productosModel = new Administracion_Model_DbTable_Productos();
@@ -254,7 +258,17 @@ class Administracion_pedidosController extends Administracion_mainController
 		header('Location: ' . $this->route . '' . '');
 	}
 
-
+	public function reenviarcorreoAction()
+	{
+		$this->setLayout('blanco');
+		$id = $this->_getSanitizedParam("id");
+		$pedido = $this->mainModel->getById($id);
+		$mailModel = new Core_Model_Sendingemail($this->_view);
+		$mail = $mailModel->enviarCorreoTienda($id);
+		$this->mainModel->editField($id, "pedido_validacion2", $mail);
+		Session::getInstance()->set('message', 'Correo reenviado correctamente');
+		header('Location: ' . $this->route . '' . '');
+	}
 
 	/**
 	 * Genera los valores del campo Estado.
@@ -268,8 +282,10 @@ class Administracion_pedidosController extends Administracion_mainController
 		$array[2] = 'Dirección pendiente';
 		$array[3] = 'En espera de pago';
 		$array[4] = 'Pago en proceso';
-		$array[5] = 'Pagado';
-		$array[6] = 'Cancelado';
+		$array[5] = 'Transacción aprobada';
+		$array[6] = 'Transacción rechazada';
+		$array[7] = 'Transacción anulada';
+		$array[8] = 'Error interno del método de pago respectivo';
 		return $array;
 	}
 

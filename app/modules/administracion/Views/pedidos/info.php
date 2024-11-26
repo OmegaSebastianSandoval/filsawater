@@ -1,7 +1,8 @@
 <h1 class="titulo-principal"><i class="fas fa-cogs"></i> <?php echo $this->titlesection; ?></h1>
 <div class="container-fluid">
-	
-		<a href="<?php echo $this->route; ?>" class="btn btn-secondary mt-3 px-4">Volver</a>
+
+	<a href="<?php echo $this->route; ?>" class="btn btn-secondary mt-3 px-4">Volver</a>
+
 
 	<form class="text-left" enctype="multipart/form-data" method="post" action="<?php echo $this->routeform; ?>" data-bs-toggle="validator">
 		<div class="content-dashboard">
@@ -22,7 +23,7 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				
+
 				<div class="col-12 col-md-3 form-group">
 					<label for="pedido_fecha" class="control-label">Fecha</label>
 					<label class="input-group">
@@ -175,12 +176,22 @@
 
 			<div class="row">
 				<div class="col-12 col-md-3 form-group">
-					<label for="pedido_respuesta" class="control-label">Respuesta</label>
+					<label for="pedido_estado" class="control-label">Estado</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->pedido_respuesta; ?>" name="pedido_respuesta" id="pedido_respuesta" class="form-control" readonly disabled>
+						<input type="text" value="<?= $this->list_pedido_estado[$this->content->pedido_estado]; ?>" name="pedido_estado" id="pedido_estado" class="form-control" readonly disabled>
+					</label>
+					<div class="help-block with-errors"></div>
+				</div>
+				<div class="col-12 col-md-3 form-group">
+					<label for="pedido_identificador" class="control-label">Identificador Wompi</label>
+					<label class="input-group">
+						<div class="input-group-prepend">
+							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
+						</div>
+						<input type="text" value="<?= $this->content->pedido_identificador; ?>" name="pedido_identificador" id="pedido_identificador" class="form-control" readonly disabled>
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -190,17 +201,17 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->pedido_validacion; ?>" name="pedido_validacion" id="pedido_validacion" class="form-control" readonly disabled>
+						<input type="text" value="<?= $this->content->pedido_validacion; ?>" name="pedido_validacion" id="pedido_validacion" class="form-control input-<?= $this->content->pedido_validacion?>" readonly disabled>
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
 				<div class="col-12 col-md-3 form-group">
-					<label for="pedido_validacion2" class="control-label">Validación 2</label>
+					<label for="pedido_validacion2" class="control-label">Alerta por correo enviada</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->pedido_validacion2; ?>" name="pedido_validacion2" id="pedido_validacion2" class="form-control" readonly disabled>
+						<input type="text" value="<?= $this->content->pedido_validacion2 == 1 ? 'Si' : 'No'; ?>" name="pedido_validacion2" id="pedido_validacion2" class="form-control input-<?= $this->content->pedido_validacion2 == 1 ? 'APPROVED' : 'ERROR' ?>" readonly disabled>
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -214,17 +225,44 @@
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
-				<div class="col-12 col-md-3 form-group">
-					<label for="pedido_estado" class="control-label">Estado</label>
+				<?php if ($this->content->pedido_respuesta) { ?>
+
+				<div class="col-12 col-md-12 form-group">
+					<label for="pedido_respuesta" class="control-label">Respuesta</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->list_pedido_estado[$this->content->pedido_estado]; ?>" name="pedido_estado" id="pedido_estado" class="form-control" readonly disabled>
+						<input type="text" value="<?= $this->content->pedido_respuesta; ?>" name="pedido_respuesta" id="pedido_respuesta" class="form-control" readonly disabled>
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
 
+				<?php } ?>
+
+
+
+				<?php if ($this->content->pedido_response) { ?>
+					<div class="accordion mt-4" id="accordionPanelsStayOpenExample">
+
+						<div class="accordion-item">
+							<h2 class="accordion-header">
+								<button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseTwo" aria-expanded="false" aria-controls="panelsStayOpen-collapseTwo">
+									Ver respuesta de Wompi
+								</button>
+							</h2>
+							<div id="panelsStayOpen-collapseTwo" class="accordion-collapse collapse">
+								<div class="accordion-body">
+
+									<div id="wrapper">
+
+									</div>
+								</div>
+							</div>
+						</div>
+
+					</div>
+				<?php } ?>
 			</div>
 
 			<?php if (is_countable($this->productosPedido) && count($this->productosPedido) > 0) { ?>
@@ -295,3 +333,26 @@
 		</div>
 	</form>
 </div>
+
+<style>
+	#wrapper li {
+		list-style: none;
+	}
+</style>
+
+
+<script src="https://rawgit.com/summerstyle/jsonTreeViewer/master/libs/jsonTree/jsonTree.js"></script>
+<script>
+	document.addEventListener("DOMContentLoaded", function() {
+		// Get DOM-element for inserting json-tree
+		var wrapper = document.getElementById("wrapper");
+
+		<?php
+
+		$array = (json_decode($this->content->pedido_response)->data);
+		$json  = json_encode($array)
+		?>
+		var tree = jsonTree.create(<?php echo $json ?>, wrapper);
+	});
+</script>
+

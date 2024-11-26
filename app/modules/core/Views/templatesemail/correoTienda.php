@@ -1,7 +1,12 @@
 <div style="background: #FFF; font-size: 15px;">
     <table style="width: 100%;max-width:700px; border: 0px solid #00b8c3; margin: auto; padding: 20px; background:#f5f5f5">
+        <tr style="margin-bottom:15px;">
+            <td colspan="2" style="border-bottom: 1px solid #192a4b1c; width:100%;">
+                <img src="https://www.filsawater.com/images/FILSA%201.png" alt="Logo FILSA" height="80" style="display:block; margin:auto; margin-bottom:10px">
+            </td>
+        </tr>
         <tr style="">
-            <td  style="vertical-align: baseline;" width="500px">
+            <td style="vertical-align: baseline;" width="500px">
                 <table>
                     <thead>
                         <tr>
@@ -24,7 +29,7 @@
 
 
 
-                                    <img src="<?php echo RUTA?>/images/<?php echo $producto->producto_imagen; ?>" alt="<?php echo $producto->producto_nombre; ?>" class="" alt="Imagen del producto" style="width:120px; height:120px; object-fit:contain; background:#FFF; border:1px solid #cbcbcb; border-radius:10px;">
+                                    <img src="<?php echo RUTA ?>/images/<?php echo $producto->producto_imagen; ?>" alt="<?php echo $producto->producto_nombre; ?>" class="" alt="Imagen del producto" style="width:120px; height:120px; object-fit:contain; background:#FFF; border:1px solid #cbcbcb; border-radius:10px;">
 
 
 
@@ -77,7 +82,7 @@
                     </tbody>
                 </table>
             </td>
-            <td style="vertical-align: baseline;" width="30%">
+            <td style="vertical-align: baseline;" width="300px">
                 <table>
                     <tr>
                         <td style="font-family:Helvetica,Arial,sans-serif;font-style:normal;font-weight:bold;font-size:14px;letter-spacing:0.01em;color:#000;color:#4b4b50;text-transform:uppercase;box-sizing:border-box;line-height:1.25!important">
@@ -132,7 +137,7 @@
                     <tr>
 
                         <td style="padding-bottom:5px;font-size:13.5px;color:#777!important;line-height:20px;box-sizing:border-box;border-collapse:collapse;vertical-align:top!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
-                            
+
                             Descuento:
                         </td>
                     </tr>
@@ -143,7 +148,7 @@
                     </tr>
                     <tr>
                         <td style="padding-bottom:5px;font-size:13.5px;color:#777!important;line-height:20px;box-sizing:border-box;border-collapse:collapse;vertical-align:top!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
-                            
+
                             IVA:
                         </td>
                     </tr>
@@ -154,7 +159,7 @@
                     </tr>
                     <tr>
                         <td style="padding-bottom:5px;font-size:13.5px;color:#777!important;line-height:20px;box-sizing:border-box;border-collapse:collapse;vertical-align:top!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
-                           
+
                             Total:
                         </td>
                     </tr>

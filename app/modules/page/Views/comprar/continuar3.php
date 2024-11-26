@@ -1,6 +1,11 @@
 <div style="background: #FFF; font-size: 15px;">
     <table style="width: 100%;max-width:700px; border: 0px solid #00b8c3; margin: auto; padding: 20px; background:#f5f5f5">
-        <tr style="">
+    <tr style="margin-bottom:15px;">
+      <td colspan="2" style="border-bottom: 1px solid #192a4b1c; width:100%;">
+        <img src="https://www.filsawater.com/images/FILSA%201.png" alt="Logo FILSA" height="80"  style="display:block; margin:auto; margin-bottom:10px">
+      </td> 
+    </tr>
+    <tr style="">
             <td  style="vertical-align: baseline;" width="500px">
                 <table>
                     <thead>
