@@ -67,7 +67,7 @@
 					</label>
 				</div> -->
 				<div class="col-2">
-					<label>categor&iacute;a</label>
+					<label>Categor&iacute;a</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="far fa-list-alt"></i></span>
@@ -123,18 +123,18 @@
 				</div>
 				<div class="col-1">
 					<select class="form-control form-control-sm selectpagination">
-						<option value="20" <?php if ($this->pages == 20) {
-												echo 'selected';
-											} ?>>20</option>
-						<option value="30" <?php if ($this->pages == 30) {
-												echo 'selected';
-											} ?>>30</option>
 						<option value="50" <?php if ($this->pages == 50) {
 												echo 'selected';
 											} ?>>50</option>
 						<option value="100" <?php if ($this->pages == 100) {
 												echo 'selected';
 											} ?>>100</option>
+						<option value="150" <?php if ($this->pages == 150) {
+												echo 'selected';
+											} ?>>150</option>
+						<option value="200" <?php if ($this->pages == 200) {
+												echo 'selected';
+											} ?>>200</option>
 					</select>
 				</div>
 				<div class="col-3">

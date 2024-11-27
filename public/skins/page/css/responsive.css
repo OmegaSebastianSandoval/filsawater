@@ -85,6 +85,7 @@
         gap: 5px;
         align-items: center;
         padding: 0;
+        width: 70px;
     }
 
     .floating-btn a {
@@ -136,6 +137,8 @@
 
     .main-general {
         margin-top: 100px;
+
+        overflow-x: hidden;
     }
 
     footer h3 {
@@ -156,6 +159,9 @@
         display: block;
     }
 
+    .footer-logo{
+        max-width: 200px;
+    }
     header {
         /* padding: 10px 0; */
     }
@@ -192,7 +198,7 @@
 
     header nav .links .link {
         font-size: 17px;
-        width: 100%;
+        width: auto;
         color: var(--gris-claro);
 
     }
@@ -249,7 +255,10 @@
     header nav :checked~.icon-burger .line:nth-child(2) {
         opacity: 0;
     }
-
+    .dropdown-menu.show{
+        max-height: 600px;
+        overflow-y: scroll;
+    }
 
     .carousel-control-next,
     .carousel-control-prev {
@@ -299,6 +308,10 @@
 
     .titulo-banner-internas * {
         margin: 0;
+    }
+    .titulo-banner-internas img{
+        width: 30px !important;
+        height: auto;
     }
 
     /* -------------------
@@ -379,14 +392,16 @@ BANNER INTERNAS FIN
         text-align: center;
     }
 
-
+    .contenedor-detail-producto .product-description table{
+        width: 100% !important;
+    }
     .contenedor-detail-producto .product-description tr {
-        display: table-cell;
-        width: 100%;
+        /* display: table-cell; */
+        /* width: 100%; */
     }
 
     .contenedor-detail-producto .product-description tr td {
-        display: block;
+        /* display: block; */
 
     }
 
@@ -486,6 +501,10 @@ BANNER INTERNAS FIN
     .contendor-comprar .producto img{
         /* margin-right: auto; */
     }
+
+    .product-card .product-title{
+        text-align: center;
+    }
 }
 
 @media (max-width:576px) {
@@ -558,7 +577,7 @@ BANNER INTERNAS FIN
     }
 
     .content-description-form p br {
-        display: none;
+        /* display: none; */
     }
 
     .bg-blue {
@@ -593,7 +612,7 @@ BANNER INTERNAS FIN
 
 @media (max-width:476px) {
     .main-general {
-        margin-top: 102px;
+        margin-top: 100px;
     }
 
     .img-banner-interna {

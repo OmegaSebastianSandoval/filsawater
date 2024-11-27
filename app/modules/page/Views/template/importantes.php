@@ -1,4 +1,4 @@
-<section class="important-products">
+<section data-aos="" class="important-products">
     <div class="container">
         <h2 class="mb-4">Más Productos</h2>
 

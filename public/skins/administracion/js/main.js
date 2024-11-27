@@ -48,7 +48,7 @@ $(document).ready(function () {
       "file-manager",
       "template",
     ],
-    contextmenu: 'cell row column table',
+    contextmenu: false,
 
     templates: [
      

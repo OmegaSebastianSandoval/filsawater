@@ -1,4 +1,4 @@
-<section data-aos="fade-up" class="bg-gray-blue form-home">
+<section data-aos="" class="bg-gray-blue form-home">
     <div class="container">
         <div class="row py-1 py-md-5 g-0 justify-content-between">
             <div class="col-12 col-sm-6 content-description-form">

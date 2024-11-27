@@ -1,7 +1,7 @@
 <?php
 echo $this->banner;
 ?>
-<div class="container pb-5 pt-4 containter-detail">
+<div data-aos="" class="container pb-5 pt-4 containter-detail">
 
     <?php if ($this->solucionPadre) { ?>
 
@@ -72,14 +72,14 @@ echo $this->banner;
                     <h1><?= $this->solucion->solucion_titulo ?></h1>
 
                     <?php if ($this->solucion->solucion_descripcion) { ?>
-                        <div class="content-description">
+                        <div data-aos="" class="content-description">
                             <?= $this->solucion->solucion_descripcion ?>
                         </div>
                     <?php } ?>
 
                     <?php if ($this->solucion->solucion_introduccion) { ?>
 
-                        <figure class="text-start">
+                        <figure data-aos="" class="text-start">
                             <blockquote class="blockquote">
                                 <?= $this->solucion->solucion_introduccion ?> </blockquote>
                             <figcaption class="blockquote-footer">
@@ -89,7 +89,7 @@ echo $this->banner;
                     <?php } ?>
 
                     <?php if ($this->solucion->solucion_contenido) { ?>
-                        <div class="content-description">
+                        <div  data-aos="" class="content-description">
                             <?= $this->solucion->solucion_contenido ?>
                         </div>
                     <?php } ?>
@@ -114,7 +114,7 @@ echo $this->banner;
                         }
                         ?>
                         <?php if ($this->documentos && $this->hayDocumentos == 1) { ?>
-                            <div class="col-12 <?= $columna ?> ">
+                            <div  data-aos="" class="col-12 <?= $columna ?> ">
                                 <h2 class="title-info">Documentos</h2>
                                 <div class="container-docs">
 
@@ -125,7 +125,7 @@ echo $this->banner;
                         <?php } ?>
                         <?php if ($this->hayFotos == 1 && is_countable($this->fotos) && count($this->fotos) >= 1) { ?>
 
-                            <div class="col-12 <?= $columna ?>">
+                            <div data-aos="" class="col-12 <?= $columna ?>">
                                 <h2 class="title-info">Imágenes</h2>
 
                                 <?php if ($this->hayFotos == 1) { ?>

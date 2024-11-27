@@ -40,7 +40,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->pedido_total >= 1 ? "$ " . number_format($this->content->pedido_total, 2) : $this->content->pedido_total; ?>" name="pedido_total" id="pedido_total" class="form-control" readonly disabled>
+						<input type="text" value="<?= $this->content->pedido_total >= 1 ? "$ " . number_format(ceil($this->content->pedido_total)) : $this->content->pedido_total; ?>" name="pedido_total" id="pedido_total" class="form-control" readonly disabled>
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -50,7 +50,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->pedido_subtotal >= 1 ? "$ " . number_format($this->content->pedido_subtotal, 2) : $this->content->pedido_subtotal ?>" name="pedido_subtotal" id="pedido_subtotal" class="form-control" readonly disabled>
+						<input type="text" value="<?= $this->content->pedido_subtotal >= 1 ? "$ " . number_format(ceil($this->content->pedido_subtotal)) : $this->content->pedido_subtotal ?>" name="pedido_subtotal" id="pedido_subtotal" class="form-control" readonly disabled>
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -70,7 +70,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->pedido_descuento >= 1 ? "$ " . number_format($this->content->pedido_descuento, 2) : $this->content->pedido_descuento; ?>" name="pedido_descuento" id="pedido_descuento" class="form-control" readonly disabled>
+						<input type="text" value="<?= $this->content->pedido_descuento >= 1 ? "$ " . number_format(ceil($this->content->pedido_descuento)) : $this->content->pedido_descuento; ?>" name="pedido_descuento" id="pedido_descuento" class="form-control" readonly disabled>
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -90,7 +90,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->pedido_iva >= 1 ? "$ " . number_format($this->content->pedido_iva, 2) : $this->content->pedido_iva; ?>" name="pedido_iva" id="pedido_iva" class="form-control" readonly disabled>
+						<input type="text" value="<?= $this->content->pedido_iva >= 1 ? "$ " . number_format(ceil($this->content->pedido_iva)) : $this->content->pedido_iva; ?>" name="pedido_iva" id="pedido_iva" class="form-control" readonly disabled>
 						<div class="help-block with-errors"></div>
 				</div>
 
@@ -303,7 +303,7 @@
 									</td>
 									<td data-label="Precio">
 										<span class="precio">
-											$<?php echo number_format($producto->pedido_producto_precio_final, 2); ?>
+											$<?php echo number_format(ceil($producto->pedido_producto_precio_final)); ?>
 										</span>
 									</td>
 									<td data-label="Cantidad">
@@ -313,7 +313,7 @@
 									</td>
 									<td data-label="Total">
 										<span class="total" id="total-producto">
-											$<?php echo number_format($producto->pedido_producto_precio_final, 2); ?>
+											$<?php echo number_format(ceil($producto->pedido_producto_precio_final)); ?>
 										</span>
 									</td>
 								</tr>

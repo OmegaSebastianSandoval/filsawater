@@ -36,7 +36,7 @@
 
             <div class="col-4  producto-total text-end">
                 <span class="total">
-                    $<?php echo number_format($producto['total'], 2); ?>
+                    $<?php echo number_format(ceil($producto['total'])); ?>
                 </span>
 
             </div>
@@ -53,7 +53,7 @@
     <div class="d-flex justify-content-between align-items-center py-3 resume-item">
         <span class="total-spam">Total:</span>
         <span class="total-precio">
-            $<?php echo number_format($total, 2); ?>
+            $<?php echo number_format(ceil($total)); ?>
         </span>
     </div>
     <button type="submit" form="form-direccion" class="btn btn-blue w-100 ">Continuar con la compra</button>

@@ -1,4 +1,6 @@
-<div class="caja-contenido-redonda p-3 d-flex justify-content-center" style="background-color: <?php if($contenido->contenido_fondo_color){ echo  $contenido->contenido_fondo_color;  } else if($colorfondo){ echo $colorfondo; }   ?>; <?php if($contenido->contenido_borde == '1'){echo 'border: 2px solid #13436B; border-radius:20px;';} ?>">
+<div 
+data-aos=""
+class="caja-contenido-redonda p-3 d-flex justify-content-center" style="background-color: <?php if($contenido->contenido_fondo_color){ echo  $contenido->contenido_fondo_color;  } else if($colorfondo){ echo $colorfondo; }   ?>; <?php if($contenido->contenido_borde == '1'){echo 'border: 2px solid #13436B; border-radius:20px;';} ?>">
 	
     <button type="button" class=""  data-bs-toggle="modal" data-bs-target="#myModalphp<?php echo $contenido->contenido_id; ?>">
         <?php if($contenido->contenido_titulo_ver == 1){ ?>

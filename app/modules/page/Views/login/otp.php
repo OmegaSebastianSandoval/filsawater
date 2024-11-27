@@ -15,12 +15,12 @@
                 <?php echo $this->email ?></strong> , por favor ingréselo a continuación.
             </p>
             <div class="otp-container">
-              <input type="text" maxlength="1" class="otp-input" id="otp1" name="otp1">
-              <input type="text" maxlength="1" class="otp-input" id="otp2" name="otp2">
-              <input type="text" maxlength="1" class="otp-input" id="otp3" name="otp3">
-              <input type="text" maxlength="1" class="otp-input" id="otp4" name="otp4">
-              <input type="text" maxlength="1" class="otp-input" id="otp5" name="otp5">
-              <input type="text" maxlength="1" class="otp-input" id="otp6" name="otp6">
+              <input type="number" maxlength="1" class="otp-input" id="otp1" name="otp1">
+              <input type="number" maxlength="1" class="otp-input" id="otp2" name="otp2">
+              <input type="number" maxlength="1" class="otp-input" id="otp3" name="otp3">
+              <input type="number" maxlength="1" class="otp-input" id="otp4" name="otp4">
+              <input type="number" maxlength="1" class="otp-input" id="otp5" name="otp5">
+              <input type="number" maxlength="1" class="otp-input" id="otp6" name="otp6">
             </div>
             <input type="hidden" name="email" value="<?php echo $this->emailHidden ?>">
             <button class="btn-blue border-0 mx-auto mt-4" id="btn-sumbit-opt">Iniciar sesión</button>
@@ -41,13 +41,38 @@
   .main-general {
     min-height: auto;
     background-color: #f5f5f5;
-
+    display: grid;
+    place-items: center;
     /* height: calc(100dvh - 400px); */
   }
 
-  @media (width >1500px) {
+  /* footer{
+  bottom: 0;
+  position: fixed;
+} */
+  .otp-input {
+    -moz-appearance: textfield;
+    /* Para Firefox */
+    -webkit-appearance: none;
+    /* Para Chrome, Safari y Edge */
+    appearance: none;
+    /* Para navegadores modernos que soporten 'appearance' */
+
+  }
+
+  input[type="number"]::-webkit-inner-spin-button,
+  input[type="number"]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+
+  @media (width >2500px) {
     .main-general {
-      height: calc(100dvh - 400px);
+      /* height: calc(100dvh - 400px) !important; */
+    }
+    footer{
+      bottom: 0;
+      position: fixed;
     }
   }
 </style>

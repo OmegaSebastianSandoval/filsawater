@@ -70,7 +70,7 @@
                             <td data-label="Precio">
                                 <span class="precio">
                                     <?php $precioProducto = $producto->pedido_producto_precio_final/$producto->pedido_producto_cantidad?>
-                                    $<?php echo number_format($precioProducto, 2); ?>
+                                    $<?php echo number_format(ceil($precioProducto)); ?>
                                 </span>
                             </td>
                             <td data-label="Cantidad">
@@ -80,7 +80,7 @@
                             </td>
                             <td data-label="Total">
                                 <span class="total" id="total-producto">
-                                    $<?php echo number_format($producto->pedido_producto_precio_final, 2); ?>
+                                    $<?php echo number_format(ceil($producto->pedido_producto_precio_final)); ?>
                                 </span>
                             </td>
                         </tr>
@@ -131,20 +131,20 @@
 
                         <div class="resume-item d-flex justify-content-between align-items-center">
                             <span>Subtotal</span>
-                            <span class="info">$ <?= number_format($this->pedido->pedido_subtotal, 2) ?></span>
+                            <span class="info">$ <?= number_format(ceil($this->pedido->pedido_subtotal)) ?></span>
                         </div>
                         <div class="resume-item d-flex justify-content-between align-items-center">
                             <span>Descuento</span>
-                            <span class="info"> - $<?= number_format($this->pedido->pedido_descuento, 2) ?></span>
+                            <span class="info"> - $<?= number_format(ceil($this->pedido->pedido_descuento)) ?></span>
                         </div>
                         <div class="resume-item d-flex justify-content-between align-items-center">
                             <span>IVA</span>
-                            <span class="info">$ <?= number_format($this->pedido->pedido_iva, 2) ?></span>
+                            <span class="info">$ <?= number_format(ceil($this->pedido->pedido_iva)) ?></span>
                         </div>
 
                         <div class="resume-item d-flex justify-content-between align-items-center">
                             <span class="total-spam">Total</span>
-                            <span id="total">$<?= number_format($this->pedido->pedido_total, 2) ?></span>
+                            <span id="total">$<?= number_format(ceil($this->pedido->pedido_total)) ?></span>
                         </div>
                     </div>
                     <form action="/page/comprar/generarpago" id="comprar-continuar" method="POST" class="desactivar-submit">

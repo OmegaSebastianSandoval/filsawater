@@ -67,7 +67,7 @@ class Administracion_pedidosController extends Administracion_mainController
 		if (Session::getInstance()->get($this->namepages)) {
 			$this->pages = Session::getInstance()->get($this->namepages);
 		} else {
-			$this->pages = 20;
+			$this->pages = 50;
 		}
 		parent::init();
 	}
@@ -88,6 +88,7 @@ class Administracion_pedidosController extends Administracion_mainController
 		$filters = (object)Session::getInstance()->get($this->namefilter);
 		$this->_view->filters = $filters;
 		$filters = $this->getFilter();
+		// echo $filters;
 		$order = "pedido_fecha DESC";
 		$list = $this->mainModel->getList($filters, $order);
 		$amount = $this->pages;
@@ -488,9 +489,24 @@ class Administracion_pedidosController extends Administracion_mainController
 	 *
 	 * @return array cadena con los filtros que se van a asignar a la base de datos
 	 */
+	/* $array[1] = 'Creado';
+		$array[2] = 'Dirección pendiente';
+		$array[3] = 'En espera de pago';
+		$array[4] = 'Pago en proceso';
+		$array[5] = 'Transacción aprobada';
+		$array[6] = 'Transacción rechazada';
+		$array[7] = 'Transacción anulada';
+		$array[8] = 'Error interno del método de pago respectivo';
+		$array[9] = 'Pedido enviado';
+		$array[10] = 'Pedido entregado'; */
 	protected function getFilter()
 	{
 		$filtros = " 1 = 1 ";
+		$pedido_estado = $this->_getSanitizedParam("pedido_estado");
+		if(!$pedido_estado) {
+			$filtros = $filtros . " AND ( pedido_estado = '5' OR pedido_estado ='9' OR pedido_estado ='10') ";
+		}
+		
 		if (Session::getInstance()->get($this->namefilter) != "") {
 			$filters = (object)Session::getInstance()->get($this->namefilter);
 			if ($filters->pedido_documento != '') {
@@ -513,8 +529,10 @@ class Administracion_pedidosController extends Administracion_mainController
 				$filters->pedido_fecha_fin = $filters->pedido_fecha_fin . " 23:59:59";
 				$filtros = $filtros . " AND pedido_fecha BETWEEN '" . $filters->pedido_fecha . "' AND '" . $filters->pedido_fecha_fin . "'";
 			}
-			if ($filters->pedido_estado != '') {
+			if ($filters->pedido_estado != '' && $filters->pedido_estado != 'Todos') {
 				$filtros = $filtros . " AND pedido_estado = " . $filters->pedido_estado;
+			}else if($filters->pedido_estado == 'Todos'){
+				$filtros = $filtros . " AND  pedido_estado !='' ";
 			}
 		}
 		return $filtros;

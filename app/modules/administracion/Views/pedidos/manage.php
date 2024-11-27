@@ -86,8 +86,8 @@
 						</div>
 					
 						<?php if($this->content->pedido_estado == 5 ||$this->content->pedido_estado == 9  ){?>
-						<select name="pedido_estado" id="pedido_estado" class="form-control" >
-							<option value="">Seleccione</option>
+						<select name="pedido_estado" id="pedido_estado" class="form-control" required >
+							<option value="" disabled>Seleccione</option>
 							<?php foreach ($this->list_pedido_estado_cambio as $key => $value) { ?>
 								<option value="<?php echo $key; ?>" <?php if ($this->content->pedido_estado == $key) {
 																		echo 'selected';

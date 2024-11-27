@@ -1,4 +1,4 @@
-<div class="container pt-4 pb-2 contenedor-categorias">
+<div data-aos="" class="container pt-4 pb-2 contenedor-categorias">
     <h2>PRODUCTOS</h2>
 
     <h3 class="category-title">
@@ -12,7 +12,7 @@
     <div class="row mt-4">
         <?php if (is_countable($this->productos) && count($this->productos) >= 1) { ?>
             <?php foreach ($this->productos as $producto): ?>
-                <div class="col-6 col-md-4 col-lg-3 mb-3">
+                <div data-aos="" class="col-6 col-md-4 col-lg-3 mb-3">
                     <a href="/page/productos/producto?producto=<?= $producto->producto_id ?>&categoria=<?= $this->categoria->tienda_categoria_id ?>" class="product-link" aria-label="Ver detalles del producto <?= $producto->producto_nombre ?>">
                         <article class="product-card">
                             <figure class="content-image-product">

@@ -1,5 +1,5 @@
 <?php if ($contenido->contenido_enlace) { ?>
-	<a href="<?php echo $contenido->contenido_enlace; ?>" class="enlace-link" <?php if ($contenido->contenido_enlace_abrir == 1) { ?> target="blank" id="enlace-<?php echo $contenido->contenido_id; ?>"
+	<a data-aos="" href="<?php echo $contenido->contenido_enlace; ?>" class="enlace-link" <?php if ($contenido->contenido_enlace_abrir == 1) { ?> target="blank" id="enlace-<?php echo $contenido->contenido_id; ?>"
 		<?php } ?>>
 	<?php } ?>
 	<div class="caja-contenido-simple design-two-links"

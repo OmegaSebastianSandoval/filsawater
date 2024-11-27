@@ -16,7 +16,7 @@
 					<div class="help-block with-errors"></div>
 				</div>
 				<div class="col-5 form-group">
-					<label for="foto_nombre" class="control-label">nombre</label>
+					<label for="foto_nombre" class="control-label">Nombre</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
@@ -26,7 +26,7 @@
 					<div class="help-block with-errors"></div>
 				</div>
 				<div class="col-5 form-group">
-					<label for="foto_foto">foto</label>
+					<label for="foto_foto">Foto</label>
 					<input type="file" name="foto_foto" id="foto_foto" class="form-control  file-image" data-buttonName="btn-primary" accept="image/gif, image/jpg, image/jpeg, image/png" <?php if (!$this->content->foto_id) {
 																																																echo 'required';
 																																															} ?>>
@@ -38,8 +38,8 @@
 						</div>
 					<?php } ?>
 				</div>
-				<div class="col-12 form-group">
-					<label for="foto_descripcion" class="form-label">descripci&oacute;n</label>
+				<div class="col-12 form-group d-none">
+					<label for="foto_descripcion" class="form-label">Descripci&oacute;n</label>
 					<textarea name="foto_descripcion" id="foto_descripcion" class="form-control tinyeditor" rows="10"><?= $this->content->foto_descripcion; ?></textarea>
 					<div class="help-block with-errors"></div>
 				</div>

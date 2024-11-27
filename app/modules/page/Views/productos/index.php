@@ -5,10 +5,10 @@
     // print_r($this->usuario);
     ?>
 
-    <div class="row mt-4">
+    <div data-aos="" class="row mt-4">
         <?php if (is_countable($this->productos) && count($this->productos) >= 1) { ?>
             <?php foreach ($this->productos as $producto): ?>
-                <div class="col-6 col-md-4 col-lg-3 mb-3">
+                <div data-aos="" class="col-6 col-md-4 col-lg-3 mb-3">
                     <a href="/page/productos/producto?producto=<?= $producto->producto_id ?>&categoria=<?=$producto->producto_categoria  ?>" class="product-link" aria-label="Ver detalles del producto <?= $producto->producto_nombre ?>">
                         <article class="product-card">
                             <figure class="content-image-product">
@@ -44,7 +44,7 @@
                             </figure>
                             <div class="content-info-product">
                                 <h3 class="product-title"><?= $producto->producto_nombre ?></h3>
-                                <div class="d-flex align-items-center justify-content-between mt-1">
+                                <div class="d-flex flex-column flex-md-row align-items-center justify-content-md-between mt-1">
                                     <h5 class="product-reference"><span>Ref: </span><?= $producto->producto_referencia ?></h5>
 
                                     <?php if ($this->usuario && $producto->producto_precio && $producto->producto_precio > 1) { ?>

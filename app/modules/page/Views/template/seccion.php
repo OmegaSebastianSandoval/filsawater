@@ -1,4 +1,5 @@
 <section
+	data-aos=""
 	id="<?php echo $contenedor->contenido_id ?>"
 	class="
     id_<?php echo $contenedor->contenido_id ?> 
@@ -19,11 +20,11 @@
 			</div>
 		<?php } ?>
 		<?php if ($contenedor->contenido_introduccion != "") { ?>
-			<div class="introduccion-seccion"><?php echo $contenedor->contenido_introduccion; ?></div>
+			<div data-aos="" class="introduccion-seccion"><?php echo $contenedor->contenido_introduccion; ?></div>
 		<?php } ?>
 
 		<?php if ($contenedor->contenido_descripcion) { ?>
-			<div class="descripcion-seccion ddd"><?php echo $contenedor->contenido_descripcion; ?></div>
+			<div data-aos="" class="descripcion-seccion ddd"><?php echo $contenedor->contenido_descripcion; ?></div>
 		<?php } ?>
 		<?php if ($contenedor->contenido_enlace) { ?>
 			<div class="boton">
@@ -36,11 +37,11 @@
 				<?php foreach ($rescontenido['hijos'] as $key => $rescolumna) : ?>
 
 					<?php $columna = $rescolumna['detalle']; ?>
-					
+
 					<div class="<?php echo $columna->contenido_columna; ?>">
 						<?php if ($columna->contenido_tipo == 5) { ?>
 							<?php $contenido = $columna; ?>
-							
+
 							<?php if ($columna->contenido_disenio == 1) { ?>
 								<?php include(APP_PATH . "modules/page/Views/template/disenio1.php"); ?>
 							<?php } else if ($columna->contenido_disenio == 2) { ?>
@@ -79,7 +80,7 @@
 							<?php $slidercontent = $rescolumna['hijos']; ?>
 							<?php include(APP_PATH . "modules/page/Views/template/slider.php"); ?>
 						<?php } else if ($columna->contenido_tipo == 25) { ?>
-							
+
 							<?php $galeriacontent = $rescolumna['hijos']; ?>
 							<?php include APP_PATH . "modules/page/Views/template/galeria.php"; ?>
 						<?php } ?>

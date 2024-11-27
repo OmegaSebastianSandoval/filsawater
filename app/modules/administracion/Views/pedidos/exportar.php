@@ -64,13 +64,15 @@
                             <span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
                         </div>
                         <select class="form-control" name="pedido_estado">
-                            <option value="">Seleccione</option>
-                            <?php foreach ($this->list_pedido_estado as $key => $value) { ?>
-                                <option value="<?php echo $key; ?>" <?php if ($this->getObjectVariable($this->filters, 'pedido_estado') == $key) {
-                                                                        echo 'selected';
-                                                                    } ?>><?php echo $value; ?></option>
-                            <?php } ?>
-                        </select>
+							<option value="">Seleccione</option>
+							<option value="Todos" <?= $this->getObjectVariable($this->filters, 'pedido_estado') == 'Todos' ? 'selected' : '' ?>>Todos</option>
+
+							<?php foreach ($this->list_pedido_estado as $key => $value) { ?>
+								<option value="<?php echo $key; ?>" <?php if ($this->getObjectVariable($this->filters, 'pedido_estado') == $key) {
+																		echo 'selected';
+																	} ?>><?php echo $value; ?></option>
+							<?php } ?>
+						</select>
                     </label>
                 </div>
 
@@ -111,7 +113,7 @@
                         <td><?= $content->pedido_fecha ?></td>
                         <td><?= $content->pedido_documento ?></td>
                         <td><?= $content->pedido_nombre ?></td>
-                        <td><?= $content->pedido_total >= 1 ? "$ " . number_format($content->pedido_total, 2) : $content->pedido_total ?></td>
+                        <td><?= $content->pedido_total >= 1 ? "$ " . number_format(ceil($content->pedido_total)) : $content->pedido_total ?></td>
                         <td><?= $this->list_pedido_estado[$content->pedido_estado] ?></td>
 
                     </tr>

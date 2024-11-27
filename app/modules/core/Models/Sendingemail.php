@@ -226,13 +226,13 @@ class Core_Model_Sendingemail
       9 =>
       [
         'estado' => 'Enviado',
-        'asunto' => 'Compra Enviado FILSA WATER',
+        'asunto' => 'Pedido Enviado FILSA WATER',
         'template' => 'correoTiendaEnvio.php'
       ],
       10 =>
       [
         'estado' => 'Entregado',
-        'asunto' => 'Compra Entregado FILSA WATER',
+        'asunto' => 'Pedido Entregado FILSA WATER',
         'template' => 'correoTiendaEntregado.php'
       ]
     ];

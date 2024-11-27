@@ -17,6 +17,6 @@ echo $this->banner;
     width: 100% !important;
     aspect-ratio: 16/9;
     height: auto;
-   
+   display: block;
   }
 </style>

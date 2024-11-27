@@ -60,7 +60,7 @@ class Administracion_productosController extends Administracion_mainController
 		if(Session::getInstance()->get($this->namepages)){
 			$this->pages = Session::getInstance()->get($this->namepages);
 		} else {
-			$this->pages = 20;
+			$this->pages = 50;
 		}
 		parent::init();
 	}

@@ -4,16 +4,16 @@
 		<div class="content-dashboard">
 			<?php if ($this->foto_solucion) { ?>
 				<div class="d-flex gap-4 mb-2">
-					
-						<a href="/administracion/soluciones/?padre=<?= $this->solucion->solucion_padre ?>" class="btn btn-outline-success px-4"><i class="fa-solid fa-circle-arrow-left"></i> Volver</a>
-					
+
+					<a href="/administracion/soluciones/?padre=<?= $this->solucion->solucion_padre ?>" class="btn btn-outline-success px-4"><i class="fa-solid fa-circle-arrow-left"></i> Volver</a>
+
 				</div>
 			<?php } ?>
 			<?php if ($this->foto_producto) { ?>
 				<div class="d-flex gap-4 mb-2">
-					
-						<a href="/administracion/productos" class="btn btn-outline-success px-4"><i class="fa-solid fa-circle-arrow-left"></i> Volver</a>
-					
+
+					<a href="/administracion/productos" class="btn btn-outline-success px-4"><i class="fa-solid fa-circle-arrow-left"></i> Volver</a>
+
 				</div>
 			<?php } ?>
 			<div class="row">
@@ -23,11 +23,21 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" class="form-control" name="foto_estado" value="<?php echo $this->getObjectVariable($this->filters, 'foto_estado') ?>"></input>
+						<!-- <input type="text" class="form-control" name="foto_estado" value="<?php echo $this->getObjectVariable($this->filters, 'foto_estado') ?>"></input> -->
+
+						<select class="form-control" name="foto_estado">
+							<option value="">Seleccione</option>
+							<option value="1" <?php if ($this->getObjectVariable($this->filters, 'foto_estado') == 1) {
+													echo 'selected';
+												} ?>>Si</option>
+							<option value="0" <?php if ($this->getObjectVariable($this->filters, 'foto_estado') == 0) {
+													echo 'selected';
+												} ?>>No</option>
+						</select>
 					</label>
 				</div>
 				<div class="col-3">
-					<label>nombre</label>
+					<label>Nombre</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
@@ -35,8 +45,8 @@
 						<input type="text" class="form-control" name="foto_nombre" value="<?php echo $this->getObjectVariable($this->filters, 'foto_nombre') ?>"></input>
 					</label>
 				</div>
-				<div class="col-3">
-					<label>foto</label>
+				<div class="col-3  d-none">
+					<label>Foto</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
@@ -44,7 +54,7 @@
 						<input type="text" class="form-control" name="foto_foto" value="<?php echo $this->getObjectVariable($this->filters, 'foto_foto') ?>"></input>
 					</label>
 				</div>
-				<div class="col-3">
+				<div class="col-3 d-none">
 					<label>foto_album</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
@@ -53,7 +63,7 @@
 						<input type="text" class="form-control" name="foto_album" value="<?php echo $this->getObjectVariable($this->filters, 'foto_album') ?>"></input>
 					</label>
 				</div>
-				<div class="col-3">
+				<div class="col-3 d-none">
 					<label>foto_solucion</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
@@ -62,7 +72,7 @@
 						<input type="text" class="form-control" name="foto_solucion" value="<?php echo $this->getObjectVariable($this->filters, 'foto_solucion') ?>"></input>
 					</label>
 				</div>
-				<div class="col-3">
+				<div class="col-3 d-none">
 					<label>foto_producto</label>
 					<label class="input-group">
 						<div class="input-group-prepend">

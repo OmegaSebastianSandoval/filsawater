@@ -37,11 +37,11 @@
                 <td><?= $pedido->pedido_id ?></td>
                 <td><?= $pedido->pedido_documento ?></td>
                 <td><?= $pedido->pedido_fecha ?></td>
-                <td>$<?= $pedido->pedido_total >= 1 ? number_format($pedido->pedido_total, 2) : $pedido->pedido_total  ?></td>
-                <td>$<?= $pedido->pedido_subtotal >= 1 ? number_format($pedido->pedido_subtotal, 2) : $pedido->pedido_subtotal  ?></td>
+                <td>$<?= $pedido->pedido_total >= 1 ? number_format(ceil($pedido->pedido_total)) : $pedido->pedido_total  ?></td>
+                <td>$<?= $pedido->pedido_subtotal >= 1 ? number_format(ceil($pedido->pedido_subtotal)) : $pedido->pedido_subtotal  ?></td>
                 <td><?= $pedido->pedido_procentaje_descuento ?></td>
-                <td>$<?= $pedido->pedido_descuento >= 1 ? number_format($pedido->pedido_descuento, 2) : $pedido->pedido_descuento  ?></td>
-                <td>$ <?= $pedido->pedido_iva >= 1 ? number_format($pedido->pedido_iva, 2) : $pedido->pedido_iva  ?></td>
+                <td>$<?= $pedido->pedido_descuento >= 1 ? number_format(ceil($pedido->pedido_descuento)) : $pedido->pedido_descuento  ?></td>
+                <td>$ <?= $pedido->pedido_iva >= 1 ? number_format(ceil($pedido->pedido_iva)) : $pedido->pedido_iva  ?></td>
                 <td><?= $pedido->pedido_estado ?></td>
                 <td><?= $pedido->pedido_departamento ?></td>
                 <td><?= $pedido->pedido_ciudad ?></td>
@@ -64,9 +64,9 @@
                 <?php foreach ($pedido->productos as $producto) { ?>
                     <tr style="background-color: gainsboro;">
                         <td colspan="6">Producto: <?= $producto->pedido_producto_nombre ?></td>
-                        <td colspan="2">Precio: $<?= $producto->pedido_producto_precio_final / $producto->pedido_producto_cantidad >= 1 ? number_format($producto->pedido_producto_precio_final / $producto->pedido_producto_cantidad, 2) : $producto->pedido_producto_precio_final / $producto->pedido_producto_cantidad ?></td>
+                        <td colspan="2">Precio: $<?= $producto->pedido_producto_precio_final / $producto->pedido_producto_cantidad >= 1 ? number_format(ceil($producto->pedido_producto_precio_final / $producto->pedido_producto_cantidad)) : $producto->pedido_producto_precio_final / $producto->pedido_producto_cantidad ?></td>
                         <td colspan="2">Cantidad: <?= $producto->pedido_producto_cantidad ?></td>
-                        <td colspan="4">Total: $<?= $producto->pedido_producto_precio_final >= 1 ? number_format($producto->pedido_producto_precio_final, 2) : $producto->pedido_producto_precio_final ?></td>
+                        <td colspan="4">Total: $<?= $producto->pedido_producto_precio_final >= 1 ? number_format(ceil($producto->pedido_producto_precio_final)) : $producto->pedido_producto_precio_final ?></td>
                         <td colspan="9"></td>
                     </tr>
                     <?php $total += $producto->pedido_producto_precio_final ?>
@@ -74,7 +74,7 @@
                 <?php } ?>
                 <tr>
                     <td colspan="10"></td>
-                    <td colspan="13">Total: $<?= $total >= 1 ? number_format($total, 2) : $total ?></td>
+                    <td colspan="13">Total: $<?= $total >= 1 ? number_format(ceil($total)) : $total ?></td>
 
 
                 </tr>

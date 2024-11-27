@@ -57,6 +57,8 @@
 						</div>
 						<select class="form-control" name="pedido_estado">
 							<option value="">Seleccione</option>
+							<option value="Todos" <?= $this->getObjectVariable($this->filters, 'pedido_estado') == 'Todos' ? 'selected' : '' ?>>Todos</option>
+
 							<?php foreach ($this->list_pedido_estado as $key => $value) { ?>
 								<option value="<?php echo $key; ?>" <?php if ($this->getObjectVariable($this->filters, 'pedido_estado') == $key) {
 																		echo 'selected';
@@ -113,18 +115,18 @@
 				</div>
 				<div class="col-1">
 					<select class="form-control form-control-sm selectpagination">
-						<option value="20" <?php if ($this->pages == 20) {
-												echo 'selected';
-											} ?>>20</option>
-						<option value="30" <?php if ($this->pages == 30) {
-												echo 'selected';
-											} ?>>30</option>
 						<option value="50" <?php if ($this->pages == 50) {
 												echo 'selected';
 											} ?>>50</option>
 						<option value="100" <?php if ($this->pages == 100) {
 												echo 'selected';
 											} ?>>100</option>
+						<option value="150" <?php if ($this->pages == 150) {
+												echo 'selected';
+											} ?>>150</option>
+						<option value="200" <?php if ($this->pages == 200) {
+												echo 'selected';
+											} ?>>200</option>
 					</select>
 				</div>
 				<!-- <div class="col-3">
@@ -143,7 +145,7 @@
 						<td>Total</td>
 						<td>Estado</td>
 
-						<td width="100"></td>
+						<td width="200"></td>
 					</tr>
 				</thead>
 				<tbody>
@@ -154,7 +156,7 @@
 							<td><?= $content->pedido_fecha ?></td>
 							<td><?= $content->pedido_documento ?></td>
 							<td><?= $content->pedido_nombre ?></td>
-							<td><?= $content->pedido_total >= 1 ? "$ " . number_format($content->pedido_total, 2) : $content->pedido_total ?></td>
+							<td><?= $content->pedido_total >= 1 ? "$ " . number_format(ceil($content->pedido_total)) : $content->pedido_total ?></td>
 							<td><?= $this->list_pedido_estado[$content->pedido_estado] ?></td>
 							<td class="text-end">
 								<div>
@@ -163,7 +165,11 @@
 										<a class="btn btn-warning btn-sm" href="<?php echo $this->route; ?>/reenviarcorreo?id=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Reenviar Correo De Estado"><i class="fa-solid fa-envelope"></i></a>
 
 									<?php } ?>
-									<a class="btn btn-azul-claro btn-sm" href="<?php echo $this->route; ?>/manage?id=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-pen-alt"></i></a>
+
+									<?php if ($content->pedido_estado == 5 || $content->pedido_estado == 9) { ?>
+										<a class="btn btn-azul-claro btn-sm" href="<?php echo $this->route; ?>/manage?id=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-pen-alt"></i></a>
+									<?php } ?>
+
 									<!-- 	<span  data-bs-toggle="tooltip" data-placement="top" title="Eliminar"><a class="btn btn-rojo btn-sm"  data-bs-toggle="modal" data-bs-target="#modal<?= $id ?>"  ><i class="fas fa-trash-alt" ></i></a></span>
  -->
 								</div>

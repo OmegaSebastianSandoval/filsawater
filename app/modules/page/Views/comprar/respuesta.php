@@ -33,7 +33,7 @@
                 </div>
                 <div class="col-12 col-md-12  p-3 ">
                     <span class="info">
-                        Referencia del pago:
+                        Referencia del pedido:
                     </span>
                     <span class="response">
                         <?= $this->response->reference ?>

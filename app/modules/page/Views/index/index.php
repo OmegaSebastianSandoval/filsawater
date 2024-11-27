@@ -11,7 +11,7 @@
 </script>
 <?php echo $this->banner ?>
 
-<div class="contenido-home  overflow-x-hidden">
+<div class="contenido-home ">
     <?php echo $this->contenido ?>
 
    <!--  <section id="secton-blogs" class="contenedor-seccion section-blogs bg-gray">
@@ -46,7 +46,7 @@
         </div>
 
     </section> -->
-    <section id="secton-blogs" class="contenedor-seccion section-blogs bg-gray">
+    <section data-aos="" id="secton-blogs" class="contenedor-seccion section-blogs bg-gray">
         <div class="container">
 
             <h2 class="text-center">Conoce nuestras soluciones</h2>

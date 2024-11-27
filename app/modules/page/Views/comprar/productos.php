@@ -46,7 +46,7 @@
                             <div class="product-detail-cart-shop mt-2" id="checkout-section" data-shop-id="<?= $producto['detalle']->producto_id ?>">
                                 <div class="quantity-control-cart-shop">
                                     <button class="btn-decrease-cart-shop">-</button>
-                                    <input type="number" value="<?php echo $producto['cantidad']; ?>" min="1" max="<?= $producto['detalle']->producto_stock > 5 ? 5 : intval($producto['detalle']->producto_stock) ?>" class="quantity-cart-shop" readonly>
+                                    <input type="number" value="<?php echo $producto['cantidad']; ?>" min="1" max="<?= $producto['detalle']->producto_stock > 50 ? 50 : intval($producto['detalle']->producto_stock) ?>" class="quantity-cart-shop" readonly>
                                     <button class="btn-increase-cart-shop">+</button>
                                 </div>
 
@@ -55,7 +55,7 @@
                     </td>
                     <td data-label="Total">
                         <span class="total" id="total-producto">
-                            $<?php echo number_format($producto['total'], 2); ?>
+                            $<?php echo number_format(ceil($producto['total'])); ?>
                         </span>
                     </td>
                     <td data-label="Eliminar">

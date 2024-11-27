@@ -1,7 +1,7 @@
 <?php
 echo $this->banner;
 ?>
-<div class="container container-categorias pb-3">
+<div data-aos="" class="container container-categorias pb-3">
     <?php echo $this->contenido ?>
 
     <?php if ($this->tag) { ?>
@@ -18,9 +18,9 @@ echo $this->banner;
 
     <?php } ?>
 
-    <div class="row g-5">
+    <div data-aos="" class="row g-5">
         <?php foreach ($this->soluciones as $solucion) : ?>
-            <div class="col-12 col-md-6 col-lg-4 container-solucion">
+            <div  data-aos="" class="col-12 col-md-6 col-lg-4 container-solucion">
 
                 <a href="/page/soluciones/solucion?id=<?= $solucion->solucion_id ?>">
 

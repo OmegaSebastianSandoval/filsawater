@@ -10,6 +10,9 @@ class Page_confirmacionController extends Page_mainController
 
     // Responder a Wompi
     http_response_code(200);
+    header("HTTP/1.1 200 OK");
+    header('Status: 200');
+    echo json_encode(array());
     echo json_encode(['message' => 'Evento recibido correctamente']);
 
     // Leer el cuerpo de la solicitud (JSON enviado por Wompi)
@@ -61,6 +64,7 @@ class Page_confirmacionController extends Page_mainController
     $estados = $this->getPedidoestado();
     $estadosTexto = $this->getListStatus();
     $idPedido = $dataReceived["data"]["transaction"]["reference"];
+
     if ($dataReceived["data"]["transaction"]["payment_method_type"] == 'CARD') {
       $entidadPedido = $dataReceived["data"]["transaction"]["payment_method"]["extra"]["brand"];
     } else {
@@ -76,9 +80,11 @@ class Page_confirmacionController extends Page_mainController
     $pedido = $pedidosModel->getById($idPedido);
     if (
       ($pedido->pedido_estado == 5 ||
-      $pedido->pedido_estado == 6 ||
-      $pedido->pedido_estado == 7 ||
-      $pedido->pedido_estado == 8) &&
+        $pedido->pedido_estado == 6 ||
+        $pedido->pedido_estado == 7 ||
+        $pedido->pedido_estado == 8 ||
+        $pedido->pedido_estado == 9 ||
+        $pedido->pedido_estado == 10) &&
       $pedido->pedido_identificador == $idTransaccion
     ) {
       return;
@@ -114,7 +120,6 @@ class Page_confirmacionController extends Page_mainController
     // Insertar el log en la base de datos
     $logModel = new Administracion_Model_DbTable_Log();
     $logModel->insert($logData);
-
   }
 
 

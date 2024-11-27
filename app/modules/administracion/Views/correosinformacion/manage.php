@@ -10,7 +10,7 @@
 			<?php }?>
 			<div class="row">
 				<div class="col-7 form-group">
-					<label for="correos_informacion_correo"  class="control-label">correo</label>
+					<label for="correos_informacion_correo"  class="control-label">Correo</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-pencil-alt"></i></span>
@@ -20,7 +20,7 @@
 					<div class="help-block with-errors"></div>
 				</div>
 				<div class="col-3 form-group">
-					<label for="correos_informacion_fecha"  class="control-label">fecha</label>
+					<label for="correos_informacion_fecha"  class="control-label">Fecha</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono " ><i class="fas fa-calendar-alt"></i></span>

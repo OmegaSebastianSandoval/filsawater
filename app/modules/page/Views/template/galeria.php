@@ -1,4 +1,6 @@
-<div class="row mt-4">
+<div
+  data-aos=""
+  class="row mt-4">
   <?php
   // print_r($columna);
   if ($columna->contenido_titulo_ver == 1) {

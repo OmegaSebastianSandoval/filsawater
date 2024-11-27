@@ -1,7 +1,7 @@
 <div class="container">
     <div class="row">
         <div class="col-12 col-md-4 d-flex align-items-center justify-content-center p-4">
-            <img src="/assets/logo-light.png" alt="Logo Filsa" class="img-fluid d-block my-auto">
+            <img src="/assets/logo-light.png" alt="Logo Filsa" class="img-fluid d-block my-auto footer-logo">
         </div>
         <div class="col-12 col-md-8">
             <div class="row">
@@ -9,16 +9,16 @@
 
                     <div>
                         <h3>Links</h3>
-                        <div class="d-flex gap-4 justify-content-start">
-                            <ul class="list-unstyled">
+                        <div class="d-flex gap-0 gap-md-4 flex-column flex-md-row mb-3 justify-content-start">
+                            <ul class="list-unstyled m-0 mb-md-1">
                                 <li><a href="/page/index/#25">Sobre Nosotros</a></li>
                                 <li><a href="/page/soluciones">Soluciones</a></li>
                                 <li><a href="/page/productos">Productos</a></li>
 
                             </ul>
-                            <ul class="list-unstyled">
+                            <ul class="list-unstyled m-0 mb-md-1">
                                 <li><a href="#"data-bs-toggle="modal" data-bs-target="#modalPoliticas" role="button">Políticas de Privacidad</a></li>
-                                <li><a href="/page/index/#4">Proyectos</a></li>
+                                <!-- <li><a href="/page/index/#4">Proyectos</a></li> -->
                                 <li><a href="/page/contacto/">Contacto</a></li>
 
                             </ul>

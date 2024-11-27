@@ -28,7 +28,7 @@
                             <div class="col-12 col-md-6 col-lg-4 mb-2">
 
                                 <label>
-                                    <input class="input" type="text" name="nit" required autocomplete="new-text" onkeypress="return soloNumerosYGuion(event)" maxlength="15" minlength="10" pattern="^\d+(-\d+)*$" title="Ingrese solo números y guiones">
+                                    <input class="input" type="text" name="nit" required autocomplete="new-text" onkeypress="return soloNumerosYGuion(event)" maxlength="15" minlength="8" pattern="^\d+(-\d+)*$" title="Ingrese solo números y guiones">
                                     <span>Nit</span>
                                 </label>
                             </div>

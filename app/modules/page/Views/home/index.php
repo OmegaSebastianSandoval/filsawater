@@ -368,10 +368,10 @@
                                     <tr>
                                         <td data-label="Pedido #" class="identificador"><?= $pedido->pedido_id ?></td>
                                         <td data-label="Fecha"><?= $pedido->pedido_fecha ?></td>
-                                        <td data-label="Total"><?= $pedido->pedido_total >= 1 ? "$ " . number_format($pedido->pedido_total, 2) : $pedido->pedido_total ?></td>
+                                        <td data-label="Total"><?= $pedido->pedido_total >= 1 ? "$ " . number_format(ceil($pedido->pedido_total)) : $pedido->pedido_total ?></td>
                                         <td data-label="Estado"><?= $this->pedidoestado[$pedido->pedido_estado] ?></td>
                                         <td data-label="Acciones">
-                                            <button class="btn-blue border-0 py-2" data-bs-toggle="modal" data-bs-target="#modalPedido<?= $pedido->pedido_id ?>"><i class="fa-solid fa-eye"></i></button>
+                                            <button class="btn-blue border-0 p-2" data-bs-toggle="modal" data-bs-target="#modalPedido<?= $pedido->pedido_id ?>"><i class="fa-solid fa-eye"></i></button>
                                             <!-- Modal -->
                                             <div class="modal fade modal-transparente" id="modalPedido<?= $pedido->pedido_id ?>" tabindex="-1" aria-labelledby="modalPedido<?= $pedido->pedido_id ?>Label" aria-hidden="true">
                                                 <div class="modal-dialog modal-xl ">
@@ -403,7 +403,7 @@
                                                                     <label for="pedido_total" class="control-label">Total</label>
                                                                     <label class="input-group">
 
-                                                                        <input type="text" value="<?= $pedido->pedido_total >= 1 ? "$ " . number_format($pedido->pedido_total, 2) : $pedido->pedido_total; ?>" name="pedido_total" id="pedido_total" class="form-control" readonly disabled>
+                                                                        <input type="text" value="<?= $pedido->pedido_total >= 1 ? "$ " . number_format(ceil($pedido->pedido_total)) : $pedido->pedido_total; ?>" name="pedido_total" id="pedido_total" class="form-control" readonly disabled>
                                                                     </label>
                                                                     <div class="help-block with-errors"></div>
                                                                 </div>
@@ -411,7 +411,7 @@
                                                                     <label for="pedido_subtotal" class="control-label">Subtotal</label>
                                                                     <label class="input-group">
 
-                                                                        <input type="text" value="<?= $pedido->pedido_subtotal >= 1 ? "$ " . number_format($pedido->pedido_subtotal, 2) : $pedido->pedido_subtotal ?>" name="pedido_subtotal" id="pedido_subtotal" class="form-control" readonly disabled>
+                                                                        <input type="text" value="<?= $pedido->pedido_subtotal >= 1 ? "$ " . number_format(ceil($pedido->pedido_subtotal)) : $pedido->pedido_subtotal ?>" name="pedido_subtotal" id="pedido_subtotal" class="form-control" readonly disabled>
                                                                     </label>
                                                                     <div class="help-block with-errors"></div>
                                                                 </div>
@@ -427,7 +427,7 @@
                                                                     <label for="pedido_descuento" class="control-label">Descuento</label>
                                                                     <label class="input-group">
 
-                                                                        <input type="text" value="<?= $pedido->pedido_descuento >= 1 ? "$ " . number_format($pedido->pedido_descuento, 2) : $pedido->pedido_descuento; ?>" name="pedido_descuento" id="pedido_descuento" class="form-control" readonly disabled>
+                                                                        <input type="text" value="<?= $pedido->pedido_descuento >= 1 ? "$ " . number_format(ceil($pedido->pedido_descuento)) : $pedido->pedido_descuento; ?>" name="pedido_descuento" id="pedido_descuento" class="form-control" readonly disabled>
                                                                     </label>
                                                                     <div class="help-block with-errors"></div>
                                                                 </div>
@@ -443,7 +443,7 @@
                                                                     <label for="pedido_iva" class="control-label">Iva</label>
                                                                     <label class="input-group">
 
-                                                                        <input type="text" value="<?= $pedido->pedido_iva >= 1 ? "$ " . number_format($pedido->pedido_iva, 2) : $pedido->pedido_iva; ?>" name="pedido_iva" id="pedido_iva" class="form-control" readonly disabled>
+                                                                        <input type="text" value="<?= $pedido->pedido_iva >= 1 ? "$ " . number_format(ceil($pedido->pedido_iva)) : $pedido->pedido_iva; ?>" name="pedido_iva" id="pedido_iva" class="form-control" readonly disabled>
                                                                         <div class="help-block with-errors"></div>
                                                                 </div>
 
@@ -605,7 +605,7 @@
                                                                             </td>
                                                                             <td data-label="Precio">
                                                                                 <span class="precio">
-                                                                                    $<?php echo number_format($producto->pedido_producto_precio_final, 2); ?>
+                                                                                    $<?php echo number_format(ceil($producto->pedido_producto_precio_final)); ?>
                                                                                 </span>
                                                                             </td>
                                                                             <td data-label="Cantidad">
@@ -615,7 +615,7 @@
                                                                             </td>
                                                                             <td data-label="Total">
                                                                                 <span class="total" id="total-producto">
-                                                                                    $<?php echo number_format($producto->pedido_producto_precio_final, 2); ?>
+                                                                                    $<?php echo number_format(ceil($producto->pedido_producto_precio_final)); ?>
                                                                                 </span>
                                                                             </td>
                                                                         </tr>
@@ -667,6 +667,9 @@
     .container-profile .form-contact label input.input,
     .container-profile .form-contact label select.input {
         height: 42px;
+    }
+    .container-profile .form-contact input:disabled{
+        background-color: #d1d1d1;
     }
 </style>
 
