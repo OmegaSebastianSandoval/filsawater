@@ -132,7 +132,8 @@
 									<?php if ($content->contenido_tipo == 2) { ?>
 										<a class="btn btn-rosado btn-sm" href="<?php echo $this->route; ?>?padre=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Columnas"><i class="fas fa-columns"></i></a>
 									<?php } ?>
-									<?php if ($content->contenido_tipo == 6 || $content->contenido_tipo == 7 || $content->contenido_tipo == 8) { ?>
+									<?php if ($content->contenido_tipo == 6 || $content->contenido_tipo == 7 || $content->contenido_tipo == 8 || $content->contenido_tipo == 25
+									 ) { ?>
 										<a class="btn btn-rosado btn-sm" href="<?php echo $this->route; ?>?padre=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Elementos"><i class="fas fa-plus-square"></i></a>
 									<?php } ?>
 									<a class="btn btn-azul btn-sm" href="<?php echo $this->route; ?>/manage?id=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-pen-alt"></i></a>

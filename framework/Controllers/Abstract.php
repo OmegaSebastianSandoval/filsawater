@@ -5,6 +5,8 @@ abstract class Controllers_Abstract
   protected $_response;
   protected $_request;
   protected $_routes;
+
+  protected $_action;
   protected $_view;
   protected $_viewFilename;
   protected $_layout = null;
@@ -103,7 +105,10 @@ abstract class Controllers_Abstract
   {
     return $this->_routes;
   }
-
+  public function getAction()
+  {
+    return $this->_action;
+  }
   public function setResponse($res)
   {
     $this->_response = $res;

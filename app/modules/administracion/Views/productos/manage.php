@@ -31,7 +31,7 @@
 			<div class="row">
 
 				<div class="col-7 form-group">
-					<label for="producto_nombre" class="control-label">nombre</label>
+					<label for="producto_nombre" class="control-label">Nombre</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
@@ -41,7 +41,7 @@
 					<div class="help-block with-errors"></div>
 				</div>
 				<div class="col-3 form-group">
-					<label for="producto_precio" class="control-label">precio</label>
+					<label for="producto_precio" class="control-label">Precio</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
@@ -61,7 +61,7 @@
 					<div class="help-block with-errors"></div>
 				</div>
 				<div class="col-2 form-group">
-					<label for="producto_stock" class="control-label">stock</label>
+					<label for="producto_stock" class="control-label">Stock</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
@@ -83,7 +83,7 @@
 				</div>
 
 				<div class="col-4 form-group">
-					<label for="producto_imagen">imagen</label>
+					<label for="producto_imagen">Imagen</label>
 					<input type="file" name="producto_imagen" id="producto_imagen" class="form-control  file-image" data-buttonName="btn-primary" accept="image/gif, image/jpg, image/jpeg, image/png">
 					<div class="help-block with-errors"></div>
 					<?php if ($this->content->producto_imagen) { ?>
@@ -95,7 +95,7 @@
 				</div>
 
 				<div class="col-5 form-group">
-					<label class="control-label">categor&iacute;a</label>
+					<label class="control-label">Categor&iacute;a</label>
 					<label class="input-group">
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono  "><i class="far fa-list-alt"></i></span>
@@ -112,7 +112,7 @@
 					<div class="help-block with-errors"></div>
 				</div>
 				<div class="col-12 form-group">
-					<label for="producto_descripcion" class="form-label">descripci&oacute;n</label>
+					<label for="producto_descripcion" class="form-label">Descripci&oacute;n</label>
 					<textarea name="producto_descripcion" id="producto_descripcion" class="form-control tinyeditor" rows="10"><?= $this->content->producto_descripcion; ?></textarea>
 					<div class="help-block with-errors"></div>
 				</div>

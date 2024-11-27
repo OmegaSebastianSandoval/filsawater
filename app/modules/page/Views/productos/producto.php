@@ -11,7 +11,7 @@
         <div class="col-12 col-lg-5 order-2 order-lg-1">
 
 
-            <div class="content-photos contenedorfotos" id="contenedorfotos">
+            <div class="content-photos contenedorfotos resume-pago" id="contenedorfotos">
                 <?php if (is_countable($this->producto->fotos) && count($this->producto->fotos) >= 1) { ?>
 
                     <div class="f-carousel" id="myCarousel">
@@ -59,7 +59,7 @@
 
             <div class="disponibility-producto">
                 <?php if ($this->producto->producto_stock && $this->producto->producto_stock >= 1) { ?>
-                    <span class="stock-producto"> Disponibilidad: <span class="in-stock">En stock</span> </span>
+                    <span class="stock-producto"> Disponibilidad: <span class="in-stock"><?= $this->producto->producto_stock ?> unidades</span></span>
                 <?php } else { ?>
                     <span class="stock-producto">Disponibilidad: <span class="not-stock">Agotado en el momento</span></span>
                 <?php } ?>
@@ -84,7 +84,7 @@
                 <div class="product-detail mt-4 ">
                     <div class="quantity-control">
                         <button class="btn-decrease">-</button>
-                        <input type="number" value="1" min="1" max="<?= $this->producto->producto_stock > 5 ? 5 : intval($this->producto->producto_stock) ?>" class="quantity" readonly>
+                        <input type="number" value="1" min="1" max="<?= $this->producto->producto_stock > 50 ? 50 : intval($this->producto->producto_stock) ?>" class="quantity" readonly>
                         <button class="btn-increase">+</button>
                     </div>
                     <button

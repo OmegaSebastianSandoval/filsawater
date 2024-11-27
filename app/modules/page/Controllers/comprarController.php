@@ -595,19 +595,32 @@ class Page_comprarController extends Page_mainController
     $today = clone $now;
     $today->setTime(23, 58, 0);
 
+    // Crear la fecha para filtrar pedidos de estado 4 (1 hora antes de la consulta)
+    $thirtyMinutes = clone $now;
+    $thirtyMinutes->modify('-30 minutes');
+
     // Convertir a formato deseado
     $fecha1 = $yesterday->format('Y-m-d H:i:s');
     $fecha2 = $today->format('Y-m-d H:i:s');
-
+    $fechathirtyMinutes = $thirtyMinutes->format('Y-m-d H:i:s');
+    // echo $fechathirtyMinutes;
     // Mostrar las fechas
     /*     echo "Fecha 1: $fecha1\n";
     echo "Fecha 2: $fecha2\n"; */
 
-    $pedidos = $pedidosModel->getList("(pedido_estado = 2 OR pedido_estado = 3) AND (pedido_response ='' OR pedido_response IS NULL)   AND (pedido_identificador ='' OR pedido_identificador IS NULL) AND (pedido_validacion ='' OR pedido_validacion IS NULL) AND (pedido_validacion_texto ='' OR pedido_validacion_texto IS NULL) AND (pedido_respuesta ='' OR pedido_respuesta IS NULL) AND (pedido_validacion2 ='' OR pedido_validacion2 IS NULL) AND pedido_fecha BETWEEN '$fecha1' AND '$fecha2' ");
-    /* echo "<pre>";
-    print_r($pedidos);
-    echo "</pre>"; */
+    // $pedidos = $pedidosModel->getList("(pedido_estado = 2 OR pedido_estado = 3 ) AND (pedido_response ='' OR pedido_response IS NULL)   AND (pedido_identificador ='' OR pedido_identificador IS NULL) AND (pedido_validacion ='' OR pedido_validacion IS NULL) AND (pedido_validacion_texto ='' OR pedido_validacion_texto IS NULL) AND (pedido_respuesta ='' OR pedido_respuesta IS NULL) AND (pedido_validacion2 ='' OR pedido_validacion2 IS NULL) AND pedido_fecha BETWEEN '$fecha1' AND '$fecha2' ");
+    $pedidos = $pedidosModel->getList("((pedido_estado = 2 OR pedido_estado = 3) AND (pedido_response ='' OR pedido_response IS NULL) AND (pedido_identificador ='' OR pedido_identificador IS NULL) AND (pedido_validacion ='' OR pedido_validacion IS NULL) AND     (pedido_validacion_texto ='' OR pedido_validacion_texto IS NULL) AND     (pedido_respuesta ='' OR pedido_respuesta IS NULL) AND     (pedido_validacion2 ='' OR pedido_validacion2 IS NULL) AND     pedido_fecha BETWEEN '$fecha1' AND '$fecha2')
+    OR     (pedido_estado = 4 AND pedido_fecha < '$fechathirtyMinutes')");
 
+    // echo "<pre>";
+    // print_r($pedidos);
+    // echo "</pre>";
+    /*   // Consultar pedidos con estado 4 y fecha al menos 1 hora antes
+
+
+    //unir los dos arrays
+    $pedidos = array_merge($pedidos, $pedidosEstado4);
+ */
     foreach ($pedidos as $pedido) {
       $this->retornarInventario($pedido->pedido_id);
       $pedidosModel->editField($pedido->pedido_id, "pedido_estado", 8);

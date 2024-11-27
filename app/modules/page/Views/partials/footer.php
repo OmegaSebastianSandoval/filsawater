@@ -11,14 +11,14 @@
                         <h3>Links</h3>
                         <div class="d-flex gap-4 justify-content-start">
                             <ul class="list-unstyled">
-                                <li><a href="/page/index">Sobre Nosotros</a></li>
-                                <li><a href="/page/index/nosotros">Blog</a></li>
-                                <li><a href="/page/index/servicios">Servicios</a></li>
+                                <li><a href="/page/index/#25">Sobre Nosotros</a></li>
+                                <li><a href="/page/soluciones">Soluciones</a></li>
+                                <li><a href="/page/productos">Productos</a></li>
 
                             </ul>
                             <ul class="list-unstyled">
-                                <li><a href="/page/index/politicas">Políticas de Privacidad</a></li>
-                                <li><a href="/page/index/terminos">Proyectos</a></li>
+                                <li><a href="#"data-bs-toggle="modal" data-bs-target="#modalPoliticas" role="button">Políticas de Privacidad</a></li>
+                                <li><a href="/page/index/#4">Proyectos</a></li>
                                 <li><a href="/page/contacto/">Contacto</a></li>
 
                             </ul>

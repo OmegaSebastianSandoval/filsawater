@@ -164,6 +164,8 @@ class Administracion_contenidoController extends Administracion_mainController
       $this->_view->tipo = 18;
     } else if ($contentpadre->contenido_tipo == 18) {
       $this->_view->tipo = 19;
+    }else if ($contentpadre->contenido_tipo == 25) {
+      $this->_view->tipo = 26;
     }
     if ($contentpadre->contenido_seccion) {
       $this->_view->seccion = $contentpadre->contenido_seccion;
@@ -447,7 +449,6 @@ class Administracion_contenidoController extends Administracion_mainController
       $array['1'] = 'Banner';
       $array['2'] = 'Contenedor';
       $array['22'] = 'Formulario';
-
     } else if ($padre->contenido_tipo == 1) {
       $array['4'] = 'Banner';
     } else if ($padre->contenido_tipo == 2) {
@@ -455,6 +456,7 @@ class Administracion_contenidoController extends Administracion_mainController
       $array['6'] = 'Carrousel';
       $array['7'] = 'Acordion';
       $array['8'] = 'Slider';
+      $array['25'] = 'Galería';
     } else if ($padre->contenido_tipo == 8) {
       $array['10'] = 'itemSlider';
     }

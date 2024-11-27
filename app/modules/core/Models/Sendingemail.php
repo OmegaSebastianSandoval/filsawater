@@ -223,6 +223,18 @@ class Core_Model_Sendingemail
         'asunto' => 'Compra con Error FILSA WATER',
         'template' => 'correoTiendaInfo.php'
       ],
+      9 =>
+      [
+        'estado' => 'Enviado',
+        'asunto' => 'Compra Enviado FILSA WATER',
+        'template' => 'correoTiendaEnvio.php'
+      ],
+      10 =>
+      [
+        'estado' => 'Entregado',
+        'asunto' => 'Compra Entregado FILSA WATER',
+        'template' => 'correoTiendaEntregado.php'
+      ]
     ];
 
     $defaultInfo = ['estado' => 'Pendiente', 'asunto' => 'Compra Pendiente FILSA WATER', 'template' => 'correoTiendaInfo.php'];

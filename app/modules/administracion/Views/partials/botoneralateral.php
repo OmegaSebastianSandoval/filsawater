@@ -8,12 +8,12 @@
     </li>
   <?php } ?>
   <li <?php if ($this->botonpanel == 11) { ?>class="activo" <?php } ?>>
-      <a href="/administracion/config">
+    <a href="/administracion/config">
       <i class="fa-solid fa-gear"></i>
-        Administrar Configuración
-      </a>
-    </li>
- 
+      Administrar Configuración
+    </a>
+  </li>
+
   <li <?php if ($this->botonpanel == 2) { ?>class="activo" <?php } ?>>
     <a href="/administracion/publicidad">
       <i class="far fa-images"></i>
@@ -26,7 +26,7 @@
       Administrar Contenidos
     </a>
   </li>
-<!--   <li <?php if ($this->botonpanel == 5) { ?>class="activo" <?php } ?>>
+  <!--   <li <?php if ($this->botonpanel == 5) { ?>class="activo" <?php } ?>>
     <a href="/administracion/categorias">
       <i class="fa-solid fa-list"></i>
       Administrar Categorías Blogs
@@ -48,24 +48,30 @@
 
   <li <?php if ($this->botonpanel == 8) { ?>class="activo" <?php } ?>>
     <a href="/administracion/tiendacategorias">
-    <i class="fa-solid fa-list"></i>
+      <i class="fa-solid fa-list"></i>
       Administrar Categorias
     </a>
   </li>
   <li <?php if ($this->botonpanel == 9) { ?>class="activo" <?php } ?>>
     <a href="/administracion/productos">
-    <i class="fa-brands fa-product-hunt"></i>
+      <i class="fa-brands fa-product-hunt"></i>
       Administrar Productos
     </a>
   </li>
 
   <li <?php if ($this->botonpanel == 12) { ?>class="activo" <?php } ?>>
     <a href="/administracion/pedidos">
-    <i class="fa-solid fa-boxes-packing"></i>
+      <i class="fa-solid fa-boxes-packing"></i>
       Administrar Pedidos
     </a>
   </li>
-
+  <li <?php if ($this->botonpanel == 13) { ?>class="activo" <?php } ?>>
+    <a href="/administracion/pedidos/exportar">
+      <!-- icono de excel -->
+      <i class="fa-solid fa-file-excel"></i>
+      Exportar Pedidos
+    </a>
+  </li>
 
   <li <?php if ($this->botonpanel == 15) { ?>class="activo" <?php } ?>>
     <a href="/administracion/correosinformacion">
@@ -74,13 +80,13 @@
     </a>
   </li>
 
-    <li <?php if ($this->botonpanel == 16) { ?>class="activo" <?php } ?>>
-      <a href="/administracion/niveles">
+  <li <?php if ($this->botonpanel == 16) { ?>class="activo" <?php } ?>>
+    <a href="/administracion/niveles">
       <i class="fa-solid fa-layer-group"></i>
-        Administrar Niveles de Usuarios
-      </a>
-    </li>
- 
+      Administrar Niveles de Usuarios
+    </a>
+  </li>
+
 
   <?php if (Session::getInstance()->get('kt_login_level') == '1') { ?>
     <li <?php if ($this->botonpanel == 4) { ?>class="activo" <?php } ?>>

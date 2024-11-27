@@ -5,7 +5,7 @@
  */
 class Administracion_pedidosController extends Administracion_mainController
 {
-	public $botonpanel = 12;
+	public $botonpanel;
 
 	/**
 	 * $mainModel  instancia del modelo de  base de datos pedido
@@ -57,6 +57,12 @@ class Administracion_pedidosController extends Administracion_mainController
 		$this->route = "/administracion/pedidos";
 		$this->namepages = "pages_pedidos";
 		$this->namepageactual = "page_actual_pedidos";
+		$routes = $this->getRoutes()->getAction();
+		if ($routes == 'exportar') {
+			$this->botonpanel = 13;
+		} else {
+			$this->botonpanel = 12;
+		}
 		$this->_view->route = $this->route;
 		if (Session::getInstance()->get($this->namepages)) {
 			$this->pages = Session::getInstance()->get($this->namepages);
@@ -126,6 +132,7 @@ class Administracion_pedidosController extends Administracion_mainController
 		$this->_view->list_direccion_departamento = $this->getDirecciondepartamento();
 		$this->_view->list_direccion_ciudad = $this->getDireccionciudad();
 		$this->_view->list_pedido_estado = $this->getPedidoestado();
+		$this->_view->list_pedido_estado_cambio = $this->getPedidoestadoCambio();
 		if ($id > 0) {
 			$content = $this->mainModel->getById($id);
 			if ($content->pedido_id) {
@@ -185,6 +192,76 @@ class Administracion_pedidosController extends Administracion_mainController
 		}
 	}
 
+	public function exportarAction()
+	{
+		$title = "Exportar pedidos";
+		$this->getLayout()->setTitle($title);
+		$this->_view->titlesection = $title;
+		$this->filters();
+		$this->_view->csrf = Session::getInstance()->get('csrf')[$this->_csrf_section];
+		$filters = (object)Session::getInstance()->get($this->namefilter);
+		$this->_view->filters = $filters;
+		$filters = $this->getFilter();
+		// echo $filters;
+		$order = "pedido_fecha DESC";
+		$list = $this->mainModel->getList($filters, $order);
+		$amount = $this->pages;
+		$page = $this->_getSanitizedParam("page");
+		if (!$page && Session::getInstance()->get($this->namepageactual)) {
+			$page = Session::getInstance()->get($this->namepageactual);
+			$start = ($page - 1) * $amount;
+		} else if (!$page) {
+			$start = 0;
+			$page = 1;
+			Session::getInstance()->set($this->namepageactual, $page);
+		} else {
+			Session::getInstance()->set($this->namepageactual, $page);
+			$start = ($page - 1) * $amount;
+		}
+		$this->_view->register_number = count($list);
+		$this->_view->pages = $this->pages;
+		$this->_view->totalpages = ceil(count($list) / $amount);
+		$this->_view->page = $page;
+		$this->_view->lists = $this->mainModel->getListPages($filters, $order, $start, $amount);
+		$this->_view->csrf_section = $this->_csrf_section;
+		$this->_view->list_direccion_departamento = $this->getDirecciondepartamento();
+		$this->_view->list_direccion_ciudad = $this->getDireccionciudad();
+		$this->_view->list_pedido_estado = $this->getPedidoestado();
+	}
+
+	public function exportarexcelAction()
+	{
+		$this->setLayout('blanco');
+		$productosModel = new Administracion_Model_DbTable_Productos();
+		$productoPedidoModel = new Administracion_Model_DbTable_Productosporpedido();
+		$tiendaCategoria = new Administracion_Model_DbTable_Tiendacategorias();
+		$municipiosModel = new Administracion_Model_DbTable_Municipios();
+		$departamentosModel = new Administracion_Model_DbTable_Departamentos();
+
+		$excel = $this->_getSanitizedParam("excel");
+		$this->filters();
+		$filters = (object)Session::getInstance()->get($this->namefilter);
+		$filters = $this->getFilter();
+		$order = "pedido_fecha DESC";
+
+		$list = $this->mainModel->getList($filters, $order);
+		foreach ($list as $pedido) {
+			$productoPedido = $productoPedidoModel->getList("pedido_producto_pedido = " . $pedido->pedido_id);
+			$pedido->productos = $productoPedido;
+			$pedido->pedido_estado = $this->getPedidoestado()[$pedido->pedido_estado];
+			$pedido->pedido_departamento = $departamentosModel->getById($pedido->pedido_departamento)->departamento;
+			$pedido->pedido_ciudad = $municipiosModel->getById($pedido->pedido_ciudad)->municipio;
+		}
+		$this->_view->list = $list;
+
+		if ($excel == 1) {
+			$hoy = date("Y-m-d H:i:s");
+			header("Content-Type: application/vnd.ms-excel charset=iso-8859-1");
+			header("Content-Type: application/vnd.ms-excel; charset=iso-8859-1");
+			header("Content-Disposition: attachment; filename=pedidos_" . $hoy . ".xls");
+		}
+	}
+
 	/**
 	 * Inserta la informacion de un pedido  y redirecciona al listado de pedido.
 	 *
@@ -221,7 +298,14 @@ class Administracion_pedidosController extends Administracion_mainController
 			$content = $this->mainModel->getById($id);
 			if ($content->pedido_id) {
 				$data = $this->getData();
-				$this->mainModel->update($data, $id);
+				if ($content->pedido_estado != $data['pedido_estado']) {
+					$this->mainModel->editField($id, "pedido_estado", $data['pedido_estado']);
+					//enviar correo
+					$mailModel = new Core_Model_Sendingemail($this->_view);
+					$mail = $mailModel->enviarCorreoTienda($id);
+					$this->mainModel->editField($id, "pedido_validacion2", $mail);
+					Session::getInstance()->set('message', 'Correo enviado correctamente');
+				}
 			}
 			$data['pedido_id'] = $id;
 			$data['log_log'] = print_r($data, true);
@@ -286,6 +370,27 @@ class Administracion_pedidosController extends Administracion_mainController
 		$array[6] = 'Transacción rechazada';
 		$array[7] = 'Transacción anulada';
 		$array[8] = 'Error interno del método de pago respectivo';
+		$array[9] = 'Pedido enviado';
+		$array[10] = 'Pedido entregado';
+
+
+		return $array;
+	}
+	private function getPedidoestadoCambio()
+	{
+		$array = array();
+		/* $array[1] = 'Creado';
+		$array[2] = 'Dirección pendiente';
+		$array[3] = 'En espera de pago';
+		$array[4] = 'Pago en proceso'; */
+		$array[5] = 'Transacción aprobada';
+		/* $array[6] = 'Transacción rechazada';
+		$array[7] = 'Transacción anulada';
+		$array[8] = 'Error interno del método de pago respectivo'; */
+		$array[9] = 'Pedido enviado';
+		$array[10] = 'Pedido entregado';
+
+
 		return $array;
 	}
 
@@ -400,8 +505,16 @@ class Administracion_pedidosController extends Administracion_mainController
 			if ($filters->pedido_correo != '') {
 				$filtros = $filtros . " AND pedido_correo LIKE '%" . $filters->pedido_correo . "%'";
 			}
-			if ($filters->pedido_fecha != '') {
+			if ($filters->pedido_fecha != '' && $filters->pedido_fecha_fin == '') {
 				$filtros = $filtros . " AND pedido_fecha LIKE '%" . $filters->pedido_fecha . "%'";
+			}
+			if ($filters->pedido_fecha != '' && $filters->pedido_fecha_fin != '') {
+				$filters->pedido_fecha = $filters->pedido_fecha . " 00:00:00";
+				$filters->pedido_fecha_fin = $filters->pedido_fecha_fin . " 23:59:59";
+				$filtros = $filtros . " AND pedido_fecha BETWEEN '" . $filters->pedido_fecha . "' AND '" . $filters->pedido_fecha_fin . "'";
+			}
+			if ($filters->pedido_estado != '') {
+				$filtros = $filtros . " AND pedido_estado = " . $filters->pedido_estado;
 			}
 		}
 		return $filtros;
@@ -422,6 +535,9 @@ class Administracion_pedidosController extends Administracion_mainController
 			$parramsfilter['pedido_id'] =  $this->_getSanitizedParam("pedido_id");
 			$parramsfilter['pedido_correo'] =  $this->_getSanitizedParam("pedido_correo");
 			$parramsfilter['pedido_fecha'] =  $this->_getSanitizedParam("pedido_fecha");
+			$parramsfilter['pedido_fecha_fin'] =  $this->_getSanitizedParam("pedido_fecha_fin");
+			$parramsfilter['pedido_estado'] =  $this->_getSanitizedParam("pedido_estado");
+
 
 			Session::getInstance()->set($this->namefilter, $parramsfilter);
 		}

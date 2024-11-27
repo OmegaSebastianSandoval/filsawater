@@ -1,7 +1,7 @@
 <?php
 echo $this->banner;
 ?>
-<div class="container container-solucions pb-3">
+<div class="container container-categorias pb-3">
     <?php echo $this->contenido ?>
 
     <?php if ($this->tag) { ?>

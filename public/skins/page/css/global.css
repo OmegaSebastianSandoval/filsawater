@@ -30,7 +30,9 @@
   font-style: normal;
 }
 
-
+html{
+  scroll-padding-top: 130px;
+}
 * {
   box-sizing: border-box;
   -webkit-box-sizing: border-box;
@@ -40,7 +42,6 @@
   font-family: 'Ubuntu', sans-serif;
   /* font-weight: normal; */
 
-  scroll-margin-top: 15rem;
   position: relative;
   /* border: 1px solid red;  */
 }
@@ -2295,8 +2296,19 @@ ______________________________--------------------------------------------------
   font-weight: 500;
   width: auto;
 }
+.tabla-pedidos-perfil th{
+  font-size: 17px !important;
 
-
+}
+.tabla-pedidos-perfil td{
+  color: #909090;
+  font-weight: 400;
+  font-size: 16px;
+}
+.identificador{
+  color: var(--azulclaro) !important;
+  font-weight: 700 !important;
+}
 /* --------------------------------------------------------------- */
 /* HOME perfil fin */
 /* --------------------------------------------------------------- */
@@ -2423,7 +2435,18 @@ ______________________________--------------------------------------------------
   color: var(--blanco);
 }
 
+.contenedor-categorias .active>.page-link,
+.page-link.active {
+  /* color: var(--azul); */
+  background-color: var(--azulclaro2);
+  border-color: var(--azulclaro2);
+  color: var(--blanco);
 
+}
+
+.contenedor-categorias .page-link {
+  color: var(--azulclaro2);
+}
 /*-------------------------------------------------------------------------------
 CATEGORIAS FIN
 ______________________________------------------------------------------------------- */

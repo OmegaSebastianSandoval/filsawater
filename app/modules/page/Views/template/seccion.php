@@ -1,23 +1,27 @@
-<section 
-  id="<?php echo $contenedor->contenido_id ?>" 
-  class="
+<section
+	id="<?php echo $contenedor->contenido_id ?>"
+	class="
     id_<?php echo $contenedor->contenido_id ?> 
     <?php echo $contenedor->contenido_columna; ?> 
     contenedor-seccion 
-    <?php if ($contenedor->contenido_fondo_imagen_tipo == 2) { ?>dinamica<?php } ?>" style="background-image:url(/images/<?php echo $contenedor->contenido_fondo_imagen; ?>); background-color:<?php echo $contenedor->contenido_fondo_color; ?>;">
-  <div class=" <?php if ($contenedor->contenido_caja == 1) { ?>content-box container<?php } ?>">
+   
+	<?php if ($contenedor->contenido_fondo_imagen_tipo == 2) { ?>dinamica<?php } ?>" style="background-image:url(/images/<?php echo $contenedor->contenido_fondo_imagen; ?>); background-color:<?php echo $contenedor->contenido_fondo_color; ?>;">
+	<?php
+	// print_r($contenedor)
+	?>
+	<div class=" <?php if ($contenedor->contenido_caja == 1) { ?>content-box container<?php } ?>">
 		<?php if ($contenedor->contenido_titulo_ver == 1) { ?>
 			<h2><?php echo $contenedor->contenido_titulo; ?></h2>
 		<?php } ?>
 		<?php if ($contenedor->contenido_imagen) { ?>
-					<div class="imagen-contenido-simple">
-						<img src="/images/<?php echo $contenedor->contenido_imagen; ?>">
-					</div>
-				<?php } ?>
+			<div class="imagen-contenido-simple">
+				<img src="/images/<?php echo $contenedor->contenido_imagen; ?>">
+			</div>
+		<?php } ?>
 		<?php if ($contenedor->contenido_introduccion != "") { ?>
 			<div class="introduccion-seccion"><?php echo $contenedor->contenido_introduccion; ?></div>
 		<?php } ?>
-		
+
 		<?php if ($contenedor->contenido_descripcion) { ?>
 			<div class="descripcion-seccion ddd"><?php echo $contenedor->contenido_descripcion; ?></div>
 		<?php } ?>
@@ -30,10 +34,13 @@
 			<div class="row <?php if ($contenedor->contenido_columna_alineacion == 2) { ?>justify-content-center text-center<?php } else if ($contenedor->contenido_columna_alineacion == 3) { ?> justify-content-end text-end<?php } else { ?> justify-content-start text-left<?php } ?> <?php if ($contenedor->contenido_columna_espacios == 2 || $contenedor->contenido_columna_espacios == 4) { ?> no-gutters <?php } ?>">
 
 				<?php foreach ($rescontenido['hijos'] as $key => $rescolumna) : ?>
+
 					<?php $columna = $rescolumna['detalle']; ?>
+					
 					<div class="<?php echo $columna->contenido_columna; ?>">
 						<?php if ($columna->contenido_tipo == 5) { ?>
 							<?php $contenido = $columna; ?>
+							
 							<?php if ($columna->contenido_disenio == 1) { ?>
 								<?php include(APP_PATH . "modules/page/Views/template/disenio1.php"); ?>
 							<?php } else if ($columna->contenido_disenio == 2) { ?>
@@ -44,9 +51,9 @@
 								<?php include(APP_PATH . "modules/page/Views/template/disenio4.php"); ?>
 							<?php } else if ($columna->contenido_disenio == 5) { ?>
 								<?php include(APP_PATH . "modules/page/Views/template/disenio5.php"); ?>
-							<?php } else if ($columna->contenido_disenio == 6) {?>
+							<?php } else if ($columna->contenido_disenio == 6) { ?>
 								<?php include(APP_PATH . "modules/page/Views/template/disenio6.php"); ?>
-							<?php } else if ($columna->contenido_disenio == 7) {?>
+							<?php } else if ($columna->contenido_disenio == 7) { ?>
 								<?php include(APP_PATH . "modules/page/Views/template/disenio2links.php"); ?>
 							<?php } ?>
 						<?php } else if ($columna->contenido_tipo == 6) { ?>
@@ -71,6 +78,10 @@
 						<?php } else if ($columna->contenido_tipo == 8) { ?>
 							<?php $slidercontent = $rescolumna['hijos']; ?>
 							<?php include(APP_PATH . "modules/page/Views/template/slider.php"); ?>
+						<?php } else if ($columna->contenido_tipo == 25) { ?>
+							
+							<?php $galeriacontent = $rescolumna['hijos']; ?>
+							<?php include APP_PATH . "modules/page/Views/template/galeria.php"; ?>
 						<?php } ?>
 					</div>
 				<?php endforeach ?>

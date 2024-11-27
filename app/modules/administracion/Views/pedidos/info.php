@@ -201,7 +201,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->pedido_validacion; ?>" name="pedido_validacion" id="pedido_validacion" class="form-control input-<?= $this->content->pedido_validacion?>" readonly disabled>
+						<input type="text" value="<?= $this->content->pedido_validacion; ?>" name="pedido_validacion" id="pedido_validacion" class="form-control input-<?= $this->content->pedido_validacion ?>" readonly disabled>
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -227,16 +227,16 @@
 				</div>
 				<?php if ($this->content->pedido_respuesta) { ?>
 
-				<div class="col-12 col-md-12 form-group">
-					<label for="pedido_respuesta" class="control-label">Respuesta</label>
-					<label class="input-group">
-						<div class="input-group-prepend">
-							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
-						</div>
-						<input type="text" value="<?= $this->content->pedido_respuesta; ?>" name="pedido_respuesta" id="pedido_respuesta" class="form-control" readonly disabled>
-					</label>
-					<div class="help-block with-errors"></div>
-				</div>
+					<div class="col-12 col-md-12 form-group">
+						<label for="pedido_respuesta" class="control-label">Respuesta</label>
+						<label class="input-group">
+							<div class="input-group-prepend">
+								<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
+							</div>
+							<input type="text" value="<?= $this->content->pedido_respuesta; ?>" name="pedido_respuesta" id="pedido_respuesta" class="form-control" readonly disabled>
+						</label>
+						<div class="help-block with-errors"></div>
+					</div>
 
 				<?php } ?>
 
@@ -340,19 +340,20 @@
 	}
 </style>
 
+<?php if ($this->content->pedido_response) { ?>
 
-<script src="https://rawgit.com/summerstyle/jsonTreeViewer/master/libs/jsonTree/jsonTree.js"></script>
-<script>
-	document.addEventListener("DOMContentLoaded", function() {
-		// Get DOM-element for inserting json-tree
-		var wrapper = document.getElementById("wrapper");
+	<script src="https://rawgit.com/summerstyle/jsonTreeViewer/master/libs/jsonTree/jsonTree.js"></script>
+	<script>
+		document.addEventListener("DOMContentLoaded", function() {
+			// Get DOM-element for inserting json-tree
+			var wrapper = document.getElementById("wrapper");
 
-		<?php
+			<?php
 
-		$array = (json_decode($this->content->pedido_response)->data);
-		$json  = json_encode($array)
-		?>
-		var tree = jsonTree.create(<?php echo $json ?>, wrapper);
-	});
-</script>
-
+			$array = (json_decode($this->content->pedido_response)->data);
+			$json  = json_encode($array)
+			?>
+			var tree = jsonTree.create(<?php echo $json ?>, wrapper);
+		});
+	</script>
+<?php } ?>

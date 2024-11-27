@@ -181,10 +181,10 @@ class Page_mainController extends Controllers_Abstract
 				]);
 				return;
 			}
-			if ($carrito[$productId] + $quantity > 5) {
+			if ($carrito[$productId] + $quantity > 50) {
 				echo json_encode([
 					"icon" => "error",
-					"text" => "No puedes agregar más de 5 unidades",
+					"text" => "No puedes agregar más de 50 unidades",
 					"carrito" => $carrito
 				]);
 				return;

@@ -165,6 +165,8 @@ class Page_homeController extends Page_mainController
     $array[6] = 'Transacción rechazada';
     $array[7] = 'Transacción anulada';
     $array[8] = 'Error interno del método de pago respectivo';
+    $array[9] = 'Pedido enviado';
+		$array[10] = 'Pedido entregado';
     return $array;
   }
 

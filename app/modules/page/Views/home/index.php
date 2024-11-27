@@ -209,7 +209,7 @@
                     <div class="contendor-comprar">
 
 
-                        <table class="table-info table-cart shadow">
+                        <table class="table-info   tabla-pedidos-perfil table-cart shadow">
                             <thead>
                                 <tr>
                                     <th>Departamento</th>
@@ -353,10 +353,10 @@
                     <section class="contendor-comprar">
 
 
-                        <table class="table-info table-cart shadow">
+                        <table class="table-info  tabla-pedidos-perfil table-cart shadow">
                             <thead>
                                 <tr>
-                                    <th>#</th>
+                                    <th>Pedido #</th>
                                     <th>Fecha</th>
                                     <th>Total</th>
                                     <th>Estado</th>
@@ -366,7 +366,7 @@
                             <tbody>
                                 <?php foreach ($this->pedidos as $pedido) { ?>
                                     <tr>
-                                        <td data-label="#"><?= $pedido->pedido_id ?></td>
+                                        <td data-label="Pedido #" class="identificador"><?= $pedido->pedido_id ?></td>
                                         <td data-label="Fecha"><?= $pedido->pedido_fecha ?></td>
                                         <td data-label="Total"><?= $pedido->pedido_total >= 1 ? "$ " . number_format($pedido->pedido_total, 2) : $pedido->pedido_total ?></td>
                                         <td data-label="Estado"><?= $this->pedidoestado[$pedido->pedido_estado] ?></td>
@@ -570,7 +570,7 @@
 
                                                             </div>
 
-                                                            <table class="table-cart   table-cart">
+                                                            <table class="table-cart tabla-pedidos-perfil  table-cart">
                                                                 <thead>
                                                                     <tr>
                                                                         <th width="70%">Producto</th>

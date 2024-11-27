@@ -48,6 +48,8 @@ $(document).ready(function () {
       "file-manager",
       "template",
     ],
+    contextmenu: 'cell row column table',
+
     templates: [
      
 
@@ -180,7 +182,7 @@ $(document).ready(function () {
     language: "es",
     a_configuration_option: 400,
     browser_spellcheck: true,
-    contextmenu: false,
+   
     // content_css: "/skins/page/css/estilos.css",
     skin: "oxide-dark",
     // content_css: "tinymce-5-dark",
@@ -488,6 +490,14 @@ $(document).ready(function () {
         $(".no-carrousel").hide();
         $(".si-carrousel").show();
       } else if (parseInt(value) == 7) {
+        //Si es un banner
+        $(".no-acordion").hide();
+        $(".no-contenido2").hide();
+        $(".no-acordion").hide();
+        $(".no-carrousel").hide();
+        $(".si-acordion").show();
+      }
+      else if (parseInt(value) == 8) {
         //Si es un banner
         $(".no-acordion").hide();
         $(".no-contenido2").hide();

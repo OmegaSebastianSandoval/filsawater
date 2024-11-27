@@ -1635,6 +1635,10 @@ footer{
 
 }
 
+
+.manage-pedidos input:read-only{
+  background-color: #d9d9d9  !important;
+}
 .input-APPROVED {
   background-color: #66cc67 !important;
   color: #FFF;
