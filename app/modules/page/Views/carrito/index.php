@@ -52,6 +52,7 @@
                     <span>Total carrito </span>
                     <span class="total-cart">$<?= number_format($total) ?></span>
                 </div>
+                <span class="fw-lighte text-secondary text-end w-100 d-block" style="font-size:11px">Iva incluido</span>
 
                 <a href="/page/comprar" class="btn-blue rounded-0 w-100 mt-3 py-3">Ir a Comprar</a>
             </div>

@@ -34,7 +34,7 @@
 
 					<?php if ($this->documento_padre) { ?>
 
-						<a href="/administracion/documentos/?documento_solucion=<?= $this->documento_solucion ?>" class="btn btn-outline-primary  px-2"><i class="fa-solid fa-circle-arrow-up"></i> Subir nivel </a>
+						<a href="/administracion/documentos/?documento_producto=<?= $this->documento_producto ?>" class="btn btn-outline-primary  px-2"><i class="fa-solid fa-circle-arrow-up"></i> Subir nivel </a>
 
 
 
@@ -168,7 +168,7 @@
 							<td class="text-end">
 								<div>
 									<?php if (!$content->documento_documento && !$content->documento_padre) { ?>
-										<a class="btn btn-verde btn-sm" href="<?php echo $this->route; ?>/?documento_solucion=<?= $this->documento_solucion ?>&documento_padre=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Archivos"><i class="fa-solid fa-file"></i></a>
+										<a class="btn btn-verde btn-sm" href="<?php echo $this->route; ?>/?documento_solucion=<?= $this->documento_solucion ?>&documento_padre=<?= $id ?>&documento_producto=<?php echo $this->documento_producto?>" data-bs-toggle="tooltip" data-placement="top" title="Archivos"><i class="fa-solid fa-file"></i></a>
 
 									<?php } ?>
 									<a class="btn btn-azul btn-sm" href="<?php echo $this->route; ?>/manage?id=<?= $id ?>" data-bs-toggle="tooltip" data-placement="top" title="Editar"><i class="fas fa-pen-alt"></i></a>

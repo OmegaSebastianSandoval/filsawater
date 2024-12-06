@@ -31,7 +31,8 @@ class Page_carritoController extends Page_mainController
 			$producto = $productoModel->getById($id);
 			$producto->producto_precio -= $producto->producto_precio * $descuento / 100;
 			// Aplica el IVA al precio del producto después de aplicar el descuento
-			$producto->producto_precio *= 1 + $iva / 100;
+			 $producto->producto_precio *= 1 + $iva / 100;
+		
 			$data[$id] = [];
 			$data[$id]['detalle'] = $producto;
 			$data[$id]['cantidad'] = (int)$cantidad;

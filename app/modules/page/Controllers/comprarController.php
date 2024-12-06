@@ -10,7 +10,7 @@ class Page_comprarController extends Page_mainController
     if ($permiso != 1) {
       //si no existe un usuario activo llevar al paso 1
       if (!Session::getInstance()->get('usuario')) {
-        header("Location: /");
+        // header("Location: /");
       }
     }
     /* /page/comprar/cancelarpedidos?pms=1&debug= */
@@ -55,6 +55,7 @@ class Page_comprarController extends Page_mainController
 
       // Precio final con IVA aplicado
       $precioFinal = $precioConDescuento + $montoIva;
+      //$precioFinal = $precioConDescuento;
 
       $producto->producto_precio = $precioFinal;
 
@@ -147,6 +148,7 @@ class Page_comprarController extends Page_mainController
       $precioConDescuento = $precioOriginal - $montoDescuento;    // Precio con descuento aplicado
       $montoIva = $precioConDescuento * $iva / 100;               // Monto del IVA
       $precioFinal = $precioConDescuento + $montoIva;             // Precio final con IVA
+      //$precioFinal = $precioConDescuento;             // Precio final con IVA
 
       // Actualizar precio en el objeto del producto
       $producto->producto_precio = $precioFinal;
@@ -274,6 +276,20 @@ class Page_comprarController extends Page_mainController
       header('Location: /page/comprar/direccion?id=' . $idPedido);
       return;
     }
+    if (!$usuario) {
+      $nombre = $this->_getSanitizedParam('nombre');
+      $tipo_documento = $this->_getSanitizedParam('tipo_documento');
+      $documento = $this->_getSanitizedParam('documento');
+      $correo = $this->_getSanitizedParam('correo');
+      $telefono = $this->_getSanitizedParam('telefono');
+      if (!$nombre || !$tipo_documento || !$documento || !$correo || !$telefono) {
+        Session::getInstance()->set("error_compra", "Debe completar todos los campos");
+        header('Location: /page/comprar/direccion?id=' . $idPedido);
+        return;
+      }
+    }
+
+
 
     // Si el usuario seleccionó una dirección guardada
     if ($direccionRadio && $direccionRadio != "otra") {
@@ -324,6 +340,17 @@ class Page_comprarController extends Page_mainController
     $pedidosModel->editField($idPedido, "pedido_direccion", $direccion);
     $pedidosModel->editField($idPedido, "pedido_direccion_observacion", $observacion);
     $pedidosModel->editField($idPedido, "pedido_estado", 3);
+    if ($usuario) {
+      $pedidosModel->editField($idPedido, "pedido_tipo_documento", "NIT");
+    }
+
+    if (!$usuario) {
+      $pedidosModel->editField($idPedido, "pedido_nombre", $nombre);
+      $pedidosModel->editField($idPedido, "pedido_tipo_documento", $tipo_documento);
+      $pedidosModel->editField($idPedido, "pedido_documento", $documento);
+      $pedidosModel->editField($idPedido, "pedido_correo", $correo);
+      $pedidosModel->editField($idPedido, "pedido_telefono", $telefono);
+    }
     header('Location: /page/comprar/pago?id=' . $idPedido);
   }
 
@@ -393,7 +420,7 @@ class Page_comprarController extends Page_mainController
     $pedidosModel->editField($idPedido, "pedido_estado", 4);
     $pedido->ciudad_nombre = $municipiosModel->getById($pedido->pedido_ciudad)->municipio;
     $pedido->departamento_nombre = $departamentosModel->getById($pedido->pedido_departamento)->departamento;
-    $pedido->pedido_tipo_documento  = "NIT";
+  
     $pedido->pedido_pais  = "CO";
     $productos = $productoPedidoModel->getList("pedido_producto_pedido='{$idPedido}'");
     $total = $pedido->pedido_total;
@@ -756,6 +783,7 @@ class Page_comprarController extends Page_mainController
 
         // Precio final con IVA aplicado
         $precioFinal = $precioConDescuento + $montoIva;
+        //$precioFinal = $precioConDescuento;
 
 
 
@@ -794,6 +822,7 @@ class Page_comprarController extends Page_mainController
       $data = [];
 
       // Variables para acumuladores
+      $totalSinIva = 0;
       $subtotalSinIva = 0;
       $totalDescuento = 0;
       $totalIva = 0;
@@ -816,8 +845,10 @@ class Page_comprarController extends Page_mainController
         $montoIva = $precioConDescuento * $iva / 100;
 
 
+
         // Precio final con IVA aplicado
         $precioFinal = $precioConDescuento + $montoIva;
+        //$precioFinal = $precioConDescuento;
 
 
 
@@ -825,14 +856,16 @@ class Page_comprarController extends Page_mainController
         $data[$id]['total'] = $precioFinal * $cantidad;
 
         // Acumuladores
-        $subtotalSinIva += $precioOriginal * $cantidad;      // Subtotal sin IVA ni descuento
+        $totalSinIva += $precioOriginal * $cantidad;      // Subtotal sin IVA ni descuento
         $totalDescuento += $montoDescuento * $cantidad;      // Total del descuento
+        $subtotalSinIva += ($precioFinal - $montoIva) * $cantidad;      // Subtotal sin IVA ni descuento
         $totalIva += $montoIva * $cantidad;                  // Total del IVA
         $totalConIvaYDescuento += $data[$id]['total'];       // Total con IVA y descuento
       }
 
 
       // print_r($data);
+      $this->_view->totalSinIva = $totalSinIva;
       $this->_view->subtotalSinIva = $subtotalSinIva;
       $this->_view->totalDescuento = $totalDescuento;
       $this->_view->totalIva = $totalIva;
@@ -882,6 +915,7 @@ class Page_comprarController extends Page_mainController
 
       // Precio final con IVA aplicado
       $precioFinal = $precioConDescuento + $montoIva;
+      //$precioFinal = $precioConDescuento;
 
 
 

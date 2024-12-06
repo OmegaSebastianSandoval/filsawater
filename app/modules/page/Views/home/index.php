@@ -673,16 +673,7 @@
     }
 </style>
 
-<script>
-    function soloNumeros(event) {
-        const charCode = event.keyCode ? event.keyCode : event.which;
-        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
-            event.preventDefault();
-            return false;
-        }
-        return true;
-    }
-</script>
+
 <script>
     function soloNumeros(event) {
         const charCode = event.keyCode ? event.keyCode : event.which;

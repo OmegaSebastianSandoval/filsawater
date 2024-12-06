@@ -134,18 +134,20 @@
                             $<?= number_format($this->pedido->pedido_subtotal, 2) ?>
                         </td>
                     </tr>
-                    <tr>
+                    <!--  <tr>
 
                         <td style="padding-bottom:5px;font-size:13.5px;color:#777!important;line-height:20px;box-sizing:border-box;border-collapse:collapse;vertical-align:top!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
 
                             Descuento:
                         </td>
-                    </tr>
-                    <tr>
-                        <td style="padding-top:2px;box-sizing:border-box;font-size:12.5px; font-weight:700;">
-                            - $<?= number_format($this->pedido->pedido_descuento, 2) ?>
-                        </td>
-                    </tr>
+                    </tr> -->
+                    <?php if ($this->pedido->pedido_descuento && $this->pedido->pedido_descuento >= 1) { ?>
+                        <tr>
+                            <td style="padding-top:2px;box-sizing:border-box;font-size:12.5px; font-weight:700;">
+                                - $<?= number_format($this->pedido->pedido_descuento, 2) ?>
+                            </td>
+                        </tr>
+                    <?php } ?>
                     <tr>
                         <td style="padding-bottom:5px;font-size:13.5px;color:#777!important;line-height:20px;box-sizing:border-box;border-collapse:collapse;vertical-align:top!important;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif">
 

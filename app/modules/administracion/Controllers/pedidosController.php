@@ -257,8 +257,8 @@ class Administracion_pedidosController extends Administracion_mainController
 
 		if ($excel == 1) {
 			$hoy = date("Y-m-d H:i:s");
-			header("Content-Type: application/vnd.ms-excel charset=iso-8859-1");
-			header("Content-Type: application/vnd.ms-excel; charset=iso-8859-1");
+			/* header("Content-Type: application/vnd.ms-excel charset=iso-8859-1");
+			header("Content-Type: application/vnd.ms-excel; charset=iso-8859-1"); */
 			header("Content-Disposition: attachment; filename=pedidos_" . $hoy . ".xls");
 		}
 	}

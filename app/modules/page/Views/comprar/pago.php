@@ -50,9 +50,9 @@
                     foreach ($this->productos as $producto) {
                     ?>
                         <tr>
-                            <td  data-label="Producto">
+                            <td data-label="Producto">
                                 <div class="producto d-flex gap-2 align-items-center">
-                                   
+
 
                                     <?php if ($producto->producto_imagen && file_exists($_SERVER['DOCUMENT_ROOT'] . "/images/" . $producto->producto_imagen)) { ?>
                                         <img src="/images/<?php echo $producto->producto_imagen; ?>" alt="<?php echo $producto->pedido_producto_nombre; ?>" class="w-100 img-fluid" alt="Imagen del producto" style="max-width:100px">
@@ -69,7 +69,7 @@
                             </td>
                             <td data-label="Precio">
                                 <span class="precio">
-                                    <?php $precioProducto = $producto->pedido_producto_precio_final/$producto->pedido_producto_cantidad?>
+                                    <?php $precioProducto = $producto->pedido_producto_precio_final / $producto->pedido_producto_cantidad ?>
                                     $<?php echo number_format(ceil($precioProducto)); ?>
                                 </span>
                             </td>
@@ -128,14 +128,18 @@
 
 
                         <?php } ?>
-
-                        <div class="resume-item d-flex justify-content-between align-items-center">
-                            <span>Subtotal</span>
+                       <!--  <div class="resume-item d-flex justify-content-between align-items-center">
+                            <span>Precio original</span>
                             <span class="info">$ <?= number_format(ceil($this->pedido->pedido_subtotal)) ?></span>
                         </div>
+
                         <div class="resume-item d-flex justify-content-between align-items-center">
                             <span>Descuento</span>
                             <span class="info"> - $<?= number_format(ceil($this->pedido->pedido_descuento)) ?></span>
+                        </div> -->
+                        <div class="resume-item d-flex justify-content-between align-items-center">
+                            <span>Subtotal</span>
+                            <span class="info">$ <?= number_format(ceil($this->pedido->pedido_subtotal)) ?></span>
                         </div>
                         <div class="resume-item d-flex justify-content-between align-items-center">
                             <span>IVA</span>

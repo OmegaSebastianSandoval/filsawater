@@ -36,7 +36,7 @@
                     </td>
                     <td data-label="Precio">
                         <span class="precio">
-                            $<?php echo number_format($producto['detalle']->producto_precio, 2); ?>
+                            $<?php echo number_format($producto['detalle']->producto_precio); ?>
                         </span>
                     </td>
                     <td data-label="Cantidad">

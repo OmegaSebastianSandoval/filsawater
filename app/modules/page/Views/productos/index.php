@@ -23,7 +23,7 @@
                                 <figcaption class="sr-only"><?= $producto->producto_nombre ?></figcaption>
 
                                 <div class="add-cart-content">
-                                    <?php if ($this->usuario && $producto->producto_precio > 1  && $producto->producto_stock >= 1) { ?>
+                                    <?php if ( $producto->producto_precio > 1  && $producto->producto_stock >= 1) { ?>
 
                                         <button class="btn-add-cart" data-id="<?= $producto->producto_id ?>" aria-label="Agregar <?= $producto->producto_nombre ?> al carrito" title="Agregar al carrito">
                                             <i class="fas fa-shopping-cart" aria-hidden="true"></i>
@@ -47,7 +47,7 @@
                                 <div class="d-flex flex-column flex-md-row align-items-center justify-content-md-between mt-1">
                                     <h5 class="product-reference"><span>Ref: </span><?= $producto->producto_referencia ?></h5>
 
-                                    <?php if ($this->usuario && $producto->producto_precio && $producto->producto_precio > 1) { ?>
+                                    <?php if ( $producto->producto_precio && $producto->producto_precio > 1) { ?>
                                         <p class="product-price">$<?= number_format($producto->producto_precio) ?></p>
                                     <?php } ?>
 

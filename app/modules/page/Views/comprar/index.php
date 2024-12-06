@@ -85,6 +85,15 @@
     .ocultar-carrito {
         display: none !important;
     }
+
+
+    @media (max-width:1300px) {
+
+        .btn-blue,
+        .btn-outline {
+            font-size: 12px;
+        }
+    }
 </style>
 
 <script>

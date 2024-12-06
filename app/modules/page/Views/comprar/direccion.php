@@ -100,12 +100,61 @@
                             <div class="contenedor-nueva-direccion">
                                 <div class="row">
                                     <div class="col-12">
-
-                                        <div class="form-check form-switch mb-3">
-                                            <input class="form-check-input" type="checkbox" role="switch" name="guardar-direccion" id="check-agregar-direccion">
-                                            <label class="form-check-label" for="check-agregar-direccion">Guardar dirección</label>
-                                        </div>
+                                        <?php if ($this->usuario) { ?>
+                                            <div class="form-check form-switch mb-3">
+                                                <input class="form-check-input" type="checkbox" role="switch" name="guardar-direccion" id="check-agregar-direccion">
+                                                <label class="form-check-label" for="check-agregar-direccion">Guardar dirección</label>
+                                            </div>
+                                        <?php } ?>
                                     </div>
+                                    <?php if (!$this->usuario) { ?>
+                                        <div class="col-12 col-md-12 col-lg-6 form-group mb-4">
+                                            <label>
+                                                <input id="nombre" class="input requerido" type="text" name="nombre" required>
+                                                <span>Nombre</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-4 col-md-4 col-lg-2 form-group mb-4">
+                                            <label>
+                                                <select name="tipo_documento" id="tipo_documento" class="input requerido" required>
+                                                    <option value="" selected disabled></option>
+                                                    <option value="NIT">NIT</option>
+                                                    <option value="CC">CC</option>
+                                                    <option value="CE">CE</option>
+                                                    <option value="PP">Pasaporte</option>
+                                                    <option value="TI">Tarjeta de identidad</option>
+                                                    <option value="DNI">Documento Nacional de Identidad</option>
+                                                    <option value="RG">arteira de Identidade / Registro Geral</option>
+                                                    <option value="OTHER">Otro</option>
+
+                                                </select>
+                                                <span>Tipo</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-8 col-md-8 col-lg-4 form-group mb-4">
+                                            <label>
+                                                <input id="documento" class="input requerido" type="text" name="documento" required>
+                                                <span>Documento</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-12 col-md-12 col-lg-8 form-group mb-4">
+                                            <label>
+                                                <input id="correo" class="input requerido" type="text" name="correo" required>
+                                                <span>Correo</span>
+                                            </label>
+                                        </div>
+                                        <div class="col-12 col-md-12 col-lg-4 form-group mb-4">
+                                            <label>
+                                                <input id="telefono" class="input requerido" type="text" name="telefono"
+                                                    onkeypress="return soloNumeros(event)"
+                                                    maxlength="10" minlength="10" pattern="^\d+$" required>
+                                                <span>Teléfono</span>
+                                            </label>
+                                        </div>
+
+                                    <?php } ?>
+
+
 
                                     <div class="col-12 col-md-12 col-lg-4 mb-4">
                                         <label>
@@ -188,7 +237,28 @@
     .ocultar-carrito {
         display: none !important;
     }
+
+    .container-profile .form-contact label .input {
+
+        padding: 17px 05px 05px 10px;
+    }
+
+    .form-contact label .input {
+        line-height: normal;
+        font-size: 13px;
+    }
 </style>
+
+<script>
+    function soloNumeros(event) {
+        const charCode = event.keyCode ? event.keyCode : event.which;
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
+            event.preventDefault();
+            return false;
+        }
+        return true;
+    }
+</script>
 
 <script>
     document.addEventListener("DOMContentLoaded", () => {

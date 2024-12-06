@@ -21,6 +21,24 @@
                     </label>
                 </div>
                 <div class="col-12 col-md-3">
+                    <label>Fecha Inicio</label>
+                    <label class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
+                        </div>
+                        <input type="date" class="form-control" name="pedido_fecha" value="<?php echo $this->getObjectVariable($this->filters, 'pedido_fecha') ?>"></input>
+                    </label>
+                </div>
+                <div class="col-12 col-md-3">
+                    <label>Fecha Fin</label>
+                    <label class="input-group">
+                        <div class="input-group-prepend">
+                            <span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
+                        </div>
+                        <input type="date" class="form-control" name="pedido_fecha_fin" value="<?php echo $this->getObjectVariable($this->filters, 'pedido_fecha_fin') ?>"></input>
+                    </label>
+                </div>
+                <div class="col-12 col-md-3">
                     <label>Cliente</label>
                     <label class="input-group">
                         <div class="input-group-prepend">
@@ -39,24 +57,7 @@
                         <input type="text" class="form-control" name="pedido_correo" value="<?php echo $this->getObjectVariable($this->filters, 'pedido_correo') ?>"></input>
                     </label>
                 </div> -->
-                <div class="col-12 col-md-3">
-                    <label>Fecha Inicio</label>
-                    <label class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
-                        </div>
-                        <input type="date" class="form-control" name="pedido_fecha" value="<?php echo $this->getObjectVariable($this->filters, 'pedido_fecha') ?>"></input>
-                    </label>
-                </div>
-                <div class="col-12 col-md-3">
-                    <label>Fecha Fin</label>
-                    <label class="input-group">
-                        <div class="input-group-prepend">
-                            <span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
-                        </div>
-                        <input type="date" class="form-control" name="pedido_fecha_fin" value="<?php echo $this->getObjectVariable($this->filters, 'pedido_fecha_fin') ?>"></input>
-                    </label>
-                </div>
+               
                 <div class="col-12 col-md-3">
                     <label>Estado</label>
                     <label class="input-group">

@@ -10,8 +10,8 @@
             Lamentamos informarle que su pedido, identificado con el número <strong>#<?php echo $this->pedido->pedido_id; ?></strong>,
             <br>
             <br>
-           
-            ha cambiado a un nuevo estado: <strong><?php echo$this->pedido->pedido_validacion_texto; ?></strong>.
+
+            ha cambiado a un nuevo estado: <strong><?php echo $this->pedido->pedido_validacion_texto; ?></strong>.
             <br>
             <?php if (!empty($this->pedido->pedido_respuesta)) : ?>
                 Detalles adicionales: <?php echo $this->pedido->pedido_respuesta; ?>

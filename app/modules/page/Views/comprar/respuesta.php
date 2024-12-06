@@ -71,8 +71,10 @@
             </div>
             <div class="d-flex justify-content-center gap-3">
 
-                <a href="/" class="btn-blue btn-outline py-2 mt-3">Volver a comprar</a>
-                <a href="/page/home#v-pills-pedido-tab" class="btn-blue  py-2 mt-3">Ver mis pedidos</a>
+                <a href="/page/productos" class="btn-blue btn-outline py-2 mt-3">Volver a comprar</a>
+                <?php if ($this->usuario) { ?>
+                    <a href="/page/home#v-pills-pedido-tab" class="btn-blue  py-2 mt-3">Ver mis pedidos</a>
+                <?php } ?>
             </div>
         </div>
 

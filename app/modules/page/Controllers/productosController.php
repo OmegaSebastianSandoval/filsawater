@@ -73,6 +73,8 @@ class Page_productosController extends Page_mainController
       // Precio final con IVA aplicado
       $precioFinal = $precioConDescuento + $montoIva;
 
+      //$precioFinal = $precioConDescuento;
+
       $producto->producto_precio = $precioFinal;
     }
 
@@ -101,7 +103,7 @@ class Page_productosController extends Page_mainController
     // filtrando por productos activos (estado = 1), ordenados por el campo 'orden' en orden ascendente.
     // Se comenta el filtrado por stock mínimo mayor o igual a 1, para que traiga todos los productos activos sin importar el stock
 
-    
+
 
     $filters = "producto_categoria = '{$categoriaId}' AND producto_estado = 1 AND producto_stock >= 1 AND producto_precio >= 500";
     $order = "orden ASC";
@@ -159,6 +161,7 @@ class Page_productosController extends Page_mainController
 
       // Precio final con IVA aplicado
       $precioFinal = $precioConDescuento + $montoIva;
+      //$precioFinal = $precioConDescuento;
 
       $producto->producto_precio = $precioFinal;
     }
@@ -223,7 +226,7 @@ class Page_productosController extends Page_mainController
       }
     }
 
-    //ajuustar el precio del producto con el descuento y con el IVA
+    //ajuustar el precio del producto con el descuento 
     $nivelesModel = new Administracion_Model_DbTable_Niveles();
     // Obtiene la información del usuario actualmente logueado
     $usuario = $this->usuarioLogged();
@@ -234,8 +237,8 @@ class Page_productosController extends Page_mainController
     // Obtiene la configuración general del sistema para acceder al porcentaje de IVA
     $confifModel = new Administracion_Model_DbTable_Config();
     $config = $confifModel->getById(1);
-    $iva = $config->configuracion_iva; // Porcentaje de IVA
-    $producto->producto_precio *= 1 + $iva / 100;
+     $iva = $config->configuracion_iva; // Porcentaje de IVA
+     $producto->producto_precio *= 1 + $iva / 100;
     $producto->producto_precio -= $producto->producto_precio * $descuento / 100;
     // print_r($producto);
     // Muestra o envía el producto con sus fotos

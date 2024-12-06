@@ -34,7 +34,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->pedido_total; ?>" name="pedido_total" id="pedido_total" class="form-control" readonly >
+						<input type="text" value="$<?= number_format($this->content->pedido_total); ?>" name="pedido_total" id="pedido_total" class="form-control" readonly >
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -44,7 +44,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->pedido_subtotal; ?>" name="pedido_subtotal" id="pedido_subtotal" class="form-control" readonly >
+						<input type="text" value="$<?=  number_format($this->content->pedido_subtotal); ?>" name="pedido_subtotal" id="pedido_subtotal" class="form-control" readonly >
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -54,7 +54,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->pedido_procentaje_descuento; ?>" name="pedido_procentaje_descuento" id="pedido_procentaje_descuento" class="form-control" readonly >
+						<input type="text" value="<?= $this->content->pedido_procentaje_descuento; ?> %" name="pedido_procentaje_descuento" id="pedido_procentaje_descuento" class="form-control" readonly >
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -64,7 +64,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->pedido_descuento; ?>" name="pedido_descuento" id="pedido_descuento" class="form-control" readonly >
+						<input type="text" value="$<?=  number_format($this->content->pedido_descuento); ?>" name="pedido_descuento" id="pedido_descuento" class="form-control" readonly >
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>
@@ -74,7 +74,7 @@
 						<div class="input-group-prepend">
 							<span class="input-group-text input-icono "><i class="fas fa-pencil-alt"></i></span>
 						</div>
-						<input type="text" value="<?= $this->content->pedido_iva; ?>" name="pedido_iva" id="pedido_iva" class="form-control" readonly >
+						<input type="text" value="$<?=  number_format($this->content->pedido_iva); ?>" name="pedido_iva" id="pedido_iva" class="form-control" readonly >
 					</label>
 					<div class="help-block with-errors"></div>
 				</div>

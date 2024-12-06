@@ -2199,7 +2199,9 @@ ______________________________--------------------------------------------------
   color: var(--azulclaro2);
 }
 
-.container-profile .form-contact label .input {
+.container-profile .form-contact label .input
+
+ {
   padding: 14px 05px 05px 10px;
 }
 
